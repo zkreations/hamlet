@@ -190,6 +190,7 @@ function registerPartials (folderPath) {
   })
 }
 
+// Función que compila los archivos de una carpeta
 function compileTemplates (folderPath) {
   const files = fs.readdirSync(folderPath)
     .filter(file => file.endsWith('.hbs') && !file.startsWith('_'))
