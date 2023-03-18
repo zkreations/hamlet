@@ -1,0 +1,21 @@
+.card {
+
+  // container
+  &s {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 2rem;
+  }
+
+  // components
+  &-image {
+    width: 100%
+  }
+
+  &-title {
+    font-size: 1rem;
+    padding: 1.5rem;
+    color: var(--color-text);
+    font-weight: 500
+  }
+}

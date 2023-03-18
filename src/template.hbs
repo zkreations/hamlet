@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html b:css="false" b:css="false">
+  <head>
+    <title>
+      <data:view.title.escaped/>
+    </title>
+    <b:skin>
+      <![CDATA[
+      /*!
+        * Name      : Your theme name
+        * Version   : {{version}}
+        * Author    : Your Name
+        * License   : Your license
+        */
+
+      {{sass 'scss/main.scss'}}
+      ]]>
+    </b:skin>
+  </head>
+  <body>
+    <div class="template">
+      {{> header}}
+      <main class="main">
+        <b:section id="content"/>
+      </main>
+      <footer class="footer">
+        <data:blog.title />
+      </footer>
+    </div>
+  </body>
+</html>

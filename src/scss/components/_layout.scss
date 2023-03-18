@@ -1,0 +1,30 @@
+.template {
+  padding: 2rem;
+  background-color: var(--bg-page);
+  max-width: 1000px;
+  margin: auto;
+  box-shadow: 0px 24px 38px 3px rgba(0, 0, 0, 0.14),
+    0px 9px 46px 8px rgba(0, 0, 0, 0.12),
+    0px 11px 15px -7px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+  padding: 3rem 0;
+  font-size: 1.75rem;
+  text-align: center;
+  background-color: var(--bg-header);
+
+  a {
+    color: var(--color-header)
+  }
+}
+
+.main {
+  margin: 2rem 0
+}
+
+.footer {
+  padding-top: 2rem;
+  text-align: center;
+  border-top: 2px dashed var(--color-border);
+}

@@ -1,0 +1,13 @@
+.blog-pager {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.pager-button {
+  padding: 1rem;
+  flex: 1 0 auto;
+  background-color: var(--bg-post);
+  color: var(--color-text);
+  text-align: center;
+}

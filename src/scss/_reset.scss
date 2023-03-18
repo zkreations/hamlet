@@ -1,0 +1,64 @@
+* {
+  margin: 0
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  background: var(--body-bg);
+  background-size: cover;
+  background-color: var(--body-color);
+  padding: calc(1rem + 1vw);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color: var(--color-text)
+}
+
+a {
+  text-decoration: none
+}
+
+img,
+svg,
+video {
+  height: auto
+}
+
+hidden {
+  display: none
+}
+
+iframe {
+  border: 0 none
+}
+
+iframe,
+img,
+object,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word
+}
+
+:where(.item-control, .blog-admin) {
+  display: none
+}

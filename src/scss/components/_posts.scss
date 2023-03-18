@@ -1,0 +1,20 @@
+.post {
+  &-header {
+    padding-bottom: 2rem;
+    text-align: center;
+  }
+
+  &-date {
+    margin-top: .5rem;
+    display: block;
+    text-transform: capitalize;
+  }
+
+  &-body>*+* {
+    margin-top: 1.5rem
+  }
+
+  &-comment {
+    margin-top: 2rem
+  }
+}

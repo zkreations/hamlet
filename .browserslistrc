@@ -1,0 +1,5 @@
+>= 1%
+last 2 major versions
+not dead
+not edge <= 18
+not ie <= 11
