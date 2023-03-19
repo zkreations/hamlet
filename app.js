@@ -17,6 +17,7 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve')
 
 const sourceDir = './src'
 const distDir = './dist'
+const dataFile = './data.json'
 
 // Tarea para compilar archivos JS
 async function compileJS () {
@@ -25,7 +26,7 @@ async function compileJS () {
 
     // Obtener una lista de rutas de archivo JS usando glob
     const files = await new Promise((resolve, reject) => {
-      glob('src/**/!(_)*.js', (err, files) => {
+      glob(`${sourceDir}/**/!(_)*.js`, (err, files) => {
         if (err) {
           reject(err)
         } else {
@@ -79,7 +80,7 @@ async function compileJS () {
 // Tarea para compilar archivos SASS
 function compileSass () {
   // Buscar todos los archivos .scss en el directorio src/scss, ignorando los que empiezan por "_"
-  const files = glob.sync('./src/**/!(_)*.{scss,sass}')
+  const files = glob.sync(`${sourceDir}/**/!(_)*.{scss,sass}`)
 
   // Iterar sobre los archivos encontrados y compilar cada uno por separado
   files.forEach(file => {
@@ -113,7 +114,7 @@ function compileSass () {
 
 // Handlebars helpers
 Handlebars.registerHelper('asset', function readFileHelper (filePath) {
-  const fullPath = `./dist/${filePath}`
+  const fullPath = `${distDir}/${filePath}`
 
   if (!fs.existsSync(fullPath)) {
     const result = `Error: File ${fullPath} does not exist`
@@ -122,6 +123,23 @@ Handlebars.registerHelper('asset', function readFileHelper (filePath) {
   }
   const content = fs.readFileSync(fullPath, 'utf8')
   return new Handlebars.SafeString(content)
+})
+
+Handlebars.registerHelper('attr', function (context) {
+  if (typeof context !== 'object' || context === null || Array.isArray(context)) {
+    console.warn('The provided argument must be an object')
+    return ''
+  }
+
+  const attrs = []
+  for (const prop in context) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (context.hasOwnProperty(prop)) {
+      attrs.push(prop + '="' + context[prop] + '"')
+    }
+  }
+
+  return new Handlebars.SafeString(attrs.join(' '))
 })
 
 // Registrar todos los archivos parciales
@@ -146,24 +164,36 @@ function registerPartials (folderPath) {
 
 // Compilar todos los archivos .hbs, ignorando los que empiezan por "_"
 function compileHandlebars (folderPath) {
-  registerPartials(folderPath)
+  let data = {}
 
-  const files = fs.readdirSync(folderPath)
-    .filter(file => file.endsWith('.hbs') && !file.startsWith('_'))
+  if (fs.existsSync(dataFile)) {
+    data = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
+  }
+
+  const files = fs.readdirSync(folderPath).filter(file => {
+    const filePath = path.join(folderPath, file)
+    const stat = fs.statSync(filePath)
+    return (stat.isFile() && file.endsWith('.hbs') && !file.startsWith('_')) || stat.isDirectory()
+  })
 
   files.forEach(file => {
-    console.time(`${file} compiled in`)
+    const filePath = path.join(folderPath, file)
+    const stats = fs.statSync(filePath)
 
-    const input = path.join(__dirname, sourceDir, file)
+    if (stats.isDirectory()) {
+      // Si la ruta es un directorio, llamamos de nuevo a la función
+      compileHandlebars(filePath)
+    } else {
+      console.time(`${file} compiled in`)
 
-    const source = fs.readFileSync(input, 'utf8')
-    const template = Handlebars.compile(source)
+      const source = fs.readFileSync(filePath, 'utf8')
+      const template = Handlebars.compile(source)
+      const output = template(data)
+      const outputDir = path.join(__dirname, distDir, `./${file.replace('.hbs', '.xml')}`)
+      fs.writeFileSync(outputDir, output)
 
-    const output = template()
-    const filePath = path.join(__dirname, distDir, `./${file.replace('.hbs', '.xml')}`)
-
-    fs.writeFileSync(filePath, output)
-    console.timeEnd(`${file} compiled in`)
+      console.timeEnd(`${file} compiled in`)
+    }
   })
 }
 
@@ -191,6 +221,7 @@ chokidar.watch(sourceDir, {
     compileSass()
     break
   case '.hbs':
+    registerPartials(sourceDir)
     compileHandlebars(sourceDir)
     break
   default:
