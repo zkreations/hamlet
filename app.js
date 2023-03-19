@@ -1,7 +1,9 @@
-const Handlebars = require('handlebars')
-
 const fs = require('fs')
 const path = require('path')
+const glob = require('glob')
+
+const Handlebars = require('handlebars')
+
 const sass = require('sass')
 const CleanCSS = require('clean-css')
 const autoprefixer = require('autoprefixer')
@@ -15,173 +17,125 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve')
 
 const sourceDir = './src'
 const distDir = './dist'
-const cacheFile = './.cache.json'
-const dataFile = './data.json'
 
-let data = {}
+// Tarea para compilar archivos JS
+async function compileJS () {
+  try {
+    const output = path.join(__dirname, distDir, 'js')
 
-if (fs.existsSync(dataFile)) {
-  data = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
-}
-
-// Compilar archivos con caché
-function compileWithCache (compileFunction, context, options) {
-  const file = path.join(__dirname, sourceDir, context)
-  const dirName = path.dirname(file)
-  const extname = path.extname(file)
-
-  let cache = {}
-
-  // Cargar la caché desde el archivo
-  if (fs.existsSync(cacheFile)) {
-    cache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'))
-  }
-
-  let fileChanged = true
-
-  if (cache[file]) {
-    const hash = cache[file]
-    const currentFile = getFilesLastModifiedSum(dirName, extname)
-
-    if (hash.lastModified === currentFile) {
-      fileChanged = false
-    }
-  }
-
-  let result
-
-  if (fileChanged) {
-    result = compileFunction(context, options)
-    const hash = {
-      lastModified: getFilesLastModifiedSum(dirName, extname),
-      result
-    }
-
-    cache[file] = hash
-
-    fs.writeFileSync(cacheFile, JSON.stringify(cache), 'utf8')
-  } else {
-    result = cache[file].result
-    return new Handlebars.SafeString(result.string)
-  }
-
-  // Guardar la caché en el archivo
-  return result
-}
-
-// Obtener la suma de las fechas de modificación de los archivos
-function getFilesLastModifiedSum (dir, extension) {
-  let sum = 0
-
-  // Obtener los archivos del directorio
-  const filesInDir = fs.readdirSync(dir)
-
-  filesInDir.forEach((file) => {
-    const pathToFile = path.join(dir, file)
-    const isDirectory = fs.statSync(pathToFile).isDirectory()
-
-    // Si es un directorio, llamamos de nuevo a la función
-    if (isDirectory) {
-      sum += getFilesLastModifiedSum(pathToFile, extension)
-    } else if (path.extname(file) === extension) {
-      // Si es un archivo, obtenemos la fecha de modificación
-      const lastModified = fs.statSync(pathToFile).mtimeMs
-      sum += lastModified
-    }
-  })
-
-  return sum
-}
-
-// Obtener la ruta del archivo compilado
-function getFilePath (file, distDir, extension, options) {
-  const fileName = path.basename(file, path.extname(file))
-  const minifyExt = options.hash.minify !== false ? '.min' : ''
-  return path.join(__dirname, distDir,
-    `${extension}/${fileName}${minifyExt}.${extension}`
-  )
-}
-
-// Compilar JS con Rollup
-async function compileJs (context, options) {
-  const file = path.join(__dirname, sourceDir, context)
-
-  const bundle = await rollup.rollup({
-    input: file,
-    plugins: [
-      nodeResolve(),
-      commonjs(),
-      babel({
-        babelHelpers: options.hash.name || 'bundled',
-        presets: ['@babel/preset-env']
-      }),
-      options.hash.minify !== false
-        ? terser()
-        : null
-    ]
-  })
-
-  const outputOptions = {
-    name: options.hash.title || 'app',
-    format: options.hash.format || 'iife'
-  }
-
-  if (options.hash.bundle === true) {
-    const filePath = getFilePath(file, distDir, 'js', options)
-
-    await bundle.write({
-      file: filePath,
-      ...outputOptions
+    // Obtener una lista de rutas de archivo JS usando glob
+    const files = await new Promise((resolve, reject) => {
+      glob('src/**/!(_)*.js', (err, files) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(files)
+        }
+      })
     })
-  } else {
-    const { output } = await bundle.generate(outputOptions)
-    const code = output[0].code
 
-    return new Handlebars.SafeString(code)
-  }
-}
+    // Iterar sobre cada archivo y compilarlo
+    for (const file of files) {
+      const currentFile = path.basename(file)
+      console.time(`${currentFile} compiled in`)
 
-// Compilar SASS con autoprefixer y minificar con CleanCSS
-function compileSass (context, options) {
-  const file = path.join(__dirname, sourceDir, context)
+      const bundle = await rollup.rollup({
+        input: file,
+        plugins: [
+          nodeResolve(),
+          commonjs(),
+          babel({
+            babelHelpers: 'bundled',
+            presets: ['@babel/preset-env']
+          })
+        ]
+      })
 
-  const compiled = sass.compile(file)
+      const fileName = path.basename(file, path.extname(file))
+      const outputFile = path.join(output, `${fileName}.js`)
 
-  let css = compiled.css.toString()
+      // Generar el archivo de salida sin comprimir
+      await bundle.write({
+        file: outputFile, // Ruta del archivo de salida sin comprimir
+        format: 'iife' // Formato del archivo de salida (opcional)
+      })
 
-  if (options.hash.minify !== false) {
-    css = new CleanCSS().minify(css).styles
-  }
+      const minifiedOutputFile = path.join(output, `${fileName}.min.js`)
+      await bundle.write({
+        file: minifiedOutputFile,
+        format: 'iife',
+        plugins: [
+          terser()
+        ]
+      })
 
-  if (options.hash.autoprefix !== false) {
-    css = postcss([autoprefixer]).process(css).css
-  }
-
-  if (options.hash.bundle === true) {
-    const filePath = getFilePath(file, distDir, 'css', options)
-
-    if (!fs.existsSync(path.dirname(filePath))) {
-      fs.mkdirSync(path.dirname(filePath), { recursive: true })
+      console.timeEnd(`${currentFile} compiled in`)
     }
-    fs.writeFileSync(filePath, css)
-  } else {
-    return new Handlebars.SafeString(css)
+  } catch (err) {
+    console.error(err)
   }
 }
 
-// Función que registra los parciales de una carpeta
+// Tarea para compilar archivos SASS
+function compileSass () {
+  // Buscar todos los archivos .scss en el directorio src/scss, ignorando los que empiezan por "_"
+  const files = glob.sync('./src/**/!(_)*.{scss,sass}')
+
+  // Iterar sobre los archivos encontrados y compilar cada uno por separado
+  files.forEach(file => {
+    const currentFile = path.basename(file)
+    console.time(`${currentFile} compiled in`)
+
+    const compiled = sass.compile(file)
+
+    let css = compiled.css.toString()
+    css = postcss([autoprefixer]).process(css).css
+
+    const minified = new CleanCSS().minify(css).styles
+    const fileName = path.basename(file, path.extname(file))
+
+    const output = path.join(__dirname, distDir, 'css')
+    if (!fs.existsSync(output)) {
+      fs.mkdirSync(output, { recursive: true })
+    }
+
+    // Escribir el archivo sin comprimir
+    const outputFile = path.join(output, `${fileName}.css`)
+    fs.writeFileSync(outputFile, css)
+
+    // Escribir el archivo comprimido
+    const minifiedOutputFile = path.join(output, `${fileName}.min.css`)
+    fs.writeFileSync(minifiedOutputFile, minified)
+
+    console.timeEnd(`${currentFile} compiled in`)
+  })
+}
+
+// Handlebars helpers
+Handlebars.registerHelper('asset', function readFileHelper (filePath) {
+  const fullPath = `./dist/${filePath}`
+
+  if (!fs.existsSync(fullPath)) {
+    const result = `Error: File ${fullPath} does not exist`
+    console.error(result)
+    return `/*${result}*/`
+  }
+  const content = fs.readFileSync(fullPath, 'utf8')
+  return new Handlebars.SafeString(content)
+})
+
+// Registrar todos los archivos parciales
 function registerPartials (folderPath) {
   const files = fs.readdirSync(folderPath)
-    .filter(file => file.endsWith('.hbs') && file.startsWith('_'))
 
-  files.forEach(async file => {
+  files.forEach(file => {
     const filePath = path.join(folderPath, file)
     const stats = fs.statSync(filePath)
 
     if (stats.isDirectory()) {
       // Si la ruta es un directorio, llamamos de nuevo a la función
       registerPartials(filePath)
-    } else {
+    } else if (file.endsWith('.hbs') && file.startsWith('_')) {
       const partialName = file.slice(1, -4) // Eliminamos el "_" y ".hbs" del nombre
       const partialTemplate = fs.readFileSync(filePath, 'utf8')
 
@@ -190,37 +144,58 @@ function registerPartials (folderPath) {
   })
 }
 
-// Función que compila los archivos de una carpeta
-function compileTemplates (folderPath) {
+// Compilar todos los archivos .hbs, ignorando los que empiezan por "_"
+function compileHandlebars (folderPath) {
+  registerPartials(folderPath)
+
   const files = fs.readdirSync(folderPath)
     .filter(file => file.endsWith('.hbs') && !file.startsWith('_'))
 
   files.forEach(file => {
-    console.time(`${file} compiled successfully!`)
+    console.time(`${file} compiled in`)
 
     const input = path.join(__dirname, sourceDir, file)
 
     const source = fs.readFileSync(input, 'utf8')
     const template = Handlebars.compile(source)
 
-    const output = template(data)
+    const output = template()
     const filePath = path.join(__dirname, distDir, `./${file.replace('.hbs', '.xml')}`)
 
     fs.writeFileSync(filePath, output)
-    console.timeEnd(`${file} compiled successfully!`)
+    console.timeEnd(`${file} compiled in`)
   })
 }
 
-// Registrar el compilador de JS
-Handlebars.registerHelper('js', function (context, options) {
-  return compileWithCache(compileJs, context, options)
+// Escuchar cambios en los archivos y compilarlos con el compilador correspondiente
+const chokidar = require('chokidar')
+
+chokidar.watch(sourceDir, {
+  ignored: [
+    /(^|[/\\])\../, // Ignorar archivos ocultos y carpetas
+    /node_modules/, // Ignorar la carpeta node_modules
+    '!**/*.js', // Escuchar archivos .js
+    '!**/*.(sa|sc)ss', // Escuchar archivos .sass, .scss
+    '!**/*.cjs', // Escuchar archivos .cjs
+    '!**/*.hbs' // Escuchar archivos .hbs
+  ]
+}).on('change', (filePath) => {
+  const extension = path.extname(filePath).toLowerCase()
+
+  switch (extension) {
+  case '.js':
+    compileJS()
+    break
+  case '.scss':
+  case '.sass':
+    compileSass()
+    break
+  case '.hbs':
+    compileHandlebars(sourceDir)
+    break
+  default:
+    console.error(`El archivo ${extension} no es compatible con ningún compilador.`)
+  }
 })
 
-// Registrar el compilador de SASS
-Handlebars.registerHelper('sass', function (context, options) {
-  return compileWithCache(compileSass, context, options)
-})
-
-registerPartials(sourceDir)
-
-compileTemplates(sourceDir)
+console.log('Listening to your changes...')
