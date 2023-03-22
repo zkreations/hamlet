@@ -19,6 +19,8 @@ const sourceDir = './src'
 const distDir = './dist'
 const dataFile = './data.json'
 
+const chokidar = require('chokidar')
+
 // Tarea para compilar archivos JS
 async function compileJS () {
   try {
@@ -114,7 +116,7 @@ function compileSass () {
 
 // Handlebars helpers
 Handlebars.registerHelper('asset', function readFileHelper (filePath) {
-  const fullPath = `${distDir}/${filePath}`
+  const fullPath = path.join(__dirname, distDir, filePath)
 
   if (!fs.existsSync(fullPath)) {
     const result = `Error: File ${fullPath} does not exist`
@@ -190,6 +192,11 @@ function compileHandlebars (folderPath) {
       const template = Handlebars.compile(source)
       const output = template(data)
       const outputDir = path.join(__dirname, distDir, `./${file.replace('.hbs', '.xml')}`)
+
+      if (!fs.existsSync(distDir)) {
+        fs.mkdirSync(distDir, { recursive: true })
+      }
+
       fs.writeFileSync(outputDir, output)
 
       console.timeEnd(`${file} compiled in`)
@@ -198,8 +205,6 @@ function compileHandlebars (folderPath) {
 }
 
 // Escuchar cambios en los archivos y compilarlos con el compilador correspondiente
-const chokidar = require('chokidar')
-
 chokidar.watch(sourceDir, {
   ignored: [
     /(^|[/\\])\../, // Ignorar archivos ocultos y carpetas
