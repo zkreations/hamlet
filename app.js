@@ -21,12 +21,74 @@ const dataFile = './data.json'
 
 const chokidar = require('chokidar')
 
-// Tarea para compilar archivos JS
-async function compileJS () {
+// Handlebars helpers
+// Show a default value if the value is undefined or null
+Handlebars.registerHelper('setDefault', function (value, defaultValue) {
+  return (typeof value !== 'undefined' && value !== null) ? value : defaultValue || 'undefined'
+})
+
+// Include a file
+Handlebars.registerHelper('asset', function readFileHelper (filePath) {
+  const fullPath = path.join(__dirname, distDir, filePath)
+
+  if (!fs.existsSync(fullPath)) {
+    const result = `Error: File ${fullPath} does not exist`
+    console.error(result)
+    return `/*${result}*/`
+  }
+  const content = fs.readFileSync(fullPath, 'utf8')
+  return new Handlebars.SafeString(content)
+})
+
+// Add attributes to an element
+Handlebars.registerHelper('attr', function (context) {
+  if (typeof context !== 'object' || context === null || Array.isArray(context)) {
+    console.warn('The provided argument must be an object')
+    return ''
+  }
+
+  const attrs = []
+  for (const prop in context) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (context.hasOwnProperty(prop)) {
+      attrs.push(prop + '="' + context[prop] + '"')
+    }
+  }
+
+  return new Handlebars.SafeString(attrs.join(' '))
+})
+
+// Create a Blogger variable
+Handlebars.registerHelper('variable', function (name = 'null', options) {
+  const attributes = []
+
+  const Default = {
+    description: name,
+    type: 'string',
+    value: 'null',
+    ...options.hash
+  }
+
+  Object.keys(Default).forEach(key => {
+    const escapedKey = Handlebars.escapeExpression(key)
+    const escapedValue = Handlebars.escapeExpression(Default[key])
+    attributes.push(`${escapedKey}="${escapedValue}"`)
+  })
+
+  if (!(attributes.includes('type="string"'))) {
+    attributes.push(`default="${Default.value}"`)
+  }
+
+  const escapedOutput = `<Variable name="${name}" ${attributes.join(' ')}/>`
+  return new Handlebars.SafeString(escapedOutput)
+})
+
+// Task to compile Handlebars templates
+const compileJS = async () => {
   try {
     const output = path.join(__dirname, distDir, 'js')
 
-    // Obtener una lista de rutas de archivo JS usando glob
+    // Get all js files in the source directory, ignoring files that start with "_"
     const files = await new Promise((resolve, reject) => {
       glob(`${sourceDir}/**/!(_)*.js`, (err, files) => {
         if (err) {
@@ -37,7 +99,7 @@ async function compileJS () {
       })
     })
 
-    // Iterar sobre cada archivo y compilarlo
+    // Iterate over the files found and compile each one separately
     for (const file of files) {
       const currentFile = path.basename(file)
       console.time(`${currentFile} compiled in`)
@@ -57,12 +119,13 @@ async function compileJS () {
       const fileName = path.basename(file, path.extname(file))
       const outputFile = path.join(output, `${fileName}.js`)
 
-      // Generar el archivo de salida sin comprimir
+      // Generate the output file without minifying it
       await bundle.write({
-        file: outputFile, // Ruta del archivo de salida sin comprimir
-        format: 'iife' // Formato del archivo de salida (opcional)
+        file: outputFile,
+        format: 'iife'
       })
 
+      // Generate the output file minified
       const minifiedOutputFile = path.join(output, `${fileName}.min.js`)
       await bundle.write({
         file: minifiedOutputFile,
@@ -79,12 +142,12 @@ async function compileJS () {
   }
 }
 
-// Tarea para compilar archivos SASS
-function compileSass () {
-  // Buscar todos los archivos .scss en el directorio src/scss, ignorando los que empiezan por "_"
+// Task to compile Sass files
+const compileSass = () => {
+  // Search for all .scss and .sass files in the source directory, ignoring files that start with "_"
   const files = glob.sync(`${sourceDir}/**/!(_)*.{scss,sass}`)
 
-  // Iterar sobre los archivos encontrados y compilar cada uno por separado
+  // Iterate over the files found and compile each one separately
   files.forEach(file => {
     const currentFile = path.basename(file)
     console.time(`${currentFile} compiled in`)
@@ -102,11 +165,11 @@ function compileSass () {
       fs.mkdirSync(output, { recursive: true })
     }
 
-    // Escribir el archivo sin comprimir
+    // Write the file without minifying it
     const outputFile = path.join(output, `${fileName}.css`)
     fs.writeFileSync(outputFile, css)
 
-    // Escribir el archivo comprimido
+    // Write the file minified
     const minifiedOutputFile = path.join(output, `${fileName}.min.css`)
     fs.writeFileSync(minifiedOutputFile, minified)
 
@@ -114,49 +177,24 @@ function compileSass () {
   })
 }
 
-// Handlebars helpers
-Handlebars.registerHelper('asset', function readFileHelper (filePath) {
-  const fullPath = path.join(__dirname, distDir, filePath)
-
-  if (!fs.existsSync(fullPath)) {
-    const result = `Error: File ${fullPath} does not exist`
-    console.error(result)
-    return `/*${result}*/`
-  }
-  const content = fs.readFileSync(fullPath, 'utf8')
-  return new Handlebars.SafeString(content)
-})
-
-Handlebars.registerHelper('attr', function (context) {
-  if (typeof context !== 'object' || context === null || Array.isArray(context)) {
-    console.warn('The provided argument must be an object')
-    return ''
-  }
-
-  const attrs = []
-  for (const prop in context) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (context.hasOwnProperty(prop)) {
-      attrs.push(prop + '="' + context[prop] + '"')
-    }
-  }
-
-  return new Handlebars.SafeString(attrs.join(' '))
-})
-
-// Registrar todos los archivos parciales
-function registerPartials (folderPath) {
-  const files = fs.readdirSync(folderPath)
+// Register all partials in the source directory
+const registerPartials = (folderPath = sourceDir) => {
+  // Search for all files in the source directory, including files that start with "_"
+  const files = fs.readdirSync(folderPath).filter(file => {
+    const filePath = path.join(folderPath, file)
+    const stat = fs.statSync(filePath)
+    return (stat.isFile() && file.endsWith('.hbs') && file.startsWith('_')) || stat.isDirectory()
+  })
 
   files.forEach(file => {
     const filePath = path.join(folderPath, file)
     const stats = fs.statSync(filePath)
 
     if (stats.isDirectory()) {
-      // Si la ruta es un directorio, llamamos de nuevo a la función
+      // If it's a directory, recursively search for partials
       registerPartials(filePath)
     } else if (file.endsWith('.hbs') && file.startsWith('_')) {
-      const partialName = file.slice(1, -4) // Eliminamos el "_" y ".hbs" del nombre
+      const partialName = file.slice(1, -4) // Remove the leading "_" and the trailing ".hbs"
       const partialTemplate = fs.readFileSync(filePath, 'utf8')
 
       Handlebars.registerPartial(partialName, partialTemplate)
@@ -164,14 +202,16 @@ function registerPartials (folderPath) {
   })
 }
 
-// Compilar todos los archivos .hbs, ignorando los que empiezan por "_"
-function compileHandlebars (folderPath) {
+// Compile all Handlebars templates
+const compileHandlebars = (folderPath = sourceDir) => {
+  // Cargar los datos del archivo data.json
   let data = {}
 
   if (fs.existsSync(dataFile)) {
     data = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
   }
 
+  // Search for all files in the source directory, ignoring files that start with "_"
   const files = fs.readdirSync(folderPath).filter(file => {
     const filePath = path.join(folderPath, file)
     const stat = fs.statSync(filePath)
@@ -183,11 +223,10 @@ function compileHandlebars (folderPath) {
     const stats = fs.statSync(filePath)
 
     if (stats.isDirectory()) {
-      // Si la ruta es un directorio, llamamos de nuevo a la función
+      // If it's a directory, recursively search for templates
       compileHandlebars(filePath)
     } else {
       console.time(`${file} compiled in`)
-
       const source = fs.readFileSync(filePath, 'utf8')
       const template = Handlebars.compile(source)
       const output = template(data)
@@ -198,25 +237,22 @@ function compileHandlebars (folderPath) {
       }
 
       fs.writeFileSync(outputDir, output)
-
       console.timeEnd(`${file} compiled in`)
     }
   })
 }
 
-// Escuchar cambios en los archivos y compilarlos con el compilador correspondiente
+// Watch for changes in the source directory
 chokidar.watch(sourceDir, {
   ignored: [
-    /(^|[/\\])\../, // Ignorar archivos ocultos y carpetas
-    /node_modules/, // Ignorar la carpeta node_modules
-    '!**/*.js', // Escuchar archivos .js
-    '!**/*.(sa|sc)ss', // Escuchar archivos .sass, .scss
-    '!**/*.cjs', // Escuchar archivos .cjs
-    '!**/*.hbs' // Escuchar archivos .hbs
+    /(^|[/\\])\../, // Ignore hidden files and folders
+    /node_modules/, // Ignore node_modules folder
+    '!**/*.js', // Include .js files
+    '!**/*.(sa|sc)ss', // Include .scss and .sass files
+    '!**/*.hbs' // Include .hbs files
   ]
 }).on('change', (filePath) => {
   const extension = path.extname(filePath).toLowerCase()
-
   switch (extension) {
   case '.js':
     compileJS()
@@ -226,11 +262,11 @@ chokidar.watch(sourceDir, {
     compileSass()
     break
   case '.hbs':
-    registerPartials(sourceDir)
-    compileHandlebars(sourceDir)
+    registerPartials()
+    compileHandlebars()
     break
   default:
-    console.error(`El archivo ${extension} no es compatible con ningún compilador.`)
+    console.error(`The file ${extension} is not compatible with any compiler.`)
   }
 })
 
