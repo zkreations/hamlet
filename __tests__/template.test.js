@@ -13,8 +13,8 @@ describe('Blogger template', () => {
     const template = fs.readFileSync(file, 'utf-8')
     const $ = cheerio.load(template, { xmlMode: true })
 
-    it('should start with <?xml version="1.0" encoding="utf-8"?>', function () {
-      expect(template.startsWith('<?xml version="1.0" encoding="utf-8"?>')).to.be.true
+    it('should start with <?xml version="1.0" encoding="UTF-8" ?>', function () {
+      expect(template.startsWith('<?xml version="1.0" encoding="UTF-8" ?>')).to.be.true
     })
 
     it('should contain a <b:skin> tag', function () {
