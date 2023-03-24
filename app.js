@@ -204,6 +204,8 @@ const registerPartials = (folderPath = sourceDir) => {
 
 // Compile all Handlebars templates
 const compileHandlebars = (folderPath = sourceDir) => {
+  // Register all partials in the source directory
+  registerPartials()
   // Cargar los datos del archivo data.json
   let data = {}
 
@@ -243,31 +245,42 @@ const compileHandlebars = (folderPath = sourceDir) => {
 }
 
 // Watch for changes in the source directory
-chokidar.watch(sourceDir, {
-  ignored: [
-    /(^|[/\\])\../, // Ignore hidden files and folders
-    /node_modules/, // Ignore node_modules folder
-    '!**/*.js', // Include .js files
-    '!**/*.(sa|sc)ss', // Include .scss and .sass files
-    '!**/*.hbs' // Include .hbs files
-  ]
-}).on('change', (filePath) => {
-  const extension = path.extname(filePath).toLowerCase()
-  switch (extension) {
-  case '.js':
-    compileJS()
-    break
-  case '.scss':
-  case '.sass':
-    compileSass()
-    break
-  case '.hbs':
-    registerPartials()
-    compileHandlebars()
-    break
-  default:
-    console.error(`The file ${extension} is not compatible with any compiler.`)
-  }
-})
-
-console.log('Listening to your changes...')
+if (process.argv.includes('compile')) {
+  (async () => {
+    try {
+      await compileJS()
+      compileSass()
+      compileHandlebars()
+    } catch (error) {
+      console.error(error)
+      process.exit(1)
+    }
+  })()
+} else {
+  chokidar.watch(sourceDir, {
+    ignored: [
+      /(^|[/\\])\../, // Ignore hidden files and folders
+      /node_modules/, // Ignore node_modules folder
+      '!**/*.js', // Include .js files
+      '!**/*.(sa|sc)ss', // Include .scss and .sass files
+      '!**/*.hbs' // Include .hbs files
+    ]
+  }).on('change', (filePath) => {
+    const extension = path.extname(filePath).toLowerCase()
+    switch (extension) {
+    case '.js':
+      compileJS()
+      break
+    case '.scss':
+    case '.sass':
+      compileSass()
+      break
+    case '.hbs':
+      compileHandlebars()
+      break
+    default:
+      console.error(`The file ${extension} is not compatible with any compiler.`)
+    }
+  })
+  console.log('Listening to your changes...')
+}

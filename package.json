@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "node app.js",
+    "compile": "node app.js compile",
     "test": "jest"
   },
   "repository": {
