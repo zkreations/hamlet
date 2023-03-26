@@ -261,7 +261,7 @@ const compileHandlebars = (folderPath = sourceDir) => {
 }
 
 // Watch for changes in the source directory
-if (process.argv.includes('compile')) {
+if (process.argv[2] === 'compile') {
   (async () => {
     try {
       await compileJS()
