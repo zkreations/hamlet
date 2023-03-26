@@ -99,6 +99,10 @@ const compileJS = async () => {
       })
     })
 
+    if (files.length === 0) {
+      return
+    }
+
     // Iterate over the files found and compile each one separately
     for (const file of files) {
       const currentFile = path.basename(file)
@@ -147,6 +151,10 @@ const compileSass = () => {
   // Search for all .scss and .sass files in the source directory, ignoring files that start with "_"
   const files = glob.sync(`${sourceDir}/**/!(_)*.{scss,sass}`)
 
+  if (files.length === 0) {
+    return
+  }
+
   // Iterate over the files found and compile each one separately
   files.forEach(file => {
     const currentFile = path.basename(file)
@@ -186,6 +194,10 @@ const registerPartials = (folderPath = sourceDir) => {
     return (stat.isFile() && file.endsWith('.hbs') && file.startsWith('_')) || stat.isDirectory()
   })
 
+  if (files.length === 0) {
+    return
+  }
+
   files.forEach(file => {
     const filePath = path.join(folderPath, file)
     const stats = fs.statSync(filePath)
@@ -219,6 +231,10 @@ const compileHandlebars = (folderPath = sourceDir) => {
     const stat = fs.statSync(filePath)
     return (stat.isFile() && file.endsWith('.hbs') && !file.startsWith('_')) || stat.isDirectory()
   })
+
+  if (files.length === 0) {
+    return
+  }
 
   files.forEach(file => {
     const filePath = path.join(folderPath, file)
@@ -265,15 +281,17 @@ if (process.argv.includes('compile')) {
       '!**/*.(sa|sc)ss', // Include .scss and .sass files
       '!**/*.hbs' // Include .hbs files
     ]
-  }).on('change', (filePath) => {
+  }).on('change', async (filePath) => {
     const extension = path.extname(filePath).toLowerCase()
     switch (extension) {
     case '.js':
-      compileJS()
+      await compileJS()
+      compileHandlebars()
       break
     case '.scss':
     case '.sass':
       compileSass()
+      compileHandlebars()
       break
     case '.hbs':
       compileHandlebars()
