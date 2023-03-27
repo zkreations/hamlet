@@ -22,6 +22,12 @@ const dataFile = './data.json'
 const chokidar = require('chokidar')
 
 // Handlebars helpers
+// If a helper is missing, show a message in the console
+Handlebars.registerHelper('helperMissing', function (/* dynamic arguments */) {
+  const options = arguments[arguments.length - 1]
+  return console.error(`Helper: {{${options.name}}} does not exist`)
+})
+
 // Show a default value if the value is undefined or null
 Handlebars.registerHelper('setDefault', function (value, defaultValue) {
   return (typeof value !== 'undefined' && value !== null) ? value : defaultValue || 'undefined'
@@ -65,7 +71,7 @@ Handlebars.registerHelper('variable', function (name = 'null', options) {
   const Default = {
     description: name,
     type: 'string',
-    value: 'null',
+    value: '',
     ...options.hash
   }
 
