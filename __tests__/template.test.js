@@ -13,25 +13,27 @@ describe('Blogger template', () => {
     const template = fs.readFileSync(file, 'utf-8')
     const $ = cheerio.load(template, { xmlMode: true })
 
-    it(`should start with <?xml version="1.0" encoding="UTF-8" ?> - ${file}`, () => {
-      expect(template.startsWith('<?xml version="1.0" encoding="UTF-8" ?>')).to.be.true
-    })
+    describe(`File: ${file}`, () => {
+      it('should start with <?xml version="1.0" encoding="UTF-8" ?>', () => {
+        expect(template.startsWith('<?xml version="1.0" encoding="UTF-8" ?>')).to.be.true
+      })
 
-    it(`should contain a <b:skin> tag - ${file}`, () => {
-      expect(template).to.include('<b:skin>')
-    })
+      it('should contain a <b:skin> tag', () => {
+        expect(template).to.include('<b:skin>')
+      })
 
-    it(`should contain at least one <b:section> tag with a unique id attribute - ${file}`, () => {
-      const sections = $('b\\:section')
-      const idList = []
+      it('should contain at least one <b:section> tag with a unique id attribute', () => {
+        const sections = $('b\\:section')
+        const idList = []
 
-      expect(sections.length).to.be.greaterThan(0)
+        expect(sections.length).to.be.greaterThan(0)
 
-      sections.each(function () {
-        const id = $(this).attr('id')
-        expect(id).to.exist
-        expect(idList).not.to.contain(id)
-        idList.push(id)
+        sections.each(function () {
+          const id = $(this).attr('id')
+          expect(id).to.exist
+          expect(idList).not.to.contain(id)
+          idList.push(id)
+        })
       })
     })
   })
