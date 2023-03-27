@@ -18,8 +18,9 @@ describe('Blogger template', () => {
         expect(template.startsWith('<?xml version="1.0" encoding="UTF-8" ?>')).to.be.true
       })
 
-      it('should contain a <b:skin> tag', () => {
-        expect(template).to.include('<b:skin>')
+      it('should contain a single <b:skin> tag', () => {
+        const skinTags = $('b\\:skin')
+        expect(skinTags.length).to.equal(1)
       })
 
       it('should contain at least one <b:section> tag with a unique id attribute', () => {
