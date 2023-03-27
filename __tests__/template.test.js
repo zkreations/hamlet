@@ -24,15 +24,15 @@ describe('Blogger template', () => {
 
       it('should contain at least one <b:section> tag with a unique id attribute', () => {
         const sections = $('b\\:section')
-        const idList = []
+        const idList = new Set()
 
-        expect(sections.length).to.be.greaterThan(0)
+        expect(sections.length, 'No <b:section> tag found').to.be.greaterThan(0)
 
         sections.each(function () {
           const id = $(this).attr('id')
           expect(id).to.exist
-          expect(idList).not.to.contain(id)
-          idList.push(id)
+          expect(idList.has(id), `Duplicate id attribute: ${id}`).to.be.false
+          idList.add(id)
         })
       })
     })
