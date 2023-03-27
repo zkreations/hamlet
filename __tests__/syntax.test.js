@@ -30,7 +30,7 @@ describe('Blogger Syntax', () => {
 
           expect(id).to.exist
           expect(type).to.exist
-          expect(validTypes).to.include(type)
+          expect(validTypes, `Invalid widget type: ${type}. Valid types: ${validTypes}`).to.include(type)
 
           const idRegex = /^[A-Za-z]+[0-9]{1,3}$/
           expect(id).to.match(idRegex)
@@ -39,13 +39,13 @@ describe('Blogger Syntax', () => {
       })
 
       it('all <b:widget> tags should have a unique "id" attribute', function () {
-        const idList = []
+        const idList = new Set()
 
         widgets.each(function () {
           const id = $(this).attr('id')
           expect(id).to.exist
-          expect(idList).not.to.contain(id)
-          idList.push(id)
+          expect(idList.has(id), `Duplicate id attribute: ${id}`).to.be.false
+          idList.add(id)
         })
       })
 
