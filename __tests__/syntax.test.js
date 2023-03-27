@@ -1,4 +1,3 @@
-
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 const fs = require('fs')
@@ -15,7 +14,7 @@ describe('Blogger Syntax', () => {
     const $ = cheerio.load(template, { xmlMode: true })
     const widgets = $('b\\:widget')
 
-    it('all <b:widget> tags should have required attributes and correct format', function () {
+    it(`all <b:widget> tags should have required attributes and correct format - ${file}`, function () {
       const validTypes = [
         'AdSense', 'Blog', 'BlogArchive', 'BlogList', 'BlogSearch',
         'ContactForm', 'FeaturedPost', 'Feed', 'Header', 'HTML',
@@ -38,7 +37,7 @@ describe('Blogger Syntax', () => {
       })
     })
 
-    it('all <b:widget> tags should have a unique `id` attribute', function () {
+    it(`all <b:widget> tags should have a unique "id" attribute - ${file}`, function () {
       const idList = []
 
       widgets.each(function () {
@@ -49,7 +48,7 @@ describe('Blogger Syntax', () => {
       })
     })
 
-    it('all <b:widget> tags should be direct children of <b:section>', function () {
+    it(`all <b:widget> tags should be direct children of <b:section> - ${file}`, function () {
       widgets.each(function () {
         const parent = $(this).parent().get(0).tagName
         expect(parent).to.equal('b:section')

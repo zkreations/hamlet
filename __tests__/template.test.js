@@ -13,15 +13,15 @@ describe('Blogger template', () => {
     const template = fs.readFileSync(file, 'utf-8')
     const $ = cheerio.load(template, { xmlMode: true })
 
-    it('should start with <?xml version="1.0" encoding="UTF-8" ?>', function () {
+    it(`should start with <?xml version="1.0" encoding="UTF-8" ?> - ${file}`, () => {
       expect(template.startsWith('<?xml version="1.0" encoding="UTF-8" ?>')).to.be.true
     })
 
-    it('should contain a <b:skin> tag', function () {
+    it(`should contain a <b:skin> tag - ${file}`, () => {
       expect(template).to.include('<b:skin>')
     })
 
-    it('should contain at least one <b:section> tag with a unique id attribute', function () {
+    it(`should contain at least one <b:section> tag with a unique id attribute - ${file}`, () => {
       const sections = $('b\\:section')
       const idList = []
 
