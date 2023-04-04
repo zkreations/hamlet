@@ -28,11 +28,6 @@ Handlebars.registerHelper('helperMissing', function (/* dynamic arguments */) {
   return console.error(`Helper: {{${options.name}}} does not exist`)
 })
 
-// Show a default value if the value is undefined or null
-Handlebars.registerHelper('setDefault', function (value, defaultValue) {
-  return (typeof value !== 'undefined' && value !== null) ? value : defaultValue || 'undefined'
-})
-
 // Include a file
 Handlebars.registerHelper('asset', function readFileHelper (filePath) {
   const fullPath = path.join(__dirname, distDir, filePath)
