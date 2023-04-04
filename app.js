@@ -30,7 +30,7 @@ Handlebars.registerHelper('helperMissing', function (/* dynamic arguments */) {
 
 // Include a file
 Handlebars.registerHelper('asset', function readFileHelper (filePath) {
-  const fullPath = path.join(__dirname, distDir, filePath)
+  const fullPath = path.join(__dirname, filePath)
 
   if (!fs.existsSync(fullPath)) {
     const result = `Error: File ${fullPath} does not exist`
