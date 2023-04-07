@@ -1,0 +1,78 @@
+<b:defaultmarkups> 
+  {{!-- Clean all inclusions of all widgets automatically  --}}
+  {{#each defaultIncludables}}
+  <b:defaultmarkup type='{{@key}}'>
+    {{#each this}}
+    <b:includable id='{{this}}'/>
+    {{/each}}
+  </b:defaultmarkup>
+  {{/each}}
+  {{!-- Add default markups --}}
+  <b:defaultmarkup type='Common'>
+    {{!-- functions --}}
+    {{> @ads}}
+    {{> @adsense}}
+    {{> @analytics}}
+    {{> @attr}}
+    {{> @avatar}}
+    {{> @image}}
+    {{> @kind}}
+    {{> @meta}}
+    {{!-- modules:post --}}
+    {{> card}}
+    {{> comments}}
+    {{> pagination}}
+    {{> view}}
+    {{!-- modules:others --}}
+    {{> head}}
+    {{> root}}
+    {{!-- widgets (Read-only excluded: Attribution, Followers) --}}
+    {{> AdSense}}
+    {{> Blog}}
+    {{> BlogArchive}}
+    {{> BloggerButton}}
+    {{> BlogList}}
+    {{> BlogSearch}}
+    {{> ContactForm}}
+    {{> FeaturedPost}}
+    {{> Feed}}
+    {{> Header}}
+    {{> HTML}}
+    {{> Image}}
+    {{> Label}}
+    {{> LinkList}}
+    {{> PageList}}
+    {{> PopularPosts}}
+    {{> Profile}}
+    {{> ReportAbuse}}
+    {{> Stats}}
+    {{> Text}}
+    {{> TextList}}
+    {{> Translate}}
+    {{> Wikipedia}}
+    {{!-- Server-side --}}
+    {{> widget-title}}
+    {{> noContentPlaceholder}}
+  </b:defaultmarkup>
+  {{!-- Add default markups for all widgets --}}
+  <b:defaultmarkup type='All'>
+    <b:includable id='main' var='this'>
+      <b:include name='widget-title'/>
+      <b:include name='content'/>
+    </b:includable>
+    <b:includable id='content'>
+      {{!-- Add a wrapper for all widgets --}}
+      <div class='widget-content'>
+        <b:include expr:name='"widget:" + data:widget.type'/>
+      </div>
+    </b:includable>
+  </b:defaultmarkup>
+  {{!-- AdSense, Header and Blog widgets not require a wrapper or a title --}}
+  <b:defaultmarkup type='AdSense,Header,Blog'>
+    <b:includable id='main' var='this'>
+      <b:include name='@attr' data='{["id"],["data-version"]}'/>
+      <b:include expr:name='"widget:" + data:widget.type'/>
+    </b:includable>
+    <b:includable id='content'/>
+  </b:defaultmarkup>
+</b:defaultmarkups>

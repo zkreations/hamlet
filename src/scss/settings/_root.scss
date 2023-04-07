@@ -1,0 +1,28 @@
+:root {
+  --primary: $(primary);
+  --color-text: $(color.text);
+  --color-title: $(color.title);
+  --color-border: $(color.border);
+  --color-header-title: $(color.header.title);
+  --color-header-subtitle: $(color.header.subtitle);
+
+  --font-title: $(font.title.family);
+  --font-text: $(font.text.family);
+
+  --bg-image-header: $(body.background);
+  --bg-header: $(body.background.color);
+  --bg-post: $(bg.post);
+  --bg-body: $(bg.body);
+  --bg-sidebar: $(bg.sidebar);
+
+  --transition-config: 0.5s cubic-bezier(0.54,0,0.1,1);
+  --sidebar-gap: 2rem;
+  --form-padding: .75rem 1rem;
+  --form-gap: .75rem;
+
+  --typography-spacing: 1.5rem;
+  --typography-spacing-headings: 1rem;
+
+  --sidebar-width: 320px;
+  --container: 1100px;
+}

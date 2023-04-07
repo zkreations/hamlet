@@ -1,30 +1,107 @@
-.template {
-  padding: 2rem;
-  background-color: var(--bg-page);
-  max-width: 1000px;
-  margin: auto;
-  box-shadow: 0px 24px 38px 3px rgba(0, 0, 0, 0.14),
-    0px 9px 46px 8px rgba(0, 0, 0, 0.12),
-    0px 11px 15px -7px rgba(0, 0, 0, 0.2);
+.container {
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 
 .header {
-  padding: 3rem 0;
-  font-size: 1.75rem;
+  padding: 7.5rem 0;
   text-align: center;
+  background: var(--bg-image-header);
+  background-size: cover;
   background-color: var(--bg-header);
 
-  a {
-    color: var(--color-header)
+  &-title {
+    font-size: 1.75rem;
+
+    a {
+      color: var(--color-header-title)
+    }
+  }
+
+  &-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-header-subtitle)
+  }
+
+  &-bars {
+    left: 2rem;
+  }
+
+  &-search {
+    right: 2rem;
   }
 }
 
-.main {
-  margin: 2rem 0
+.template {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  background-color: var(--bg-sidebar);
+  bottom: 0;
+  z-index: 10;
+  padding: var(--sidebar-gap);
+  overflow-y: auto;
+
+  >*+* {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--sidebar-gap);
+    margin-top: var(--sidebar-gap);
+  }
+}
+
+.big-search {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100%;
+  max-width: 500px;
+
+  &-input {
+    padding: 1rem 0;
+    font-size: 1.25rem;
+    width: 100%;
+    background-color: transparent;
+    color: #fff;
+    border-bottom: 2px solid;
+    transition: border-color var(--transition-config);
+
+    &::placeholder {
+      color: #fff;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  }
 }
 
 .footer {
-  padding-top: 2rem;
+  margin-top: 2.5rem;
   text-align: center;
-  border-top: 2px dashed var(--color-border);
+}
+
+// Meteor Icons
+// @url: https://icons.zkreations.com
+
+.i {
+  stroke-width: var(--i-stroke, 2);
+  width: var(--i-size, 24px);
+  height: var(--i-size, 24px);
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }

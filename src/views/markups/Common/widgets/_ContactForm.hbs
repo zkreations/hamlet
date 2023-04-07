@@ -1,0 +1,18 @@
+{{!-- 
+Content of the widget ContactForm
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/05/widget-contactForm.html
+--}}
+<b:includable id='widget:ContactForm'>
+  {{!-- Contact form container --}}
+  <form class='contact-form' expr:action='"https://formspree.io/f/" + data:skin.vars.c_formspree' method='POST'>
+    {{!-- Contact form inputs --}}
+    <input class='contact-input form-control' type='text' expr:placeholder='data:contactFormNameMsg' name='name' required='required'/>
+    {{!-- Contact form email input --}}
+    <input class='contact-input form-control' type='email' expr:placeholder='data:contactFormEmailMsg' name='email' required='required'/>
+    {{!-- Contact form message textarea --}}
+    <textarea class='contact-textarea form-control' expr:placeholder='data:contactFormMessageMsg' name='Message' required='required'></textarea>
+    {{!-- Send button --}}
+    <button class='contact-button btn' type='submit'><data:contactFormSendMsg/></button>
+  </form>
+</b:includable>

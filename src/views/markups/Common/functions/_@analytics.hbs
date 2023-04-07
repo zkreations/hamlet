@@ -1,0 +1,15 @@
+{{!--
+Analytics Code (GA4) 
+@author zkreations
+--}}
+<b:includable id='@analytics'>
+  <b:if cond='data:blog.analyticsAccountNumber'>
+    <script async='async' expr:src='params("https://www.googletagmanager.com/gtag/js",{id: data:blog.analyticsAccountNumber})'></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config','<data:blog.analyticsAccountNumber/>');
+    </script>
+  </b:if>
+</b:includable>

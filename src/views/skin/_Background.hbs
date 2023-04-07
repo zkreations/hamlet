@@ -1,0 +1,14 @@
+{{! Mandatory variable to enable dynamic layout }}
+{{variable "keycolor" type="color" value="#2196f3"}}
+<Group description="Backgrounds">
+  {{! Used in: --bg-image-header }}
+  {{variable "body.background" description="Header Background" type="background" value="$(color) none repeat scroll top center" color="$(body.background.color)"}}
+  {{! Used in: --bg-header }}
+  {{variable "body.background.color" description="Header color" type="color" value="#222"}}
+  {{! Used in: --bg-body }}
+  {{variable "bg.body" description="Body background color" type="color" value="#fff"}}
+  {{! Used in: --bg-post }}
+  {{variable "bg.post" description="Post background color" type="color" value="#e0e0e0"}}
+  {{! Used in: --bg-sidebar }}
+  {{variable "bg.sidebar" description="Sidebar Background Color" type="color" value="#fff"}}
+</Group>

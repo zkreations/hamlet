@@ -1,0 +1,16 @@
+{{!-- 
+Content of the widget PopularPosts
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/04/widget-popularPosts.html
+@data {string} data:show.share - Share buttons
+@data {string} data:show.author - Author profile
+@data {string} data:show.timestamp - Publish date
+@data {string} data:show.comments - Comments
+@data {string} data:show.labels - Labels
+@data {string} data:show.icons - Email send button
+--}}
+<b:includable id='widget:PopularPosts'>
+  <b:with value='data:widgets.Blog1.allBylineItems' var='show'>
+    <b:include name='post:card'/>
+  </b:with>
+</b:includable>

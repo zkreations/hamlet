@@ -1,0 +1,22 @@
+{{!--
+Content of the widget PageList
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/04/widget-pageList.html
+--}}
+<b:includable id='widget:PageList'>
+  <div class='pages'>
+    {{!-- If the widget is in the header section, add the class 'pages-header' --}}
+    <b:class cond='data:widget.sectionId == "header"' name='pages-header'/>
+    <b:loop values='data:links' var='link'>
+      <a class='pages-link' expr:href='data:link.href'>
+        {{!-- If the link is the current page, add the class 'is-here' --}}
+        <b:class cond='data:link.isCurrentPage' name='is-here'/>
+        <b:if cond='data:link.href contains "?ref="'>
+          <b:attr name='target' value='_blank'/>
+          <b:attr name='rel' value='noopener noreferrer nofollow'/>
+        </b:if>
+        <data:link.title/>
+      </a>
+    </b:loop>
+  </div>
+</b:includable>

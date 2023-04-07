@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:js='true' {{attr root}}>
+<b:include name='m:root'/>
+<head>
+  <title>
+    <data:view.title.escaped/>
+  </title>
+  <b:include name='m:head'/>
+  <b:if cond="!data:view.isLayoutMode">
+    <b:skin><![CDATA[
+      /*!
+        * Name      : Hamlet
+        * Version   : {{version}}
+        * Author    : Your Name
+        * License   : Your license
+        *//*!
+
+      Settings
+      =====================
+      {{> Settings}}
+
+      Customization
+      =====================
+      {{> Background}}
+      {{> Color}}
+      {{> Font}}
+
+      Hacks
+      =====================
+      {{> Hack}}
+
+      All styles
+      =====================*/
+      {{asset '/dist/css/main.min.css'}}
+      /*
+      Your custom styles
+      =====================*/
+    ]]></b:skin>
+    <b:else/>
+    <b:template-skin><![CDATA[
+      {{asset '/dist/css/admin.min.css'}}
+    ]]></b:template-skin>
+  </b:if>
+  {{!-- Default markups --}}
+  {{> markups}}
+  {{!-- Generate responsive image styles --}}
+  <b:if cond='not data:view.isPreview'>
+    <b:include data='{ selector: ".header", image: data:skin.vars.body_background.image }' name='responsiveImageStyle'/>
+  </b:if>
+</head>
+
+<body>
+  <b:include name='@kind'/>
+  {{!-- Offcanvas controls --}}
+  <input class='offcanvas-control' type='checkbox' name="offcanvas" id='show-sidebar'/>
+  <input class='offcanvas-control' type='checkbox' name="offcanvas" id='show-search'/>
+  {{!-- Offcanvas --}}
+  <div class='offcanvas layout-section'>
+    {{!-- Sidebar --}}
+    <b:section id='sidebar' class='sidebar' ads='true'>
+      {{!-- Custom PageList widget (disable title) --}}
+      <b:widget id='PageList1' type='PageList' version='2' locked='true'>
+        <b:includable id='widget-title'>
+          <b:include name='@attr' data='{["id"],["data-version"]}'/>
+        </b:includable>
+      </b:widget>
+      {{!-- Other widgets --}}
+      <b:widget id='Label1' title='Etiquetas' type='Label'/>
+    </b:section>
+    {{!-- Search --}}
+    <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
+      <input class='big-search-input' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' spellcheck='false' type='text'/>
+    </form>
+  </div>
+  <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
+    {{!-- Header --}}
+    <header class='header'>
+      <b:section id='header'>
+        <b:widget id='Header1' type='Header' version='2' locked='true'/>
+      </b:section>
+    </header>
+    {{!-- Content --}}
+    <div class='template container'>
+      <main class='main'>
+        <b:section id='content'>
+          <b:widget id='Blog1' type='Blog' version='2' locked='true'/>
+        </b:section>
+      </main>
+      <footer class='footer'>
+        Copyright 2023
+        <data:blog.title/>. Powered by Blogger
+      </footer>
+    </div>
+  </b:tag>
+</body>
+</html>

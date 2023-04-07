@@ -1,0 +1,19 @@
+{{!--
+Remplace noContentPlaceholder
+@docs https://bloggercode-blogconnexion.blogspot.com/1992/07/XML-renderer-noContentPlaceholder.html
+--}}
+<b:includable id='noContentPlaceholder'>
+  {{!-- If there are no posts, show a message --}}
+  <b:if cond='data:posts.empty'>
+    <div class="message">
+      {{!-- If error, show a message --}} 
+      <b:if cond='data:view.isError'>
+        <b:class name='error'/>
+        <data:this.navMessage/>
+        <b:else/>
+        {{!-- If no error, show a message --}}
+        <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:this.navMessage'/>
+      </b:if>
+    </div>
+  </b:if>
+</b:includable>

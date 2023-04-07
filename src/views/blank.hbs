@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css="false" b:js="false" {{attr root}}>
+  <head>
+    {{!-- Meta tags --}}
+    <meta expr:charset="data:blog.encoding"/>
+    <meta content="width=device-width,initial-scale=1" name="viewport"/>
+    {{!-- General tags --}}
+    <title><data:view.title.escaped/></title>
+    <meta expr:content="data:view.description.escaped" name="description"/>
+    <link expr:href="data:view.url.canonical" rel="canonical"/>
+    <link expr:href="data:blog.blogspotFaviconUrl" rel="icon" type="image/x-icon"/>
+    {{!-- Disable b:skin --}}
+    <b:if cond="data:view.isLayoutMode">
+      <b:skin><![CDATA[]]></b:skin>
+    </b:if>
+    {{!-- All css here --}}
+    <style>/*<![CDATA[*/
+    /*]]>*/</style>
+    {{!-- Default markups --}}
+    <b:defaultmarkups> 
+      {{!-- Clean all inclusions of all widgets automatically  --}}
+      {{#each defaultIncludables}}
+      <b:defaultmarkup type="{{@key}}">
+        {{#each this}}
+        <b:includable id="{{this}}"/>
+        {{/each}}
+      </b:defaultmarkup>
+      {{/each}}
+    </b:defaultmarkups>
+  </head>
+  <body>
+    <b:if cond="data:view.isLayoutMode">
+      <b:section id="main"/>
+    </b:if>
+  </body>
+</html>

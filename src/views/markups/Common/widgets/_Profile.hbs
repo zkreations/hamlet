@@ -1,0 +1,36 @@
+{{!--
+Content of the widget Profile
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/04/widget-profile.html
+@data {string} data:team - Show team members
+--}}
+<b:includable id='widget:Profile'>
+  <div class='profile'>
+    <b:class cond='data:this.team' name='profile-team'/>
+    {{!-- Show team members --}}
+    <b:if cond='data:team'>
+      <b:loop values='data:authors' var='author'>
+        <a class='profile-image' expr:href='data:author.userUrl' rel='nofollow' expr:title='data:author.display-name'>
+          <b:include name='@image' data='{ src: (data:author.authorPhoto.image ?: data:skin.vars.c_avatar), resize: 60, ratio: "1:1" }'/>
+        </a>
+      </b:loop>
+    {{!-- Show individual profile --}}
+    <b:else/>
+      <a class='profile-image' expr:href='data:this.userUrl' rel='nofollow' expr:title='data:this.displayname'>
+        <b:include name='@image' data='{ src: (data:this.authorPhoto.image ?: data:skin.vars.c_avatar), resize: 60, ratio: "1:1" }'/>
+      </a>
+      <div class='profile-body'>
+        {{!-- Show author name --}}
+        <a class='profile-name' expr:href='data:this.userUrl' rel='nofollow'><data:this.displayname/></a>
+        {{!-- Show author description --}}
+        <b:if cond='data:this.aboutme != ""'>
+          <p class='profile-snippet'><data:this.aboutme/></p>
+        </b:if>
+        {{!-- Show author location --}}
+        <b:if cond='data:this.showlocation and data:this.location != ""'>
+          <div class='profile-locale'><data:this.location/></div>
+        </b:if>
+      </div>
+    </b:if>
+  </div>
+</b:includable>

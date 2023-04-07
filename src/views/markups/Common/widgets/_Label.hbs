@@ -1,0 +1,22 @@
+{{!-- 
+Content of the widget Label
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/04/widget-label.html
+@data {string} data:display - Display (list, cloud)
+--}}
+<b:includable id='widget:Label'>
+  {{!-- Add the class 'labels-list' or 'labels-cloud' depending on the display --}}
+  <div expr:class='"labels labels-" + data:display'>
+    <b:loop values='data:labels' var='label'>
+      <a class='labels-link' expr:href='data:label.url'>
+        {{!-- If the link is the current page, add the class 'is-here' --}}
+        <b:class cond='data:label.url == data:view.url' name='is-here'/>
+        <data:label.name/>
+        {{!-- Show the number of posts for each label --}}
+        <b:if cond='data:this.showFreqNumbers'>
+          <span class='labels-number'><data:label.count/></span>
+        </b:if>
+      </a>
+    </b:loop>
+  </div>
+</b:includable>

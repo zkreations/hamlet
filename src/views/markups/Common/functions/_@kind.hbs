@@ -1,0 +1,17 @@
+{{!--
+add classes to body tag based on the current view
+@author zkreations
+--}}
+<b:includable id='@kind'>
+  <b:class cond='data:view.isHomepage' name='is-home'/>
+  <b:class cond='data:view.isMultipleItems' name='is-items'/>
+  <b:class cond='data:view.isPost' name='is-post'/>
+  <b:class cond='data:view.isPage' name='is-page'/>
+  <b:class cond='data:view.isArchive' name='is-archive'/>
+  <b:class cond='data:view.isLabelSearch' name='is-label'/>
+  <b:class cond='data:view.isSearch' name='is-search'/>
+  <b:class cond='data:view.isError' name='is-error'/>
+  <b:class cond='data:view.isPreview' name='is-preview'/>
+  {{!-- add class based on the current post/page id --}}
+  <b:class cond='data:view.isSingleItem' expr:name='"is-single single-id-" + (data:view.postId ?: data:view.pageId)'/>
+</b:includable>

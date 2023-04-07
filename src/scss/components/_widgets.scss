@@ -1,0 +1,107 @@
+.widget {
+  &-title {
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+}
+
+// Widget: BlogSearch
+.search {
+  // Form
+}
+
+// Widget: PageList
+.pages {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  &-link {
+    font-size: 1.125rem;
+    color: var(--color-text);
+
+    &:hover, &.is-here {
+      color: var(--primary);
+    }
+  }
+}
+
+// Widget: Label
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+
+  &-link {
+    color: var(--color-text);
+    text-transform: capitalize;
+    padding: .5rem;
+    border: 1px solid var(--color-border);
+
+    &:hover, &.is-here {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+  }
+}
+
+// Widget: Profile
+.profile {
+  &-image {
+    float: left;
+    margin-right: 1rem;
+
+    img {
+      border-radius: 50rem;
+    }
+  }
+}
+
+// Widget: BlogArchive
+.hierarchy {
+  &-list {
+    border-inline-start: 2px solid var(--color-border);
+    padding-inline-start: 1rem;
+  }
+
+  &-date {
+    margin-bottom: .5rem;
+    display: block;
+  }
+
+  &-name {
+    color: var(--color-title);
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+
+  &-content {
+    margin-bottom: .5rem;
+  }
+
+  &-post-link {
+    color: var(--color-text);
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+}
+
+// Widget: Image
+.media {
+  &-caption {
+    color: var(--color-text);
+    margin-top: 0.5rem;
+  }
+}
+
+// Widget: ContactForm
+
+.contact {
+  &-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

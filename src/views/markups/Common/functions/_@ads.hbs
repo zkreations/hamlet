@@ -1,0 +1,24 @@
+{{!--
+Create adsense ads
+@author zkreations
+@param {string} [style="display: block"] - Inline style
+@param {string} [slot] - ID of ad slot created in Adsense
+@param {string} [layout] - ID of layout (in-feed & in-article ads)
+--}}
+<b:includable id='@ads'>
+  <b:tag class='adsbygoogle' name='ins' data-full-width-responsive='true'>
+    {{!-- ID de anuncio creado en Adsense --}}
+    <b:attr name='data-ad-slot' expr:value='data:slot'/>
+    {{!-- ID de Adsense--}}
+    <b:attr name='data-ad-client' expr:value='data:adClientId ?: data:blog.adsenseClientId'/>
+    {{!-- ID de Host (Blogger) --}}
+    <b:attr name='data-ad-host' expr:value='data:blog.adsenseHostId'/>
+    {{!-- Formato de anuncio --}}
+    <b:attr name='data-ad-format' expr:value='data:layout ? "fluid" : "auto"'/>
+    {{!-- ID de layout (anuncios in-feed & in-article) --}}
+    <b:attr expr:name='"data-ad-layout" + (data:layout != "in-article" ? "-key" : "")' expr:value='data:layout'/>
+    {{!-- Estilos en linea --}}
+    <b:attr name='style' expr:value='data:style ?: "display: block"'/>
+  </b:tag>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
+</b:includable>

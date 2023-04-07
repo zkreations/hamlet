@@ -1,0 +1,25 @@
+{{!--
+Replace the default avatar image with a custom image
+@author zkreations
+@param {image} src - Avatar image url
+@param {image} [default] - Default image url
+--}}
+<b:includable id='@avatar'>
+  <b:if cond='data:src'>
+    <b:with value='data:default ?: "https://lh3.googleusercontent.com/a/default-user"' var='default'>
+      <b:with value='resizeImage((data:src contains "/img/bl" ? data:default : data:src), (data:resize ?: 40), "1:1")' var='avatar'>
+        <b:tag expr:alt='data:alt ?: data:messages.image' expr:src='data:avatar' name='img'>
+          {{!-- Close tag --}}
+          <b:attr name='b:whitespace' value='remove'/>
+          {{!-- Width and height --}}
+          <b:attr name='width' expr:value='data:avatar.width'/>
+          <b:attr name='height' expr:value='data:avatar.height'/>
+          {{!-- Loading attribute --}}
+          <b:attr name='loading' expr:value='data:loading'/>
+          {{!-- Additional classes --}}
+          <b:class cond='data:class' expr:name='data:class'/>
+        </b:tag>
+      </b:with>
+    </b:with>
+  </b:if>
+</b:includable>

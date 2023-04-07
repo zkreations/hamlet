@@ -1,0 +1,31 @@
+{{!-- 
+Module for creating a post card
+@requires widget:Blog or widget:FeaturedPost or widget:PopularPost
+@data {array} [data:items=data:posts] - Array of posts
+--}}
+<b:includable id='post:card'>
+  <b:loop values='data:items ?: data:posts' var='post'>
+    <article class='card'>
+      <a class='card-content' expr:href='data:post.url.canonical'>
+        {{!-- If the post has a featured image, display it --}}
+        <b:if cond='data:post.featuredImage'>
+          <b:class name='has-image'/>
+          <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 500, ratio: "4:3" }'/>
+        </b:if>
+        
+        <div class="card-meta">
+          {{!-- If title is empty, display "No title" --}}
+          <h2 class='card-title'>
+            <b:eval expr='data:post.title.escaped != "" ? data:post.title.escaped : data:messages.noTitle'/>
+          </h2>
+          {{!-- If snippet is not empty, display it --}}
+          <b:if cond='(data:post.snippets.short snippet { linebreaks: false, links: false, ellipsis: false }) != ""'>
+            <p class="card-snippet">
+              <b:eval expr='data:post.snippets.long snippet { length: 70, links: false, linebreaks: false }'/>
+            </p>
+          </b:if>
+        </div>
+      </a>
+    </article>
+  </b:loop>
+</b:includable>

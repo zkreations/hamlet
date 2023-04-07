@@ -1,0 +1,222 @@
+{{!--
+Comment form
+@author zkreations
+@param {object} [texts] - Texts for reply and delete buttons (restore)
+--}}
+<b:includable id='comment:form'>
+  {{!-- Comment form --}}
+  {{!-- IDs attributes are required for the script to work --}}
+  <div class='comments-editor'>
+    {{!-- If comments are allowed, show the comment form --}}
+    <b:if cond='data:post.allowNewComments'>
+      {{!-- Comment form --}}
+      <div id='comment-form'>
+        <div class='comment-iframe'>
+          {{!-- Added "skin" parameter to enable styling of the comment form. --}}
+          <iframe id='comment-editor' expr:src='data:post.commentFormIframeSrc params { skin: "emporio" }' height='66'/>
+        </div>
+      </div>
+      {{!-- If comment message exists, show it --}}
+      <b:if cond='data:this.messages.blogComment'>
+        <div class='comment-messages'>
+          <data:this.messages.blogComment/>
+        </div>
+      </b:if>
+      {{!-- Hack to avoid loading the script initially. --}}
+      <textarea id='form-script'>
+        <data:post.cmtfpIframe/>
+      </textarea>
+      {{!-- button to restore the comment form --}}
+      <button id='form-restore' class='comment-restore-button'>
+        <b:eval expr='data:texts.restore ?: data:messages.postAComment'/>
+      </button>
+      {{!-- Comment script --}}
+      <script>
+        /*<![CDATA[*/
+        {{asset '/dist/js/comments.min.js'}}
+        /*]]>*/
+      </script>
+      <b:else/>
+      {{!-- Else, show the message that comments are closed --}}
+      <div class='comment-alert'>
+        <data:post.noNewCommentsText/>
+      </div>
+    </b:if>
+  </div>
+</b:includable>
+{{!--
+Comment header
+@author zkreations
+@param {image} [avatar] - Default avatar image url
+--}}
+<b:includable id='comment:header'>
+  <div class='comment-header'>
+    {{!-- Avatar --}}
+    <div class='comment-avatar'>
+      <b:include name='@avatar' data='{ src: data:comment.authorAvatarSrc, default: data:avatar }'/>
+    </div>
+    {{!-- Meta --}}
+    <div class='comment-meta'>
+      {{!-- Create link to author or span if no link --}}
+      <b:tag class='comment-author' expr:name='data:comment.authorUrl ? "a" : "span"'>
+        <b:attr name='href' expr:value='data:comment.authorUrl'/>
+        {{!-- Name --}}
+        <data:comment.author/>
+        {{!-- If post author, show badge --}}
+        <b:if cond='data:comment.extraIconClass'>
+          <span class='comment-badge'>
+            <svg class='i i-circle-check' viewBox='0 0 24 24'>
+              <circle cx='12' cy='12' r='10'/>
+              <path d='m8.5 12.5 2 2 5-5'/>
+            </svg>
+          </span>
+        </b:if>
+      </b:tag>
+      {{!-- Date --}}
+      <span class='comment-time'>
+        <data:comment.timestamp/>
+      </span>
+    </div>
+  </div>
+</b:includable>
+{{!--
+Comment body
+@author zkreations
+--}}
+<b:includable id='comment:body'>
+  <div class='comment-content'>
+    {{!-- If comment is deleted, add deleted class --}}
+    <b:class cond='data:comment.isDeleted' name='comment-deleted'/>
+    <data:comment.body/>
+  </div>
+</b:includable>
+{{!--
+Comment footer
+@author zkreations
+@param {object} [texts] - Texts for reply and delete buttons (reply, delete)
+--}}
+<b:includable id='comment:footer'>
+  <div class='comment-footer'>
+    {{!-- Reply button --}}
+    <b:if cond='data:hasDepth'>
+      {{!-- parent-id is required for the script to work --}}
+      <button class='comment-reply-button' expr:data-parent-id='data:comment.id'>
+        <b:eval expr='data:texts.reply ?: data:messages.postAComment'/>
+      </button>
+    </b:if>
+    {{!-- Delete button--}}
+    <span expr:class='data:comment.adminClass'>
+      <a class='comment-delete-button' expr:href='data:comment.deleteUrl'>
+        <b:eval expr='data:texts.delete ?: data:messages.deleteComment'/>
+      </a>
+    </span>
+  </div>
+</b:includable>
+{{!--
+Comment pagination
+@author zkreations
+--}}
+<b:includable id='comment:pagination'>
+  <div class='comments-paging'>
+    {{!-- Older links --}}
+    <b:if cond='data:post.hasOlderLinks'>
+      <a expr:href='data:post.oldestLinkUrl'><data:messages.oldest/></a>
+      <a expr:href='data:post.olderLinkUrl'><data:messages.older/></a>
+    </b:if>
+    {{!-- Range of paging --}}
+    <data:post.commentRangeText/>
+    {{!-- Newer links --}}
+    <b:if cond='data:post.hasNewerLinks'>
+      <a expr:href='data:post.newerLinkUrl'><data:messages.newer/></a>
+      <a expr:href='data:post.newestLinkUrl'><data:messages.newest/></a>
+    </b:if>
+  </div>
+</b:includable>
+{{!--
+Comment item
+@author zkreations
+@param {number} [depth] - Depth of replies
+@param {boolean} [reverse] - Reverse order of comments
+--}}
+<b:includable id='comment:item' var='comment'>
+  {{!-- Store current depth --}}
+  <b:with value='(data:currentDepth ?: -1) + 1' var='currentDepth'>
+    {{!-- Store if there is a depth or the initial depth is not 0 --}}
+    <b:with value='(data:depth gt 0) and (data:currentDepth lt data:depth)' var='hasDepth'>
+      {{!-- Comment item, id is required for the script to work --}}
+      <div class='comment' expr:id='"c" + data:comment.id'>
+        {{!-- Comment block --}}
+        <div class='comment-block'>
+          <b:include name='comment:header'/>
+          <b:include name='comment:body'/>
+          <b:include name='comment:footer'/>
+          {{!-- Replies --}}
+          <b:if cond='data:hasDepth'>
+            <b:with value='data:post.comments where (c => c.inReplyTo == data:comment.id)' var='replies'>
+              {{!-- class 'comments-replies' is required for the script to work --}}
+              <div class='comments-replies'>
+                <b:if cond='data:replies.any'>
+                  <b:loop expr:reverse='data:reverse' values='data:replies' var='reply'>
+                    {{!-- Call comment item again --}}
+                    <b:include name='comment:item' data='reply'/>
+                  </b:loop>
+                </b:if>
+              </div>
+            </b:with>
+          </b:if>
+        </div>
+      </div>
+    </b:with>
+  </b:with>
+</b:includable>
+{{!--
+Comment build
+@author zkreations
+@param {number} [depth] - Depth of replies
+@param {boolean} [reverse] - Reverse order of comments
+--}}
+<b:includable id='comment:build'>
+  {{!-- Store depth --}}
+  <b:with value='{ min: (data:depth ?: 1), max: 5 }' var='depths'>
+    {{!-- If the config depth is greater than the max, set it to the max --}}
+    <b:with value='(data:depths.min >= data:depths.max) ? data:depths.max : data:depths.min' var='depth'>
+      {{!-- If the config depth is equal to 0, load all comments, else exclude the replies --}}
+      <b:with value='data:post.comments where (c => (data:depth == 0 ? c.id : !c.inReplyTo))' var='comments'>
+        {{!-- Build the comments --}}
+        <div class='comments-content'>
+          <b:if cond='data:comments.any'>
+            <b:loop expr:reverse='data:reverse' values='data:comments' var='comment'>
+              <b:include name='comment:item' data='comment'/>
+            </b:loop>
+          </b:if>
+        </div>
+      </b:with>
+    </b:with>
+  </b:with>
+</b:includable>
+{{!--
+Comment main
+@author zkreations
+@param {image} [avatar] - Default avatar image url
+@param {boolean} [order] - if true, show form first, else show comments first
+@param {boolean} [reverse] - Reverse order of comments
+@param {object} [texts] - Texts for reply and delete buttons (reply, delete)
+--}}
+<b:includable id='comment:main'>
+  <b:if cond='not data:view.isPreview and data:post.allowComments'>
+    {{!-- Show total number of comments --}}
+    <div class='comments-title'>
+      <b:message name='messages.numberOfComments'>
+        <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+      </b:message>
+    </div>
+    {{!-- Show all comments --}}
+    <div class='comments' id='comments'>
+      <b:loop reverse='data:order' values='["build","form"]' var='include'>
+        <b:include expr:name='"comment:" + data:include'/>
+      </b:loop>
+      {{!-- Show pagination if required --}}
+      <b:include cond='data:post.commentPagingRequired' name='comment:pagination'/>
+    </div>
+  </b:if>
+</b:includable>

@@ -1,0 +1,25 @@
+{{!-- 
+Module for creating a post card
+@requires widget:Blog
+--}}
+<b:includable id='post:pagination'>
+  {{!-- Show pagination only if there are more than one page --}}
+  <b:tag class='blog-pager' id='blog-pager' cond='data:newerPageUrl or data:olderPageUrl' name='div'>
+    {{!-- Newer posts button --}}
+    <b:if cond='data:newerPageUrl'>
+      <a class='pager-button' expr:href='data:newerPageUrl' expr:aria-label='data:messages.newerPosts'>
+        <svg class="i i-arrow-left-long" viewBox="0 0 24 24">
+          <path d="m6 9-3 3 3 3m15-3H3"/>
+        </svg>
+      </a>
+    </b:if>
+    {{!-- Older posts button --}}
+    <b:if cond='data:olderPageUrl'>
+      <a class='pager-button' expr:href='data:olderPageUrl' expr:aria-label='data:messages.olderPosts'>
+        <svg class="i i-arrow-right-long" viewBox="0 0 24 24">
+          <path d="m18 9 3 3-3 3M3 12h18"/>
+        </svg>
+      </a>
+    </b:if>
+  </b:tag>
+</b:includable>

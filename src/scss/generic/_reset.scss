@@ -1,0 +1,104 @@
+* {
+  margin: 0
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  background-color: var(--bg-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  color: var(--color-text)
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none
+}
+
+img,
+svg,
+video {
+  height: auto
+}
+
+[hidden] {
+  display: none
+}
+
+iframe {
+  border: 0 none
+}
+
+iframe,
+img,
+object,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+audio, video {
+  width: 100%;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word
+}
+
+table {
+  border-collapse: collapse;
+  max-width: 100%;
+}
+
+ol, ul {
+  list-style: none;
+  padding: 0;
+}
+
+tbody,
+td,
+th,
+thead,
+tr {
+  border-width: 0;
+  text-align: inherit;
+}
+
+table tr>* {
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  word-break: normal;
+}
+
+button,
+input,
+textarea {
+  padding: 0;
+  border-width: 0;
+  font-size: 100%;
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+[type=button]:not(:disabled),
+[type=submit]:not(:disabled),
+button:not(:disabled) {
+  cursor: pointer;
+}

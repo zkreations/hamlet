@@ -1,0 +1,17 @@
+{{!--
+Remplace widget-title
+@docs https://bloggercode-blogconnexion.blogspot.com/1991/08/XML-renderer-widget-title.html
+--}}
+<b:includable id='widget-title'>
+  <b:include name='@attr' data='{["id"],["data-version"]}'/>
+  {{!-- If sectionId is not "header" or title exists --}}
+  <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
+    {{!-- Title --}}
+    <div class='widget-title'>
+      <span class='widget-name'>
+        {{!-- Show title or default title --}}
+        <b:eval expr='data:defaultTitle ?: data:title'/>
+      </span>
+    </div>
+  </b:if>
+</b:includable>

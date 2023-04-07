@@ -1,4 +1,8 @@
 .post {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 720px;
+
   &-header {
     padding-bottom: 2rem;
     text-align: center;
@@ -10,8 +14,16 @@
     text-transform: capitalize;
   }
 
-  &-body>*+* {
-    margin-top: 1.5rem
+  &-title {
+    color: var(--color-title);
+    font-size: 2.5rem;
+    font-family: var(--font-title);
+    font-weight: 800;
+  }
+
+  &-body {
+    line-height: 1.75;
+    font-size: 1.125rem;
   }
 
   &-comment {

@@ -1,0 +1,48 @@
+{{!--
+Create custom image tag
+@author zkreations
+@param {image} src - Image url
+@param {string} [alt=data:messages.image] - Fallback text
+@param {string} [id] - Unique id
+@param {string} [class] - Additional classes
+@param {string} [width] - Image width
+@param {string} [height] - Image height
+@param {number} [resize] - Change dimensions
+@param {string} [ratio] - Aspect ratio
+@param {string} [sizes] - Sizes attribute value
+@param {array} [srcset] - Array of dimensions
+@param {string} [loading] - Loading attribute
+@param {string} [params] - Additional Google image parameters
+--}}
+<b:includable id='@image'>
+  <b:if cond='data:src'>
+    <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='source'>
+      <b:with value='(data:resize ? resizeImage(data:src, data:resize, data:ratio) : (data:source))' var='image'>
+        <b:tag expr:alt='data:alt ?: data:messages.image' name='img'>
+          {{!-- Close tag --}}
+          <b:attr name='b:whitespace' value='remove'/>
+          {{!-- Id and class --}}
+          <b:attr name='id' expr:value='data:id'/>
+          <b:class cond='data:class' expr:name='data:class'/>
+          {{!-- Width and height --}}
+          <b:attr name='width' expr:value='data:width ?: data:image.width'/>
+          <b:attr name='height' expr:value='data:height ?: data:image.height'/>
+          {{!-- Sizes attribute --}}
+          <b:attr name='sizes' expr:value='data:sizes'/>
+          {{!-- Loading attribute --}}
+          <b:attr name='loading' expr:value='data:loading'/>
+          {{!-- Check if image is hosted on Google --}}
+          <b:with value='"blogger.googleusercontent.com/img/a/"' var='serve'>
+            {{!-- If srcset exists, generate the image tag with the first dimension --}}
+            {{!-- If host is Google, add additional parameters --}}
+            <b:attr name='src' expr:value='(data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image) + ((data:image contains data:serve) and data:params ? ("-" + data:params) : "")'/>
+            {{!-- If srcset exists, generate the srcset attribute --}}
+            <b:if cond='data:srcset'>
+              <b:attr name='srcset' expr:value='sourceSet(data:image, data:srcset, data:ratio)'/>
+            </b:if>
+          </b:with>
+        </b:tag>
+      </b:with>
+    </b:with>
+  </b:if>
+</b:includable>

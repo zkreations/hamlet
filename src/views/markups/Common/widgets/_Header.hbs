@@ -1,0 +1,52 @@
+{{!--
+Content of the widget Header
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/05/widget-header.html
+@data {string} data:imagePlacement - Image placement (BEHIND, REPLACE, BEFORE_DESCRIPTION)
+--}}
+<b:includable id='widget:Header'>
+  <b:if cond='data:widget.sectionId != "header"'>
+    {{!-- If sectionId is not "header" --}}
+    <data:messages.theresNothingHere/>
+
+    {{!-- If sectionId is "header" --}}
+    <b:else/>
+    <b:class name='header-wrapper'/>
+
+    <label class='header-bars offcanvas-switch' for='show-sidebar'>
+      <svg class="i i-bars" viewBox="0 0 24 24">
+        <path d="M3 6h18M3 12h18M3 18h18"></path>
+      </svg>
+    </label>
+
+    <div class='container'>
+      {{!-- If image exists --}}
+      <b:if cond='data:image'>
+        <a class="header-logo" expr:href='data:blog.homepageUrl'>
+          <img expr:alt='data:title' expr:height='data:height' expr:src='data:image' expr:width='data:width'/>
+        </a>
+      </b:if>
+      {{!-- If imagePlacement is "BEHIND" --}}
+      <b:if cond='data:imagePlacement == "BEHIND"'>
+        <div class="header-title">
+          <a expr:href='data:blog.homepageUrl'>
+            <data:title/>
+          </a>
+        </div>
+      </b:if>
+      {{!-- If description exists and imagePlacement is not "REPLACE" --}}
+      <b:if cond='data:description and data:imagePlacement != "REPLACE"'>
+        <div class="header-subtitle">
+          <data:description/>
+        </div>
+      </b:if>
+    </div>
+
+    <label class='header-search offcanvas-switch' for='show-search'>
+      <svg class="i i-search" viewBox="0 0 24 24">
+        <circle cx="10" cy="10" r="7"></circle>
+        <path d="m15 15 6 6"></path>
+      </svg>
+    </label>
+  </b:if>
+</b:includable>

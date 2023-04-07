@@ -1,0 +1,30 @@
+.form {
+  &-label {
+    display: block;
+    margin-bottom: var(--form-gap);
+  }
+
+  &-section {
+    &:not(:first-child) {
+      margin-top: 1.5rem;
+    }
+  }
+
+  &-control {
+    padding: var(--form-padding);
+    border: 1px solid var(--color-border);
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  }
+}
+
+.btn {
+  display: flex;
+  padding: var(--form-padding);
+  align-items: center;
+  gap: var(--form-gap);
+}

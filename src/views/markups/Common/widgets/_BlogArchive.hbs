@@ -1,0 +1,63 @@
+{{!--
+Content of the widget BlogArchive
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/06/widget-blogArchive.html
+--}}
+<b:includable id='widget:BlogArchive'>
+  {{!-- Set Style --}}
+  <b:switch var='data:style'>
+    <b:case value='HIERARCHY'/>
+    {{!-- Set Hierarchy --}}
+    <div class='hierarchy'>
+      {{!-- Call Intervals --}}
+      <b:include data='data' name='interval:data'/>
+    </div>
+    <b:default/>
+    {{!-- Set Flat --}}
+    <div class='flat'>
+      <ul class='flat-list'>
+        {{!-- Iterate Data --}}
+        <b:loop values='data:data' var='i'>
+          <li class='flat-item'>
+            <a class='flat-link' expr:href='data:i.url'>
+              <span class='flat-name'><data:i.name/></span>
+              <span class='flat-count'><data:i.post-count/></span>
+            </a>
+          </li>
+        </b:loop>
+      </ul>
+    </div>
+  </b:switch>
+</b:includable>
+{{!-- 
+Module Intervals
+@requires widget:BlogArchive (data:data)
+--}}
+<b:includable id='interval:data' var='intervalData'>
+  <ul class='hierarchy-list'>
+    <b:loop values='data:intervalData' var='interval'>
+      <li class='hierarchy-item'>
+        {{!-- Date and number of posts --}}
+        <a class='hierarchy-date' expr:href='data:interval.url'>
+          <span class='hierarchy-name'><data:interval.name/></span>
+          <span class='hierarchy-count'><data:interval.post-count/></span>
+        </a>
+        {{!-- All posts in this interval --}}
+        <b:tag class='hierarchy-content' name='div' cond='data:interval.data or data:interval.posts'>
+          {{!-- Call recursively intervals --}}
+          <b:include cond='data:interval.data' data='interval.data' name='interval:data'/>
+          {{!-- Posts in this interval --}}
+          <b:if cond='data:interval.posts'>
+            <ul class='hierarchy-posts'>
+              <b:loop values='data:interval.posts' var='post'>
+                <li class='hierarchy-post'>
+                  <a class='hierarchy-post-link' expr:href='data:post.url'><data:post.title/></a>
+                </li>
+              </b:loop>
+            </ul>
+          </b:if>
+        </b:tag>
+      </li>
+    </b:loop>
+  </ul>
+</b:includable>

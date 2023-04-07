@@ -1,0 +1,131 @@
+// Helper classes for typography
+// Creating consistent typography, and other design elements.
+
+// Paragraphs
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+:where(.drop-cap, .has-drop-cap):first-letter {
+  font-weight: 500;
+  font-size: 6em;
+  line-height: 1;
+  margin-right: 1.25rem;
+  text-transform: uppercase;
+  float: left;
+  color: var(--color-title);
+}
+
+// Texts sizes
+$font-sizes: (
+  1: 2.5rem,
+  2: 2rem,
+  3: 1.5rem,
+  4: 1.25rem,
+  5: 1.125rem,
+  6: 1rem,
+  7: .875rem,
+  8: .75rem
+);
+
+@each $size,
+$value in $font-sizes {
+  .fs-#{$size} {
+    font-size: $value;
+  }
+}
+
+// Columns
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--typography-spacing);
+
+  >* {
+    flex: 1 1 0;
+    margin: 0;
+  }
+}
+
+// Alignments
+// Syntax based on WordPress
+.alignleft {
+  float: left;
+  clear: left;
+  margin-right: var(--typography-spacing);
+  margin-top: 0.5rem;
+}
+
+.alignright {
+  float: right;
+  clear: right;
+  margin-left: var(--typography-spacing);
+  margin-top: 0.5rem;
+}
+
+.aligncenter {
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}
+
+// Typography
+// A good practice is to keep specificity as low as possible, use ":where" to achieve it.
+// @docs: https://developer.mozilla.org/en-US/docs/Web/CSS/:where
+.typography {
+
+  // Headings
+  :where(h1, h2, h3, h4, h5, h6) {
+    margin-bottom: var(--typography-spacing-headings);
+    font-family: var(--font-title);
+    color: var(--color-title);
+    font-weight: 800;
+  }
+
+  // Blockquote
+  :where(blockquote) {
+    border-inline-start: 4px solid var(--color-border);
+    padding-inline-start: 1.5rem;
+    position: relative;
+  }
+
+  // Lists
+  :where(ul, ol) {
+    padding-inline-start: 1.5rem;
+  }
+
+  :where(ul) {
+    list-style: disc;
+  }
+
+  :where(ol) {
+    list-style: decimal;
+  }
+
+  // Images
+  :where(figure) {
+    position: relative;
+
+    :where(figcaption) {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-size: .875rem;
+    }
+  }
+
+  // Videos
+  :where(iframe[src^=http]) {
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: auto;
+  }
+
+  // Spacing
+  // Grouping elements with the same margin-bottom
+  // :where() is used to avoid specificity issues
+  :where(p, figure, img, blockquote, ul, ol, pre, table, div[class]):not(:where(:last-child, :where(figure, blockquote) :last-of-type)) {
+    margin-bottom: var(--typography-spacing);
+  }
+}

@@ -1,0 +1,12 @@
+{{!-- 
+Content of the widget BlogSearch
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/05/widget-blogSearch.html
+--}}
+<b:includable id='widget:BlogSearch'>
+  {{!-- Search container --}}
+  <form class='search' expr:action='data:blog.searchUrl' method='get'>
+    {{!-- Search input --}}
+    <input class='search-input form-control' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' expr:value='data:view.search.query.escaped' required='required' spellcheck='false' type='text'/>
+  </form>
+</b:includable>

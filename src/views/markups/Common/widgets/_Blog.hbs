@@ -1,0 +1,35 @@
+{{!--
+Content of the widget Blog
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/06/widget-blog.html
+@data {string} data:show.share - Share buttons
+@data {string} data:show.author - Author profile
+@data {string} data:show.timestamp - Publish date
+@data {string} data:show.comments - Comments
+@data {string} data:show.labels - Labels
+@data {string} data:show.icons - Email send button
+--}}
+<b:includable id='widget:Blog'>
+  <b:with value='data:widgets.Blog1.allBylineItems' var='show'>
+    {{!-- Show in Post or Page --}}
+    <b:if cond='data:view.isSingleItem'>
+      <article class="post">
+        <b:with value='data:posts.first' var='post'>
+          <b:include name='post:view'/>
+        </b:with>
+      </article>
+    {{!-- Show in Home or Archive --}}
+    <b:else/>
+      {{!-- If posts is empty, show a message --}}
+      <b:if cond='data:posts.empty or data:view.isError'>
+        <b:include name='noContentPlaceholder'/>
+        {{!-- If posts is not empty, show posts --}}
+        <b:else/>
+        <div class='cards'>
+          <b:include name='post:card'/>
+        </div>
+        <b:include name='post:pagination'/>
+      </b:if>
+    </b:if>
+  </b:with>
+</b:includable>

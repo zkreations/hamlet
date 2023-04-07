@@ -1,0 +1,19 @@
+{{!-- 
+Content of the widget Image
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2019/04/widget-image.html
+--}}
+<b:includable id='widget:Image'>
+  <figure class='media'>
+    {{!-- Create a link if the image has a link --}}
+    <b:tag class='media-link' name='a' cond='data:link' expr:href='data:link'>
+      <b:include name='@image' data='{ class: "media-image", src: data:sourceUrl, resize: (data:shrinkToFit ? 500 : 1280) }'/>
+      {{!-- Show the image caption --}}
+      <b:if cond='data:caption'>
+        <figcaption class='media-caption'>
+          <data:caption/>
+        </figcaption>
+      </b:if>
+    </b:tag>
+  </figure>
+</b:includable>
