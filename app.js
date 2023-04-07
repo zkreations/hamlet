@@ -89,6 +89,16 @@ Handlebars.registerHelper('variable', function (name = 'null', options) {
   return new Handlebars.SafeString(escapedOutput)
 })
 
+// Calculate time of execution of a function
+const timer = async (fn, message, ...args) => {
+  const start = performance.now()
+  const result = await fn(...args)
+  const end = performance.now()
+  const tiempo = Math.round(end - start)
+  console.log(`${message || fn.name} finish in: ${tiempo}ms`)
+  return result
+}
+
 // Task to compile Handlebars templates
 const compileJS = async () => {
   try {
@@ -111,9 +121,6 @@ const compileJS = async () => {
 
     // Iterate over the files found and compile each one separately
     for (const file of files) {
-      const currentFile = path.basename(file)
-      console.time(`${currentFile} compiled in`)
-
       const bundle = await rollup.rollup({
         input: file,
         plugins: [
@@ -144,8 +151,6 @@ const compileJS = async () => {
           terser()
         ]
       })
-
-      console.timeEnd(`${currentFile} compiled in`)
     }
   } catch (err) {
     console.error(err)
@@ -163,9 +168,6 @@ const compileSass = () => {
 
   // Iterate over the files found and compile each one separately
   files.forEach(file => {
-    const currentFile = path.basename(file)
-    console.time(`${currentFile} compiled in`)
-
     const compiled = sass.compile(file)
 
     let css = compiled.css.toString()
@@ -186,8 +188,6 @@ const compileSass = () => {
     // Write the file minified
     const minifiedOutputFile = path.join(output, `${fileName}.min.css`)
     fs.writeFileSync(minifiedOutputFile, minified)
-
-    console.timeEnd(`${currentFile} compiled in`)
   })
 }
 
@@ -221,7 +221,7 @@ const registerPartials = (folderPath = sourceDir) => {
 }
 
 // Compile all Handlebars templates
-const compileHandlebars = (folderPath = sourceDir) => {
+const compileHbs = (folderPath = sourceDir) => {
   // Register all partials in the source directory
   registerPartials()
   // Cargar los datos del archivo data.json
@@ -248,9 +248,8 @@ const compileHandlebars = (folderPath = sourceDir) => {
 
     if (stats.isDirectory()) {
       // If it's a directory, recursively search for templates
-      compileHandlebars(filePath)
+      compileHbs(filePath)
     } else {
-      console.time(`${file} compiled in`)
       const source = fs.readFileSync(filePath, 'utf8')
       const template = Handlebars.compile(source)
       const output = template(data)
@@ -261,7 +260,6 @@ const compileHandlebars = (folderPath = sourceDir) => {
       }
 
       fs.writeFileSync(outputDir, output)
-      console.timeEnd(`${file} compiled in`)
     }
   })
 }
@@ -270,9 +268,9 @@ const compileHandlebars = (folderPath = sourceDir) => {
 if (process.argv[2] === 'compile') {
   (async () => {
     try {
-      await compileJS()
-      compileSass()
-      compileHandlebars()
+      await timer(compileJS)
+      await timer(compileSass)
+      await timer(compileHbs)
     } catch (error) {
       console.error(error)
       process.exit(1)
@@ -291,16 +289,16 @@ if (process.argv[2] === 'compile') {
     const extension = path.extname(filePath).toLowerCase()
     switch (extension) {
     case '.js':
-      await compileJS()
-      compileHandlebars()
+      await timer(compileJS)
+      await timer(compileHbs)
       break
     case '.scss':
     case '.sass':
-      compileSass()
-      compileHandlebars()
+      await timer(compileSass)
+      await timer(compileHbs)
       break
     case '.hbs':
-      compileHandlebars()
+      await timer(compileHbs)
       break
     default:
       console.error(`The file ${extension} is not compatible with any compiler.`)
