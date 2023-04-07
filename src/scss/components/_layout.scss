@@ -12,6 +12,11 @@
   background: var(--bg-image-header);
   background-size: cover;
   background-color: var(--bg-header);
+  
+  &-logo {
+    display: flex;
+    justify-content: center;
+  }
 
   &-title {
     font-size: 1.75rem;

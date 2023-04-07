@@ -187,6 +187,10 @@ button:not(:disabled) {
   background-size: cover;
   background-color: var(--bg-header);
 }
+.header-logo {
+  display: flex;
+  justify-content: center;
+}
 .header-title {
   font-size: 1.75rem;
 }
