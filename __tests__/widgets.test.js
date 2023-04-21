@@ -17,10 +17,10 @@ describe('Blogger Syntax', () => {
     describe(`File: ${file}`, () => {
       it('all <b:widget> tags should have required attributes and correct format', function () {
         const validTypes = [
-          'AdSense', 'Blog', 'BlogArchive', 'BlogList', 'BlogSearch',
+          'AdSense', 'Blog', 'BlogArchive', 'BlogList', 'BlogSearch', 'BloggerButton',
           'ContactForm', 'FeaturedPost', 'Feed', 'Header', 'HTML',
           'Image', 'Label', 'LinkList', 'PageList', 'PopularPosts',
-          'Profile', 'Stats', 'Subscribe', 'Text', 'TextList',
+          'Profile', 'ReportAbuse', 'Stats', 'Subscribe', 'Text', 'TextList',
           'Translate', 'Wikipedia'
         ]
 

@@ -24,10 +24,10 @@ describe('Blogger Default Markup', () => {
 
       it('should have valid <b:defaultmarkup> tags', () => {
         const validTypes = [
-          'All', 'Common', 'AdSense', 'Blog', 'BlogArchive', 'BlogList', 'BlogSearch',
+          'All', 'Common', 'AdSense', 'Blog', 'BlogArchive', 'BlogList', 'BlogSearch', 'BloggerButton',
           'ContactForm', 'FeaturedPost', 'Feed', 'Header', 'HTML',
           'Image', 'Label', 'LinkList', 'PageList', 'PopularPosts',
-          'Profile', 'Stats', 'Subscribe', 'Text', 'TextList',
+          'Profile', 'ReportAbuse', 'Stats', 'Subscribe', 'Text', 'TextList',
           'Translate', 'Wikipedia'
         ]
 
