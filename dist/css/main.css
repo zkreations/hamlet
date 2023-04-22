@@ -464,8 +464,15 @@ input#show-search:checked ~ :where(.offcanvas, .header) {
 
 .pages {
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
+}
+.pages:not(.pages-header) {
+  flex-direction: column;
+}
+.pages-header {
+  justify-content: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 .pages-link {
   font-size: 1.125rem;
