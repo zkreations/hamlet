@@ -1,0 +1,28 @@
+{{!--
+Inline Ad
+@author zkreations
+--}}
+<b:includable id='post:inlineAd'>
+  {{!-- If adsense is enabled --}}
+  <b:if cond='data:blog.adsenseHostId and data:blog.adsenseClientId and data:blog.adsenseHasAds'>
+    {{!-- If post has more than 1 item and the ad number is less than 3 --}}
+    <b:if cond='data:post.includeAd and data:view.isMultipleItems'>
+      <b:if cond='(data:post.adNumber + data:widgets.AdSense.size) lt 3'>
+        <b:include name='@ads'/>
+      </b:if>
+      {{!-- If page is post and auto ads is disabled --}}
+      <b:elseif cond='data:view.isPost and !data:blog.adsenseAutoAds'/>
+      <b:include name='@ads'/>
+    </b:if>
+  </b:if>
+</b:includable>
+{{!--
+Hooks for inline ad
+@author zkreations
+--}}
+<b:includable id='post:ads1'>
+  <b:include name='post:inlineAd'/>
+</b:includable>
+<b:includable id='post:ads2'>
+  <b:include name='post:inlineAd'/>
+</b:includable>

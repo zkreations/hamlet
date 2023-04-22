@@ -23,11 +23,11 @@
       # HD Favicon URL.
       <Variable name="c.favicon" description="c.favicon" type="string" value=""/>
       
-      # Url of default avatar.
-      <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
-      
       # Url of default Open Graph image.
       <Variable name="c.ogImage" description="c.ogImage" type="string" value=""/>
+      
+      # Url of default avatar.
+      <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
       
       # Translatable strings.
       <Variable name="t.reply" description="t.reply" type="string" value="Reply"/>
@@ -340,6 +340,7 @@
               </div>
             </a>
           </article>
+          <b:include name='post:inlineAd'/>
         </b:loop>
       </b:includable>
       <b:includable id='comment:form'>
@@ -484,7 +485,25 @@
             <b:include cond='data:post.commentPagingRequired' name='comment:pagination'/>
           </div>
         </b:if>
-      </b:includable>    <b:includable id='post:pagination'>
+      </b:includable>
+      <b:includable id='post:inlineAd'>
+        <b:if cond='data:blog.adsenseHostId and data:blog.adsenseClientId and data:blog.adsenseHasAds'>
+          <b:if cond='data:post.includeAd and data:view.isMultipleItems'>
+            <b:if cond='(data:post.adNumber + data:widgets.AdSense.size) lt 3'>
+              <b:include name='@ads'/>
+            </b:if>
+            <b:elseif cond='data:view.isPost and !data:blog.adsenseAutoAds'/>
+            <b:include name='@ads'/>
+          </b:if>
+        </b:if>
+      </b:includable>
+      <b:includable id='post:ads1'>
+        <b:include name='post:inlineAd'/>
+      </b:includable>
+      <b:includable id='post:ads2'>
+        <b:include name='post:inlineAd'/>
+      </b:includable>
+      <b:includable id='post:pagination'>
         <b:tag class='blog-pager' id='blog-pager' cond='data:newerPageUrl or data:olderPageUrl' name='div'>
           <b:if cond='data:newerPageUrl'>
             <a class='pager-button' expr:href='data:newerPageUrl' expr:aria-label='data:messages.newerPosts'>
@@ -510,7 +529,9 @@
           </b:if>
         </header>
         <section class='post-body typography'>
+          <b:include name='post:ads1'/>
           <data:post.body/>
+          <b:include name='post:ads2'/>
         </section>
         <footer class='post-comment'>
           <b:include name='comment:main' data='{ depth: 2, texts: { delete: data:skin.vars.t_delete, reply: data:skin.vars.t_reply } }'/>
