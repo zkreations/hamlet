@@ -20,8 +20,14 @@
       # Formspree.io form ID.
       <Variable name="c.formspree" description="c.formspree" type="string" value=""/>
       
+      # HD Favicon URL.
+      <Variable name="c.favicon" description="c.favicon" type="string" value=""/>
+      
       # Url of default avatar.
       <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
+      
+      # Url of default Open Graph image.
+      <Variable name="c.ogImage" description="c.ogImage" type="string" value=""/>
       
       # Translatable strings.
       <Variable name="t.reply" description="t.reply" type="string" value="Reply"/>
@@ -511,7 +517,7 @@
         </footer>
       </b:includable>
       <b:includable id='m:head'>
-        <b:include name='@meta'/>
+        <b:include name='@meta' data="{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }"/>
         <b:include name='@adsense'/>
         <b:include name='@analytics'/>
       </b:includable>
