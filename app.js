@@ -15,11 +15,13 @@ const commonjs = require('@rollup/plugin-commonjs')
 const { babel } = require('@rollup/plugin-babel')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 
+const chokidar = require('chokidar')
+
 const sourceDir = './src'
 const distDir = './dist'
 const dataFile = './data.json'
 
-const chokidar = require('chokidar')
+let data = {}
 
 // Handlebars helpers
 // If a helper is missing, show a message in the console
@@ -224,13 +226,6 @@ const registerPartials = (folderPath = sourceDir) => {
 const compileHbs = (folderPath = sourceDir) => {
   // Register all partials in the source directory
   registerPartials()
-  // Cargar los datos del archivo data.json
-  let data = {}
-
-  if (fs.existsSync(dataFile)) {
-    data = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
-  }
-
   // Search for all files in the source directory, ignoring files that start with "_"
   const files = fs.readdirSync(folderPath).filter(file => {
     const filePath = path.join(folderPath, file)
@@ -250,6 +245,12 @@ const compileHbs = (folderPath = sourceDir) => {
       // If it's a directory, recursively search for templates
       compileHbs(filePath)
     } else {
+      // Cargar los datos del archivo data.json
+
+      if (fs.existsSync(dataFile)) {
+        data = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
+      }
+
       const source = fs.readFileSync(filePath, 'utf8')
       const template = Handlebars.compile(source)
       const output = template(data)
