@@ -41,7 +41,6 @@ Clone, fork, or download this repository to your PC, and within the root directo
 
 ```cmd
 npm install
-npm install
 ```
 
 To start listening to changes and automatically compile, run in console:
