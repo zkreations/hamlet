@@ -1,5 +1,5 @@
 <div align="center">
-  <img width='80' src="https://raw.githubusercontent.com/zkreations/bison/main/dist/images/logo.png" align="center" />
+  <img width='100' src="https://raw.githubusercontent.com/zkreations/hamlet/main/dist/images/logo.png" align="center" />
 
   # Hamlet 
 
