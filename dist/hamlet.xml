@@ -804,11 +804,13 @@
     <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
       <input class='big-search-input' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' spellcheck='false' type='text'/>
     </form>
-  </div>  <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
+  </div>
+  <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
     <header class='header'>
       <b:section id='header'>
         <b:widget id='Header1' type='Header' version='2' locked='true'/>
-      </b:section>    </header>
+      </b:section>
+    </header>
     <div class='template container'>
       <main class='main'>
         <b:section id='content'>
@@ -818,7 +820,8 @@
       <footer class='footer'>
         <div class='footer-wrapper'>
           Copyright 2023 <data:blog.title/>. Powered by Blogger
-        </div>      </footer>
+        </div>
+      </footer>
     </div>
   </b:tag>
 </body>
