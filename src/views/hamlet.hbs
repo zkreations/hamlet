@@ -7,29 +7,8 @@
     <data:view.title.escaped/>
   </title>
   <b:include name='m:head'/>
-  <b:if cond="!data:view.isLayoutMode">
-    <b:skin><![CDATA[
-      /*!
-        * Name      : Hamlet
-        * Version   : {{version}}
-        * Author    : Your Name
-        * License   : Your license
-        *//*!
-
-      {{> skin}}
-
-      All styles
-      =====================*/
-      {{asset '/dist/css/main.min.css'}}
-      /*
-      Your custom styles
-      =====================*/
-    ]]></b:skin>
-    <b:else/>
-    <b:template-skin><![CDATA[
-      {{asset '/dist/css/admin.min.css'}}
-    ]]></b:template-skin>
-  </b:if>
+  {{!-- Default skin --}}
+  {{> skin}}
   {{!-- Default markups --}}
   {{> markups}}
   {{!-- Generate responsive image styles --}}

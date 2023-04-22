@@ -1,5 +1,7 @@
-{
+{ 
+  "name": "Hamlet",
   "version": "1.0.0",
+  "license": "MIT",
   "root": {
     "b:defaultwidgetversion": "2",
     "b:layoutsVersion": "3",

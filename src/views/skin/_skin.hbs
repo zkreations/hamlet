@@ -3,16 +3,40 @@ Variables b:skin
 @author zkreations
 @docs https://bloggercode-blogconnexion.blogspot.com/2014/06/tag-b-skin-b-template-skin.html
 --}}
-Settings
-=====================
-{{> Settings}}
+<b:if cond="!data:view.isLayoutMode">
+  {{!-- Skin (for Customization Mode) --}}
+  <b:skin><![CDATA[
+    /*!
+      * Name      : {{name}}
+      * Version   : {{version}}
+      * License   : {{license}}
+      *//*!
 
-Customization
-=====================
-{{> Background}}
-{{> Color}}
-{{> Font}}
+    Settings
+    =====================
+    {{> Settings}}
 
-Hacks
-=====================
-{{> Hack}}
+    Customization
+    =====================
+    {{> Background}}
+    {{> Color}}
+    {{> Font}}
+
+    Hacks
+    =====================
+    {{> Hack}}
+
+    All styles
+    =====================*/
+
+    {{asset '/dist/css/main.min.css'}}
+    /*
+    Your custom styles
+    =====================*/
+  ]]></b:skin>
+  <b:else/>
+  {{!-- Template skin (for Layout Mode) --}}
+  <b:template-skin><![CDATA[
+    {{asset '/dist/css/admin.min.css'}}
+  ]]></b:template-skin>
+</b:if>
