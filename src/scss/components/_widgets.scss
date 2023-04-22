@@ -13,8 +13,17 @@
 // Widget: PageList
 .pages {
   display: flex;
-  flex-direction: column;
   gap: .5rem;
+
+  &:not(.pages-header) {
+    flex-direction: column;
+  }
+
+  &-header {
+    justify-content: center;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
 
   &-link {
     font-size: 1.125rem;
