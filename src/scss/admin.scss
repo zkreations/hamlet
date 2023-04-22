@@ -33,6 +33,9 @@ $icon-settings: "grey600_24dp";
   @return "#{$icon-path}#{$name}_#{$icon-settings}.png";
 }
 
+// Material Icons
+// @url: https://fonts.google.com/icons?icon.set=Material+Icons
+// Copy the icon name from the URL, for example:
 $icon-edit: gstatic-icon("mode_edit");
 $icon-visible: gstatic-icon("visibility");
 $icon-invisible: gstatic-icon("visibility_off");
