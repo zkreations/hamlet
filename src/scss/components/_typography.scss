@@ -7,7 +7,7 @@
   font-weight: 300;
 }
 
-:where(.drop-cap, .has-drop-cap):first-letter {
+.has-drop-cap:first-letter {
   font-weight: 500;
   font-size: 6em;
   line-height: 1;
@@ -17,20 +17,7 @@
   color: var(--color-title);
 }
 
-// Texts sizes
-$font-sizes: (
-  1: 2.5rem,
-  2: 2rem,
-  3: 1.5rem,
-  4: 1.25rem,
-  5: 1.125rem,
-  6: 1rem,
-  7: .875rem,
-  8: .75rem
-);
-
-@each $size,
-$value in $font-sizes {
+@each $size, $value in $font-sizes {
   .fs-#{$size} {
     font-size: $value;
   }
@@ -69,6 +56,22 @@ $value in $font-sizes {
   margin-left: auto;
   margin-right: auto;
   display: table;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-justify {
+  text-align: justify;
 }
 
 // Typography
