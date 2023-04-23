@@ -46,7 +46,7 @@
       <Group description="Color">
         <Variable name="primary" description="Accents" type="color" value="#14b8a6" default="#14b8a6"/>
         <Variable name="color.title" description="Title color" type="color" value="#222" default="#222"/>
-        <Variable name="color.text" description="Text color" type="color" value="#555" default="#555"/>
+        <Variable name="color.text" description="Text color" type="color" value="#373737" default="#373737"/>
         <Variable name="color.border" description="Border color" type="color" value="#eee" default="#eee"/>
         <Variable name="color.header.title" description="Header color" type="color" value="#fff" default="#fff"/>
         <Variable name="color.header.subtitle" description="Description Color" type="color" value="#999" default="#999"/>
