@@ -133,12 +133,14 @@ The modules are files that contain code that can be reused in other files. For e
 ```cmd
 ├── src
 │   ├── views
-│   │   ├── _module_name.hbs
+│   │   ├── _module-name.hbs
 │   │   └── theme.hbs
 ```
 
+In the `theme.hbs` file, or in any other module, you can import the module with the following code:
+
 ```hbs
-{{> module_name}}
+{{> module-name}}
 ```
 
 You can create any number of modules, and import them in any file, but the name of the module must be unique, because if you create two modules with the same name, the second one will overwrite the first one.
