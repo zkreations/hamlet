@@ -222,6 +222,26 @@ const registerPartials = (folderPath = sourceDir) => {
   })
 }
 
+// Widget Counter Increment
+const widgetCounter = (template) => {
+  const regex = /<b:widget\s+type='([^']+)'\s+(?!id)([^>]+)>/g
+  const typeMap = {}
+
+  const transformedHTML = template.replace(regex, (_, type, attributes) => {
+    let counter = 1
+    // eslint-disable-next-line no-prototype-builtins
+    if (typeMap.hasOwnProperty(type)) {
+      counter = typeMap[type] + 1
+    }
+    typeMap[type] = counter
+    const id = `${type}${counter}`
+    const transformedAttributes = `id='${id}' type='${type}' ${attributes}`
+    return `<b:widget ${transformedAttributes}>`
+  })
+
+  return transformedHTML
+}
+
 // Compile all Handlebars templates
 const compileHbs = (folderPath = sourceDir) => {
   // Register all partials in the source directory
@@ -253,7 +273,7 @@ const compileHbs = (folderPath = sourceDir) => {
 
       const source = fs.readFileSync(filePath, 'utf8')
       const template = Handlebars.compile(source)
-      const output = template(data)
+      const output = widgetCounter(template(data))
       const outputDir = path.join(__dirname, distDir, `./${file.replace('.hbs', '.xml')}`)
 
       if (!fs.existsSync(distDir)) {
