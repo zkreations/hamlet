@@ -93,11 +93,14 @@ Handlebars.registerHelper('variable', function (name = 'null', options) {
 
 // Calculate time of execution of a function
 const timer = async (fn, message, ...args) => {
+  const currentTime = new Date()
+  const dateFormatted = currentTime.toLocaleTimeString('en-US', { hour12: false })
+
   const start = performance.now()
   const result = await fn(...args)
   const end = performance.now()
   const tiempo = Math.round(end - start)
-  console.log(`${message || fn.name} finish in: ${tiempo}ms`)
+  console.log(`${dateFormatted} - ${message || fn.name} finish in: ${tiempo}ms`)
   return result
 }
 
