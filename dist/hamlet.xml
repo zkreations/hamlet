@@ -19,23 +19,25 @@
       =====================
       # Formspree.io form ID.
       <Variable name="c.formspree" description="c.formspree" type="string" value=""/>
-      
+  
       # HD Favicon URL.
       <Variable name="c.favicon" description="c.favicon" type="string" value=""/>
-      
+  
       # Url of default Open Graph image.
       <Variable name="c.ogImage" description="c.ogImage" type="string" value=""/>
-      
+  
       # Url of default avatar.
       <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
-      
+  
       # Translatable strings.
       <Variable name="t.reply" description="t.reply" type="string" value="Reply"/>
       <Variable name="t.delete" description="t.delete" type="string" value="Delete"/>
   
       Customization
       =====================
+      # Mandatory variable to enable dynamic layout
       <Variable name="keycolor" description="keycolor" type="color" value="#2196f3" default="#2196f3"/>
+      
       <Group description="Backgrounds">
         <Variable name="body.background" description="Header Background" type="background" value="$(color) none repeat scroll top center" color="$(body.background.color)" default="$(color) none repeat scroll top center"/>
         <Variable name="body.background.color" description="Header color" type="color" value="#222" default="#222"/>
@@ -55,9 +57,6 @@
         <Variable name="font.title" description="Title Font" type="font" value="800 14px Open Sans" default="800 14px Open Sans"/>
         <Variable name="font.text" description="Text Font" type="font" value="14px Roboto" default="14px Roboto"/>
       </Group>
-  
-      Hacks
-      =====================
       <Variable name="posts.text.color" description="posts.text.color" type="color" value="#666" hideEditor="true" default="#666"/>
       <Variable name="posts.link.color" description="posts.link.color" type="string" value="#666"/>
       <Variable name="posts.text.font" description="posts.text.font" type="string" value="15px Roboto"/>
@@ -74,7 +73,7 @@
       Your custom styles
       =====================*/
     ]]></b:skin>
-    <b:else/>
+  <b:else/>
     <b:template-skin><![CDATA[
       body#layout{padding:14px;background-color:#f4f4f5}body#layout .layout-section{float:left;min-width:386px;margin:0 16px 16px 0}body#layout .layout-widget-description{display:none}body#layout .Blog .widget-content{height:auto}body#layout .AdSense .layout-title::before{content:"AdSense: "}body#layout .HTML .layout-title::before{content:"HTML: "}body#layout .Header .layout-title::before{content:"Header: "}body#layout .Text .layout-title::before{content:"Text: "}body#layout .TextList .layout-title::before{content:"TextList: "}body#layout .Blog .layout-title::before{content:"Blog: "}body#layout .BlogSearch .layout-title::before{content:"Search: "}body#layout .BlogArchive .layout-title::before{content:"Archive: "}body#layout .FeaturedPost .layout-title::before{content:"Featured: "}body#layout .PopularPosts .layout-title::before{content:"Populars: "}body#layout .Profile .layout-title::before{content:"Profile: "}body#layout .Image .layout-title::before{content:"Image: "}body#layout .Label .layout-title::before{content:"Label: "}body#layout .PageList .layout-title::before{content:"PageList: "}body#layout .LinkList .layout-title::before{content:"LinkList: "}body#layout .ContactForm .layout-title::before{content:"Contact: "}body#layout .Subscribe .layout-title::before{content:"Subscribe: "}body#layout .widget-wrap3{overflow:hidden;border-bottom:1px solid #f2f2f2}body#layout div.section{margin:0 0 16px 0;padding:12px;background-color:#fff;height:auto!important}body#layout div.section.activated-section{border-color:#8c8f94}body#layout div.section h4{text-transform:capitalize;margin:0 0 14px;color:#263238;font-size:17px;font-weight:400}body#layout div.section .add_widget{padding:12px}body#layout div.section .add_widget a{font-size:14px;color:#263238;margin-left:32px}body#layout div.section .add_widget a:hover{text-decoration:none;color:#23a6b3}body#layout div.section div.widget-content{background-color:#f6f7f7;padding:12px;border:1px solid #c3c4c7;color:#263238}body#layout div.section div.widget-content:hover{border-color:#8c8f94}body#layout div.section div.widget-content .layout-title{margin:0 30px 0 0;font-size:14px;color:#999}body#layout div.section div.widget-content .layout-title::before{color:#262626;font-weight:500}body#layout div.section div.widget-content .layout-widget-state.visible{background-image:url("https://www.gstatic.com/images/icons/material/system/1x/visibility_grey600_24dp.png")}body#layout div.section div.widget-content .layout-widget-state.not-visible{background-image:url("https://www.gstatic.com/images/icons/material/system/1x/visibility_off_grey600_24dp.png");opacity:.25}body#layout div.section div.widget-content .editlink.icon{background-image:none;left:0;top:0;width:100%;height:100%}body#layout div.section .add-icon,body#layout div.section .layout-widget-state{background-size:cover;width:20px;height:20px;margin-top:2px;margin-right:10px}body#layout div.section .locked-widget .widget-content{background-image:url("https://www.gstatic.com/images/icons/material/system/1x/lock_grey600_24dp.png");background-repeat:no-repeat;background-position:center right 10px;background-size:20px}body#layout .layout-accessibility div.section div.widget-content .editlink.icon{background-image:url("https://www.gstatic.com/images/icons/material/system/1x/mode_edit_grey600_24dp.png");width:36px;left:auto;right:0;background-color:#f1f3f3;border-left:1px solid #c3c4c7}body#layout .layout-accessibility div.section div.widget-content .editlink.icon:hover{background-color:#e3e8e8}body#layout .layout-accessibility div.section div.widget-content:hover{border-color:#c3c4c7}body#layout .layout-accessibility div.section div.widget-content .layout-title{margin:0 58px 0 0}body#layout .layout-accessibility div.section .widget.el_active .editlink.icon{display:block}body#layout .layout-accessibility div.section .locked-widget .widget-content{background-position:center right 46px}body#layout .draggable-widget .widget-wrap3{margin-left:0;background:0 0}body#layout .draggable-widget .widget-wrap2{background:0 0;cursor:default}body#layout .dr_active{margin:0;border:1px dashed #ccc}body#layout .widget.el_active .editlink.icon{display:none}
     ]]></b:template-skin>
@@ -536,6 +535,7 @@
         <footer class='post-comment'>
           <b:include name='comment:main' data='{ depth: 2, texts: { delete: data:skin.vars.t_delete, reply: data:skin.vars.t_reply } }'/>
         </footer>
+        <b:include name="postMetadataJSON"/>
       </b:includable>
       <b:includable id='m:head'>
         <b:include name='@meta' data="{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }"/>
@@ -826,7 +826,7 @@
           <b:include name='@attr' data='{["id"],["data-version"]}'/>
         </b:includable>
       </b:widget>
-      <b:widget id='Label1' title='Etiquetas' type='Label'/>
+      <b:widget id='Label1' type='Label' title='Etiquetas'/>
     </b:section>
     <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
       <input class='big-search-input' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' spellcheck='false' type='text'/>
@@ -841,7 +841,20 @@
     <div class='template container'>
       <main class='main'>
         <b:section id='content'>
-          <b:widget id='Blog1' type='Blog' version='2' locked='true'/>
+          <b:widget id='Blog1' type='Blog' version='2' locked='true'>
+            <b:includable id="postMetadataJSONImage">
+              <b:with value='resizeImage(data:post.featuredImage, 1200, "1200:630")' var='image'>
+                <b:if cond='data:image'>
+                  "image": {
+                    "@type": "ImageObject",
+                    "url": "<b:eval expr='data:image.jsonEscaped'/>",
+                    "width": <b:eval expr='data:image.width'/>,
+                    "height":  <b:eval expr='data:image.height'/>
+                  },
+                </b:if>
+              </b:with>
+            </b:includable>
+          </b:widget>
         </b:section>
       </main>
       <footer class='footer'>

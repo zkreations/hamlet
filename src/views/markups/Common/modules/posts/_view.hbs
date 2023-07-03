@@ -21,4 +21,6 @@ Module for generating posts view (isPost, isPage)
   <footer class='post-comment'>
     <b:include name='comment:main' data='{ depth: 2, texts: { delete: data:skin.vars.t_delete, reply: data:skin.vars.t_reply } }'/>
   </footer>
+  {{!-- Post metadata --}}
+  <b:include name="postMetadataJSON"/>
 </b:includable>
