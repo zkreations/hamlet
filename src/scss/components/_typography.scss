@@ -127,8 +127,11 @@
 
   // Spacing
   // Grouping elements with the same margin-bottom
-  // :where() is used to avoid specificity issues
-  :where(p, figure, img, blockquote, ul, ol, pre, table, div[class]):not(:where(:last-child, :where(figure, blockquote) :last-of-type)) {
-    margin-bottom: var(--typography-spacing);
+  // :where() is used to avoid specificitsy issues
+  :where(p, figure, img, blockquote, ul, ol, pre, table, div[class]) {
+    // Ignore the last element
+    &:not(:where(:last-child, :where(figure, blockquote) :last-of-type)) {
+      margin-bottom: var(--typography-spacing);
+    }
   }
 }
