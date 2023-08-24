@@ -29,6 +29,9 @@
       # Url of default avatar.
       <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
   
+      # Image parameters: https://zkreations.com/2022/11/parametros-de-imagenes-de-blogger.html
+      <Variable name="c.imageParams" description="c.imageParams" type="string" value="rw-l80-e30"/>
+  
       # Translatable strings.
       <Variable name="t.reply" description="t.reply" type="string" value="Reply"/>
       <Variable name="t.delete" description="t.delete" type="string" value="Delete"/>
@@ -324,7 +327,7 @@
             <a class='card-content' expr:href='data:post.url.canonical'>
               <b:if cond='data:post.featuredImage'>
                 <b:class name='has-image'/>
-                <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 500, ratio: "4:3" }'/>
+                <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 500, ratio: "4:3", params: data:skin.vars.c_imageParams }'/>
               </b:if>
               
               <div class="card-meta">

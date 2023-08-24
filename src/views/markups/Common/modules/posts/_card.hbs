@@ -10,7 +10,7 @@ Module for creating a post card
         {{!-- If the post has a featured image, display it --}}
         <b:if cond='data:post.featuredImage'>
           <b:class name='has-image'/>
-          <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 500, ratio: "4:3" }'/>
+          <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 500, ratio: "4:3", params: data:skin.vars.c_imageParams }'/>
         </b:if>
         
         <div class="card-meta">
