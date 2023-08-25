@@ -3,7 +3,17 @@ Module for head content
 @author zkreations
 --}}
 <b:includable id='m:head'>
-  <b:include name='@meta' data="{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }"/>
+  <b:include name='@meta' data='{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }'/>
   <b:include name='@adsense'/>
   <b:include name='@analytics'/>
+
+  {{!-- Preconnect Resources --}}
+  <link href='https://fonts.bunny.net' rel='preconnect'/>
+  <link href='https://blogger.googleusercontent.com' rel='preconnect'/>
+
+  {{!-- Preload Fonts --}}
+  <b:with value='"https://fonts.bunny.net/css" params { family: "open-sans:800|roboto:400,500,700", display: "swap" }' var='fonts'>
+    <link rel='preload' expr:href='data:fonts' as='style'/>
+    <link expr:href='data:fonts' rel='stylesheet' />
+  </b:with>
 </b:includable>

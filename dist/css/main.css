@@ -21,6 +21,8 @@
   --comment-gap: 2rem;
   --sidebar-width: 320px;
   --container: 1100px;
+  --font-open-sans: "Open Sans", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
 }
 
 * {
