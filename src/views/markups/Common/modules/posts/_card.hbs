@@ -4,13 +4,13 @@ Module for creating a post card
 @data {array} [data:items=data:posts] - Array of posts
 --}}
 <b:includable id='post:card'>
-  <b:loop values='data:items ?: data:posts' var='post'>
+  <b:loop index='i' values='data:items ?: data:posts' var='post'>
     <article class='card'>
       <a class='card-content' expr:href='data:post.url.canonical'>
         {{!-- If the post has a featured image, display it --}}
         <b:if cond='data:post.featuredImage'>
           <b:class name='has-image'/>
-          <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 500, ratio: "4:3", params: data:skin.vars.c_imageParams }'/>
+          <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 420, ratio: "1:1", params: data:skin.vars.c_imageParams, loading: (data:i gt 3 ? "lazy" : "") }'/>
         </b:if>
         
         <div class="card-meta">
