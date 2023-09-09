@@ -5,10 +5,9 @@
 
   <p>Development environment for creating Blogger templates with handlebars, which includes an example template with best practices that a true Blogger developer should follow.<p>
 
-  <img src="https://raw.githubusercontent.com/zkreations/hamlet/main/dist/images/screenshot.png" align="center" />
-
   <p><a href="https://hamlet.zkreations.com/"><strong> Live Demo &rarr;</strong></a></p>
 
+  <img src="https://raw.githubusercontent.com/zkreations/hamlet/main/dist/images/screenshot.png" align="center" />
 </div>
 
 ## Features
