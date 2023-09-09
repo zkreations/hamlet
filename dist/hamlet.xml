@@ -251,6 +251,8 @@
               </b:tag>
             </b:with>
           </b:with>
+        <b:else/>
+          <b:comment render='true'>Parameter [src] is required.</b:comment>
         </b:if>
       </b:includable>
       <b:includable id='@image'>
