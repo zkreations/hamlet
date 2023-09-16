@@ -149,7 +149,7 @@ Comment item
         <div class='comment-block'>
           <b:include name='comment:header'/>
           <b:include name='comment:body'/>
-          <b:include name='comment:footer'/>
+          <b:include cond='data:post.allowNewComments' name='comment:footer'/>
           {{!-- Replies --}}
           <b:if cond='data:hasDepth'>
             <b:with value='data:post.comments where (c => c.inReplyTo == data:comment.id)' var='replies'>
