@@ -334,7 +334,6 @@
                 <b:class name='has-image'/>
                 <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: 420, ratio: "1:1", params: data:skin.vars.c_imageParams, loading: (data:i gt 3 ? "lazy" : "") }'/>
               </b:if>
-              
               <div class="card-meta">
                 <h2 class='card-title'>
                   <b:eval expr='data:post.title.escaped != "" ? data:post.title.escaped : data:messages.noTitle'/>
@@ -553,7 +552,7 @@
         <link href='https://fonts.bunny.net' rel='preconnect'/>
         <link href='https://blogger.googleusercontent.com' rel='preconnect'/>
       
-        <b:with value='"https://fonts.bunny.net/css" params { family: "open-sans:800|roboto:400,500,700", display: "swap" }' var='fonts'>
+        <b:with value='"https://fonts.bunny.net/css" params { family: "open-sans:800", display: "swap" }' var='fonts'>
           <link rel='preload' expr:href='data:fonts' as='style'/>
           <link expr:href='data:fonts' rel='stylesheet' />
         </b:with>

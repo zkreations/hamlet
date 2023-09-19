@@ -7,7 +7,11 @@ Content of the widget Image
   <figure class='media'>
     {{!-- Create a link if the image has a link --}}
     <b:tag class='media-link' name='a' cond='data:link' expr:href='data:link'>
-      <b:include name='@image' data='{ class: "media-image", src: data:sourceUrl, resize: (data:shrinkToFit ? 500 : 1280) }'/>
+      <b:include name='@image' data='{
+          class: "media-image",
+          src: data:sourceUrl,
+          resize: (data:shrinkToFit ? 500 : 1280)
+        }'/>
       {{!-- Show the image caption --}}
       <b:if cond='data:caption'>
         <figcaption class='media-caption'>

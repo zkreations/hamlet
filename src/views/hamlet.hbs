@@ -13,7 +13,10 @@
   {{> markups}}
   {{!-- Generate responsive image styles --}}
   <b:if cond='not data:view.isPreview'>
-    <b:include data='{ selector: ".header", image: data:skin.vars.body_background.image }' name='responsiveImageStyle'/>
+    <b:include data='{
+        selector: ".header",
+        image: data:skin.vars.body_background.image
+      }' name='responsiveImageStyle'/>
   </b:if>
 </head>
 
