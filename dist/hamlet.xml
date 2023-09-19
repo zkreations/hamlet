@@ -15,24 +15,25 @@
         * License   : MIT
         *//*!
   
-      Settings
+      General
       =====================
       # Formspree.io form ID.
       <Variable name="c.formspree" description="c.formspree" type="string" value=""/>
-  
+      
       # HD Favicon URL.
       <Variable name="c.favicon" description="c.favicon" type="string" value=""/>
-  
+      
       # Url of default Open Graph image.
       <Variable name="c.ogImage" description="c.ogImage" type="string" value=""/>
-  
+      
       # Url of default avatar.
       <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
-  
+      
       # Image parameters: https://zkreations.com/2022/11/parametros-de-imagenes-de-blogger.html
       <Variable name="c.imageParams" description="c.imageParams" type="string" value="rw-l80-e30"/>
   
-      # Translatable strings.
+      Translatable strings
+      =====================
       <Variable name="t.reply" description="t.reply" type="string" value="Reply"/>
       <Variable name="t.delete" description="t.delete" type="string" value="Delete"/>
   
