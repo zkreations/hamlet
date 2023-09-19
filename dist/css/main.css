@@ -6,7 +6,6 @@
   --color-header-title: $(color.header.title);
   --color-header-subtitle: $(color.header.subtitle);
   --font-title: $(font.title.family);
-  --font-text: $(font.text.family);
   --bg-image-header: $(body.background);
   --bg-header: $(body.background.color);
   --bg-post: $(bg.post);
@@ -509,10 +508,8 @@ input#show-search:checked ~ :where(.offcanvas, .header) {
 }
 
 .hierarchy-list {
-  -webkit-border-start: 2px solid var(--color-border);
-          border-inline-start: 2px solid var(--color-border);
-  -webkit-padding-start: 1rem;
-          padding-inline-start: 1rem;
+  border-inline-start: 2px solid var(--color-border);
+  padding-inline-start: 1rem;
 }
 .hierarchy-date {
   margin-bottom: 0.5rem;
@@ -645,15 +642,12 @@ input#show-search:checked ~ :where(.offcanvas, .header) {
   font-weight: 800;
 }
 .typography :where(blockquote) {
-  -webkit-border-start: 4px solid var(--color-border);
-          border-inline-start: 4px solid var(--color-border);
-  -webkit-padding-start: 1.5rem;
-          padding-inline-start: 1.5rem;
+  border-inline-start: 4px solid var(--color-border);
+  padding-inline-start: 1.5rem;
   position: relative;
 }
 .typography :where(ul, ol) {
-  -webkit-padding-start: 1.5rem;
-          padding-inline-start: 1.5rem;
+  padding-inline-start: 1.5rem;
 }
 .typography :where(ul) {
   list-style: disc;
