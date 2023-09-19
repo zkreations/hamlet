@@ -245,6 +245,17 @@ const widgetCounter = (template) => {
   return transformedHTML
 }
 
+// Remove line breaks from tag attributes that begin with "<b:"
+const eraseAttrSpaces = (template) => {
+  const regex = /<b:([^>]+)>/g
+  const transformedHTML = template.replace(regex, (_, attributes) => {
+    const transformedAttributes = attributes.replace(/\n/g, '').replace(/\s+/g, ' ')
+    return `<b:${transformedAttributes}>`
+  })
+
+  return transformedHTML
+}
+
 // Compile all Handlebars templates
 const compileHbs = (folderPath = sourceDir) => {
   // Register all partials in the source directory
@@ -276,7 +287,11 @@ const compileHbs = (folderPath = sourceDir) => {
 
       const source = fs.readFileSync(filePath, 'utf8')
       const template = Handlebars.compile(source)
-      const output = widgetCounter(template(data))
+      let output = template(data)
+
+      output = widgetCounter(output)
+      output = eraseAttrSpaces(output)
+
       const outputDir = path.join(__dirname, distDir, `./${file.replace('.hbs', '.xml')}`)
 
       if (!fs.existsSync(distDir)) {
