@@ -22,6 +22,7 @@
 
 <body>
   <b:include name='@kind'/>
+  <b:tag name='div' class='layout-edit' cond='data:view.isLayoutMode and data:skin.vars.a_layoutEdit'>
   {{!-- Offcanvas --}}
   {{> offcanvas}}
   <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
@@ -55,6 +56,7 @@
         {{> footer}}
       </footer>
     </div>
+  </b:tag>
   </b:tag>
 </body>
 </html>

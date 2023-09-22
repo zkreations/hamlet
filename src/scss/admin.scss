@@ -23,10 +23,10 @@ $widgets: (
   LinkList: "LinkList",
   ContactForm: "Contact",
   Subscribe: "Subscribe"
-) !default;
+);
 
 // Icons
-$icon-path: "https://www.gstatic.com/images/icons/material/system/1x/";
+$icon-path: "https://www.gstatic.com/images/icons/material/system_gm/1x/";
 $icon-settings: "grey600_24dp";
 
 @function gstatic-icon($name) {
@@ -37,8 +37,6 @@ $icon-settings: "grey600_24dp";
 // @url: https://fonts.google.com/icons?icon.set=Material+Icons
 // Copy the icon name from the URL, for example:
 $icon-edit: gstatic-icon("mode_edit");
-$icon-visible: gstatic-icon("visibility");
-$icon-invisible: gstatic-icon("visibility_off");
 $icon-lock: gstatic-icon("lock");
 
 // Styles
@@ -100,13 +98,13 @@ $layout-column-gap: 16px;
     border-color: #8c8f94;
   }
 
-  // Titulo
+  // Title
   .layout-title {
     margin: 0 30px 0 0;
     font-size: 14px;
     color: #999;
 
-    // Nuevo nombre de widget
+    // New widget name
     &::before {
       color: #262626;
       font-weight: 500;
@@ -121,19 +119,9 @@ $layout-column-gap: 16px;
   background-size: 20px;
 }
 
-@mixin widget-status {
-  &.visible {
-    background-image: url($icon-visible);
-  }
-
-  &.not-visible {
-    background-image: url($icon-invisible);
-    opacity: 0.25;
-  }
-}
-
 @mixin access-mode-edit {
   background-image: url($icon-edit);
+  background-size: 20px;
   width: 36px;
   left: auto;
   right: 0;
@@ -145,34 +133,33 @@ $layout-column-gap: 16px;
   }
 }
 
-
-// Estilos
+// Styles
 body#layout {
   padding: $layout-padding;
   background-color: $layout-bg;
 
-  // Seccion de secciones
+  // Section of sections
   .layout {
 
-    // Columnas
+    // Columns
     &-section {
       float: left;
       min-width: $layout-column;
       margin: 0 $layout-column-gap $layout-column-gap 0;
     }
 
-    // Hack: Quitar descripcion original
+    // Hack: Remove original description
     &-widget-description {
       display: none;
     }
   }
 
-  // Hack: Normaliza el alto del widget Blog
+  // Hack: Normalize the height of the Blog widget
   .Blog .widget-content {
     height: auto;
   }
 
-  // Creamos nuestra propia descripcion
+  // We create our own description
   @each $key,
   $item in $widgets {
     .#{$key} .layout-title::before {
@@ -180,36 +167,31 @@ body#layout {
     }
   }
 
-  // Borrar sombra y simular una nueva
+  // Delete shadow and simulate a new one
   .widget-wrap3 {
     overflow: hidden;
     border-bottom: 1px solid #f2f2f2;
   }
 
-  // Secciones
+  // Sections
   div.section {
     @include section;
 
-    // Titulo de secciones
+    // Section titles
     h4 {
       @include section-title;
     }
 
-    // Seccion para agregar widgets
+    // Section to add widgets
     .add_widget {
       @include section-add-widget;
     }
 
-    // Estilo de widgets
+    // Widget styling
     div.widget-content {
       @include widget;
 
-      // Visibilidad
-      .layout-widget-state {
-        @include widget-status;
-      }
-
-      // Hack: Clic en cualquier parte
+      // Hack: Click anywhere for edit
       .editlink.icon {
         background-image: none;
         left: 0;
@@ -219,20 +201,20 @@ body#layout {
       }
     }
 
-    // Iconos de agregar y estados (visible/oculto)
+    // Icon for add and status (visible/hidden)
     .layout-widget-state,
     .add-icon {
       @include icons;
     }
 
-    // Si el widget esta bloqueado (no se mueve)
+    // If widget is locked (not draggable)
     .locked-widget .widget-content {
       @include widget-locked;
     }
   }
 
-  // Modo Accesible
-  .layout-accessibility div.section {
+  // Enable the button to edit widgets
+  .layout-edit div.section {
     div.widget-content {
       .editlink.icon {
         @include access-mode-edit;
@@ -257,7 +239,7 @@ body#layout {
     }
   }
 
-  // Borramos estilos de widget arrastrables
+  // Clear draggable widget styles
   .draggable-widget {
     .widget-wrap3 {
       margin-left: 0;
@@ -270,16 +252,16 @@ body#layout {
     }
   }
 
-  // Indicador de posicion
+  // Position indicator
   .dr_active {
     margin: 0;
     border: 1px dashed #ccc;
   }
 
-  // (fix) Evitamos el desplazamiento de elementos
+  // fix: We avoid the displacement of elements
   .widget.el_active {
 
-    // (fix) Evitamos activar accidentalmente la edicion al arrastrar
+    // fix: We avoid accidentally activating editing when dragging
     .editlink.icon {
       display: none;
     }

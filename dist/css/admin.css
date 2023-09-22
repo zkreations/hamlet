@@ -114,13 +114,6 @@ body#layout div.section div.widget-content .layout-title::before {
   color: #262626;
   font-weight: 500;
 }
-body#layout div.section div.widget-content .layout-widget-state.visible {
-  background-image: url("https://www.gstatic.com/images/icons/material/system/1x/visibility_grey600_24dp.png");
-}
-body#layout div.section div.widget-content .layout-widget-state.not-visible {
-  background-image: url("https://www.gstatic.com/images/icons/material/system/1x/visibility_off_grey600_24dp.png");
-  opacity: 0.25;
-}
 body#layout div.section div.widget-content .editlink.icon {
   background-image: none;
   left: 0;
@@ -137,32 +130,33 @@ body#layout div.section .add-icon {
   margin-right: 10px;
 }
 body#layout div.section .locked-widget .widget-content {
-  background-image: url("https://www.gstatic.com/images/icons/material/system/1x/lock_grey600_24dp.png");
+  background-image: url("https://www.gstatic.com/images/icons/material/system_gm/1x/lock_grey600_24dp.png");
   background-repeat: no-repeat;
   background-position: center right 10px;
   background-size: 20px;
 }
-body#layout .layout-accessibility div.section div.widget-content .editlink.icon {
-  background-image: url("https://www.gstatic.com/images/icons/material/system/1x/mode_edit_grey600_24dp.png");
+body#layout .layout-edit div.section div.widget-content .editlink.icon {
+  background-image: url("https://www.gstatic.com/images/icons/material/system_gm/1x/mode_edit_grey600_24dp.png");
+  background-size: 20px;
   width: 36px;
   left: auto;
   right: 0;
   background-color: #f1f3f3;
   border-left: 1px solid #c3c4c7;
 }
-body#layout .layout-accessibility div.section div.widget-content .editlink.icon:hover {
+body#layout .layout-edit div.section div.widget-content .editlink.icon:hover {
   background-color: #e3e8e8;
 }
-body#layout .layout-accessibility div.section div.widget-content:hover {
+body#layout .layout-edit div.section div.widget-content:hover {
   border-color: #c3c4c7;
 }
-body#layout .layout-accessibility div.section div.widget-content .layout-title {
+body#layout .layout-edit div.section div.widget-content .layout-title {
   margin: 0 58px 0 0;
 }
-body#layout .layout-accessibility div.section .widget.el_active .editlink.icon {
+body#layout .layout-edit div.section .widget.el_active .editlink.icon {
   display: block;
 }
-body#layout .layout-accessibility div.section .locked-widget .widget-content {
+body#layout .layout-edit div.section .locked-widget .widget-content {
   background-position: center right 46px;
 }
 body#layout .draggable-widget .widget-wrap3 {
