@@ -218,7 +218,7 @@ const registerPartials = (folderPath = sourceDir) => {
       registerPartials(filePath)
     } else if (file.endsWith('.hbs') && file.startsWith('_')) {
       const partialName = file.slice(1, -4) // Remove the leading "_" and the trailing ".hbs"
-      const partialTemplate = fs.readFileSync(filePath, 'utf8')
+      const partialTemplate = (fs.readFileSync(filePath, 'utf8')).trim() + '\n'
 
       Handlebars.registerPartial(partialName, partialTemplate)
     }

@@ -805,7 +805,8 @@
             </b:if>
           </div>
         </b:if>
-      </b:includable>  </b:defaultmarkup>
+      </b:includable>
+    </b:defaultmarkup>
     <b:defaultmarkup type='All'>
       <b:includable id='main' var='this'>
         <b:include name='widget-title'/>
