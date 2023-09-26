@@ -21,7 +21,7 @@ Create custom picture tag
       : data:src' var='source'>
     <b:with value='{
         set: resizeImage(data:src, (data:resizeSet ?: [700,400]), data:ratio),
-        size: resizeImage(data:src, (data:resizeSet.first ?: 600), data:ratio),
+        size: resizeImage(data:src, (data:resizeSet.first ?: 700), data:ratio),
       }' var='images'>
       {{!-- Generate all sizes --}}
       <b:loop reverse='true' index='i' values='data:images.set' var='image'>

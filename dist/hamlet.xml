@@ -334,7 +334,7 @@
         <b:if cond='data:src'>
         <picture>
           <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='source'>
-          <b:with value='{ set: resizeImage(data:src, (data:resizeSet ?: [700,400]), data:ratio), size: resizeImage(data:src, (data:resizeSet.first ?: 600), data:ratio), }' var='images'>
+          <b:with value='{ set: resizeImage(data:src, (data:resizeSet ?: [700,400]), data:ratio), size: resizeImage(data:src, (data:resizeSet.first ?: 700), data:ratio), }' var='images'>
             <b:loop reverse='true' index='i' values='data:images.set' var='image'>
               <b:with value='data:params and (data:image.url contains "r.googleusercontent.com/img/a/") ? (data:image.url + "-" + data:params) : data:image.url' var='imageUrl'>
                 <b:if cond='data:images.set.size != (data:i + 1)'>
