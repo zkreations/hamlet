@@ -272,7 +272,7 @@
               <b:attr name='height' expr:value='data:height ?: data:image.height'/>
               <b:attr name='sizes' expr:value='data:sizes'/>
               <b:attr name='loading' expr:value='data:loading'/>
-              <b:with value='data:params and (data:image contains "blogger.googleusercontent.com/img/a/") ? ("-" + data:params) : ""' var='params'>
+              <b:with value='data:params and (data:image contains "r.googleusercontent.com/img/a/") ? ("-" + data:params) : ""' var='params'>
                 <b:attr name='src' expr:value='(data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image) + data:params'/>
               </b:with>
               <b:if cond='data:srcset'>
@@ -329,6 +329,34 @@
         </b:if>
         <meta expr:content='data:cardType ?: "summary_large_image"' name='twitter:card'/>
         <meta expr:content='data:view.description.escaped' name='twitter:description'/>
+      </b:includable>
+      <b:includable id='@picture'>
+        <b:if cond='data:src'>
+        <picture>
+          <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='source'>
+          <b:with value='{ set: resizeImage(data:src, (data:resizeSet ?: [700,400]), data:ratio), size: resizeImage(data:src, (data:resizeSet.first ?: 600), data:ratio), }' var='images'>
+            <b:loop reverse='true' index='i' values='data:images.set' var='image'>
+              <b:with value='data:params and (data:image.url contains "r.googleusercontent.com/img/a/") ? (data:image.url + "-" + data:params) : data:image.url' var='imageUrl'>
+                <b:if cond='data:images.set.size != (data:i + 1)'>
+                  <source expr:media='"(min-width:" + data:image.size + "px)"' expr:srcset='data:imageUrl'/>
+                <b:else/>
+                  <b:tag expr:src='data:imageUrl' expr:alt='data:alt ?: data:messages.image' name='img'>
+                    <b:attr name='b:whitespace' value='remove'/>
+                    <b:class cond='data:class' expr:name='data:class'/>
+                    <b:attr name='width' expr:value='data:width ?: data:images.size.width'/>
+                    <b:attr name='height' expr:value='data:height ?: data:images.size.height'/>
+                    <b:attr name='id' expr:value='data:id'/>
+                    <b:attr name='loading' expr:value='data:loading'/>
+                  </b:tag>
+                </b:if>
+              </b:with>
+            </b:loop>
+          </b:with>
+          </b:with>
+        </picture>
+        <b:else/>
+          <b:comment render='true'>Parameter [src] is required.</b:comment>
+        </b:if>
       </b:includable>
       <b:includable id='post:card'>
         <b:loop index='i' values='data:items ?: data:posts' var='post'>
