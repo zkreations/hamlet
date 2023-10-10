@@ -7,6 +7,21 @@
   const REPLY_BUTTONS = document.querySelectorAll('[data-parent-id]');
   const ACTIVE_CLASS = 'is-active';
   const REPLYING_CLASS = 'is-replying';
+  const HAS_REPLY_FORM_CLASS = 'has-reply-form';
+  const rootMargin = '200px';
+  function isObserver(element, fn, options) {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          fn();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      ...options
+    });
+    observer.observe(element);
+  }
   const loadScript = src => new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = src;
@@ -35,7 +50,11 @@
   }
   const replyComments = buttons => {
     // Load relay script
-    loadRelayScript(FORM_SCRIPT);
+    isObserver(FORM_SCRIPT, () => {
+      loadRelayScript(FORM_SCRIPT);
+    }, {
+      rootMargin
+    });
     if (!buttons) {
       return;
     }
@@ -56,6 +75,7 @@
           return;
         }
         if (currentReply) {
+          currentReply.parentElement.classList.remove(HAS_REPLY_FORM_CLASS);
           currentReply.remove();
         } else {
           COMMENT_FORM.innerHTML = '';
@@ -71,6 +91,7 @@
         button.classList.add(ACTIVE_CLASS);
         currentActiveButton = button;
         replyContainer.innerHTML = newForm;
+        container.classList.add(HAS_REPLY_FORM_CLASS);
         container.insertAdjacentElement('afterbegin', replyContainer);
       };
     });
@@ -84,6 +105,7 @@
         COMMENT_FORM.innerHTML = originalForm;
         currentActiveButton.classList.remove(ACTIVE_CLASS);
         currentActiveButton = null;
+        currentReply.parentElement.classList.remove(HAS_REPLY_FORM_CLASS);
         currentReply.remove();
       }
     };

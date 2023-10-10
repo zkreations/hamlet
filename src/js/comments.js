@@ -5,6 +5,21 @@ const REPLY_BUTTONS = document.querySelectorAll('[data-parent-id]')
 
 const ACTIVE_CLASS = 'is-active'
 const REPLYING_CLASS = 'is-replying'
+const HAS_REPLY_FORM_CLASS = 'has-reply-form'
+const rootMargin = '200px'
+
+function isObserver (element, fn, options) {
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        fn()
+        observer.unobserve(entry.target)
+      }
+    })
+  }, { ...options })
+
+  observer.observe(element)
+}
 
 const loadScript = (src) => new Promise((resolve, reject) => {
   const script = document.createElement('script')
@@ -43,7 +58,9 @@ function createIframe (template, newSrc) {
 
 const replyComments = (buttons) => {
   // Load relay script
-  loadRelayScript(FORM_SCRIPT)
+  isObserver(FORM_SCRIPT, () => {
+    loadRelayScript(FORM_SCRIPT)
+  }, { rootMargin })
 
   if (!buttons) {
     return
@@ -68,6 +85,7 @@ const replyComments = (buttons) => {
       }
 
       if (currentReply) {
+        currentReply.parentElement.classList.remove(HAS_REPLY_FORM_CLASS)
         currentReply.remove()
       } else {
         COMMENT_FORM.innerHTML = ''
@@ -85,6 +103,7 @@ const replyComments = (buttons) => {
       currentActiveButton = button
 
       replyContainer.innerHTML = newForm
+      container.classList.add(HAS_REPLY_FORM_CLASS)
       container.insertAdjacentElement('afterbegin', replyContainer)
     }
   })
@@ -103,6 +122,7 @@ const replyComments = (buttons) => {
       currentActiveButton.classList.remove(ACTIVE_CLASS)
       currentActiveButton = null
 
+      currentReply.parentElement.classList.remove(HAS_REPLY_FORM_CLASS)
       currentReply.remove()
     }
   }
