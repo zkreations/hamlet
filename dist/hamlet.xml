@@ -22,25 +22,25 @@
   
       General
       =====================
-      [string] Formspree.io form ID.
-      <Variable name="c.formspree" description="c.formspree" type="string" value=""/>
+      [image] Url of default avatar.
+      <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
       
       [image] HD Favicon URL.
       <Variable name="c.favicon" description="c.favicon" type="string" value=""/>
       
-      [image] Url of default Open Graph image.
-      <Variable name="c.ogImage" description="c.ogImage" type="string" value=""/>
-      
-      [image] Url of default avatar.
-      <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
+      [string] Formspree.io form ID.
+      <Variable name="c.formspree" description="c.formspree" type="string" value=""/>
       
       [string] Image parameters: https://zkreations.com/image-params
       <Variable name="c.imageParams" description="c.imageParams" type="string" value="rw-l80-e30"/>
+      
+      [image] Url of default Open Graph image.
+      <Variable name="c.ogImage" description="c.ogImage" type="string" value=""/>
   
       Translatable strings
       =====================
-      <Variable name="t.reply" description="t.reply" type="string" value="Reply"/>
       <Variable name="t.delete" description="t.delete" type="string" value="Delete"/>
+      <Variable name="t.reply" description="t.reply" type="string" value="Reply"/>
   
       Customization
       =====================
