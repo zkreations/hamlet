@@ -21,6 +21,9 @@ const sourceDir = './src'
 const distDir = './dist'
 const dataFile = './data.json'
 
+require('dotenv').config()
+const devMode = process.env.NODE_ENV !== 'production'
+
 let data = {}
 
 // Handlebars helpers
@@ -37,6 +40,18 @@ Handlebars.registerHelper('asset', function readFileHelper (filePath) {
     fullPath = path.join(__dirname, 'node_modules', filePath.slice(1))
   } else {
     fullPath = path.join(__dirname, filePath)
+  }
+
+  // if the file does not have an extension, add the extension of the file that includes it
+  if (!path.extname(fullPath)) {
+    const fileName = path.basename(filePath)
+    const dirName = path.basename(path.dirname(filePath))
+    fullPath = fullPath.replace(fileName, `${fileName}.${dirName}`)
+
+    // if devMode is false, add the minified extension
+    if (!devMode) {
+      fullPath = fullPath.replace('.js', '.min.js').replace('.css', '.min.css')
+    }
   }
 
   if (!fs.existsSync(fullPath)) {
@@ -285,6 +300,8 @@ const compileHbs = (folderPath = sourceDir) => {
         data = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
       }
 
+      data.devMode = devMode
+
       const source = fs.readFileSync(filePath, 'utf8')
       const template = Handlebars.compile(source)
       let output = template(data)
@@ -307,6 +324,7 @@ const compileHbs = (folderPath = sourceDir) => {
 if (process.argv[2] === 'compile') {
   (async () => {
     try {
+      console.log(`${devMode ? 'Development mode' : 'Production mode'}: Compiling...`)
       await timer(compileJS)
       await timer(compileSass)
       await timer(compileHbs)
@@ -343,5 +361,6 @@ if (process.argv[2] === 'compile') {
       console.error(`The file ${extension} is not compatible with any compiler.`)
     }
   })
-  console.log('Listening to your changes...')
+
+  console.log(`${devMode ? 'Development mode' : 'Production mode'}: Listening...`)
 }

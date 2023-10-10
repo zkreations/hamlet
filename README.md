@@ -146,6 +146,16 @@ In the `theme.hbs` file, or in any other module, you can import the module with 
 
 You can create any number of modules, and import them in any file, but the name of the module must be unique, because if you create two modules with the same name, the second one will overwrite the first one.
 
+### Environment variables
+
+You can also use the `devMode` variable that returns `true` or `false` depending on the value of the `NODE_ENV` environment variable. For example, if you want to show a message in the console only in development mode, you can use the following code:
+
+```hbs
+{{#if devMode}}
+  <script>console.log("Hello world!")</script>
+{{/if}}
+```
+
 ### Helpers
 
 #### asset
@@ -165,6 +175,16 @@ If I want to import a file inside a node module, use `~` (tilde) before the name
   {{asset "~/tooltips/main.js"}}
 /*]]>*/</script>
 ```
+
+Also, you can use the **environment variable** to decide whether to load the minified files or not. To do this, include the file without the extension, for example:
+
+```hbs
+<style>/*<![CDATA[*/
+{{asset "dist/css/main"}}
+/*]]>*/</style>
+```
+
+With this, depending on whether the `NODE_ENV` environment variable is `production` or `development`, the `main.min.css` or `main.css` file will be loaded respectively.
 
 #### variable
 
