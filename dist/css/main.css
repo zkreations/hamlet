@@ -413,6 +413,9 @@ input#show-search:checked ~ :where(.offcanvas, .header) {
 .comments-replies > * + * {
   margin-top: 2rem;
 }
+.comments-replies:not(:where(.has-reply-form, .has-replies)) {
+  display: none;
+}
 
 .comment-header {
   display: flex;

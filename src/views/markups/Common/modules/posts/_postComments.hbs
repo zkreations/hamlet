@@ -156,6 +156,7 @@ Comment item
               {{!-- class 'comments-replies' is required for the script to work --}}
               <div class='comments-replies'>
                 <b:if cond='data:replies.any'>
+                  <b:class name='has-replies'/>
                   <b:loop expr:reverse='data:reverse' values='data:replies' var='reply'>
                     {{!-- Call comment item again --}}
                     <b:include name='comment:item' data='reply'/>
@@ -183,13 +184,13 @@ Comment build
       {{!-- If the config depth is equal to 0, load all comments, else exclude the replies --}}
       <b:with value='data:post.comments where (c => (data:depth == 0 ? c.id : !c.inReplyTo))' var='comments'>
         {{!-- Build the comments --}}
-        <div class='comments-content'>
-          <b:if cond='data:comments.any'>
+        <b:if cond='data:comments.any'>
+          <div class='comments-content'>
             <b:loop expr:reverse='data:reverse' values='data:comments' var='comment'>
               <b:include name='comment:item' data='comment'/>
             </b:loop>
-          </b:if>
-        </div>
+          </div>
+        </b:if>
       </b:with>
     </b:with>
   </b:with>

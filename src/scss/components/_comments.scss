@@ -21,6 +21,10 @@
     >*+* {
       margin-top: 2rem
     }
+
+    &:not(:where(.has-reply-form, .has-replies)) {
+      display: none;
+    }
   }
 }
 
