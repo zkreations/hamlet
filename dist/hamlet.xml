@@ -358,6 +358,21 @@
           <b:comment render='true'>Parameter [src] is required.</b:comment>
         </b:if>
       </b:includable>
+      <b:includable id='@snippet'>
+        <b:if cond='data:string and (data:string snippet { links: false, ellipsis: false, linebreaks: false }) != ""'>
+          <b:with value='data:length ?: 70' var='length'>
+          <b:with value='(data:length + 0) == data:length ? (data:length * 1) : 70' var='length'>
+            <b:tag expr:name='data:tag ?: "p"'>
+              <b:class cond='data:class' expr:name='data:class'/>
+              <b:attr name='id' expr:value='data:id'/>
+              <b:eval expr='(data:string snippet { length: data:length, links: false, ellipsis: false, linebreaks: false }) + "..."'/>
+            </b:tag>
+          </b:with>
+          </b:with>
+        <b:else/>
+          <b:comment render='true'>No text to display</b:comment>
+        </b:if>
+      </b:includable>
       <b:includable id='post:card'>
         <b:loop index='i' values='data:items ?: data:posts' var='post'>
           <article class='card'>
@@ -370,11 +385,7 @@
                 <h2 class='card-title'>
                   <b:eval expr='data:post.title.escaped != "" ? data:post.title.escaped : data:messages.noTitle'/>
                 </h2>
-                <b:if cond='(data:post.snippets.short snippet { linebreaks: false, links: false, ellipsis: false }) != ""'>
-                  <p class="card-snippet">
-                    <b:eval expr='data:post.snippets.long snippet { length: 70, links: false, linebreaks: false }'/>
-                  </p>
-                </b:if>
+                <b:include name='@snippet' data='{ class: "card-snippet", string: data:post.snippets.long }'/>
               </div>
             </a>
           </article>

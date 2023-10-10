@@ -23,12 +23,11 @@ Module for creating a post card
           <h2 class='card-title'>
             <b:eval expr='data:post.title.escaped != "" ? data:post.title.escaped : data:messages.noTitle'/>
           </h2>
-          {{!-- If snippet is not empty, display it --}}
-          <b:if cond='(data:post.snippets.short snippet { linebreaks: false, links: false, ellipsis: false }) != ""'>
-            <p class="card-snippet">
-              <b:eval expr='data:post.snippets.long snippet { length: 70, links: false, linebreaks: false }'/>
-            </p>
-          </b:if>
+          {{!-- Include post snippet --}}
+          <b:include name='@snippet' data='{
+              class: "card-snippet",
+              string: data:post.snippets.long
+            }'/>
         </div>
       </a>
     </article>
