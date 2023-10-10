@@ -13,11 +13,15 @@ Creates a snippet of a string
       ellipsis: false,
       linebreaks: false
     }) != ""'>
+    {{!-- Sanitize length --}}
     <b:with value='data:length ?: 70' var='length'>
     <b:with value='(data:length + 0) == data:length ? (data:length * 1) : 70' var='length'>
+      {{!-- Create snippet container tag --}}
       <b:tag expr:name='data:tag ?: "p"'>
+        {{!-- Add snippet container class and id --}}
         <b:class cond='data:class' expr:name='data:class'/>
         <b:attr name='id' expr:value='data:id'/>
+        {{!-- Add snippet content --}}
         <b:eval expr='(data:string snippet {
             length: data:length,
             links: false,
