@@ -119,7 +119,7 @@ const timer = async (fn, message, ...args) => {
   return result
 }
 
-// Task to compile Handlebars templates
+// Task to compile JS files
 const compileJS = async () => {
   try {
     const output = path.join(__dirname, distDir, 'js')
