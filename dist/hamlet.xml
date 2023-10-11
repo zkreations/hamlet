@@ -373,6 +373,9 @@
           <b:comment render='true'>No text to display</b:comment>
         </b:if>
       </b:includable>
+      <b:includable id='m:root'>
+        <b:include name='@attr' data='{["xmlns"],["xmlns:b"],["xmlns:data"],["xmlns:expr"]}'/>
+      </b:includable>
       <b:includable id='m:head'>
         <b:include name='@meta' data='{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }'/>
         <b:include name='@adsense'/>
@@ -385,9 +388,6 @@
           <link rel='preload' expr:href='data:fonts' as='style'/>
           <link expr:href='data:fonts' rel='stylesheet' />
         </b:with>
-      </b:includable>
-      <b:includable id='m:root'>
-        <b:include name='@attr' data='{["xmlns"],["xmlns:b"],["xmlns:data"],["xmlns:expr"]}'/>
       </b:includable>
       <b:includable id='post:card'>
         <b:loop index='i' values='data:items ?: data:posts' var='post'>
