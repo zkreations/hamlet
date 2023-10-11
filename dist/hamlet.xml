@@ -373,6 +373,22 @@
           <b:comment render='true'>No text to display</b:comment>
         </b:if>
       </b:includable>
+      <b:includable id='m:head'>
+        <b:include name='@meta' data='{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }'/>
+        <b:include name='@adsense'/>
+        <b:include name='@analytics'/>
+      
+        <link href='https://fonts.bunny.net' rel='preconnect'/>
+        <link href='https://blogger.googleusercontent.com' rel='preconnect'/>
+      
+        <b:with value='"https://fonts.bunny.net/css" params { family: "open-sans:800", display: "swap" }' var='fonts'>
+          <link rel='preload' expr:href='data:fonts' as='style'/>
+          <link expr:href='data:fonts' rel='stylesheet' />
+        </b:with>
+      </b:includable>
+      <b:includable id='m:root'>
+        <b:include name='@attr' data='{["xmlns"],["xmlns:b"],["xmlns:data"],["xmlns:expr"]}'/>
+      </b:includable>
       <b:includable id='post:card'>
         <b:loop index='i' values='data:items ?: data:posts' var='post'>
           <article class='card'>
@@ -588,21 +604,27 @@
         </footer>
         <b:include name="postMetadataJSON"/>
       </b:includable>
-      <b:includable id='m:head'>
-        <b:include name='@meta' data='{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }'/>
-        <b:include name='@adsense'/>
-        <b:include name='@analytics'/>
-      
-        <link href='https://fonts.bunny.net' rel='preconnect'/>
-        <link href='https://blogger.googleusercontent.com' rel='preconnect'/>
-      
-        <b:with value='"https://fonts.bunny.net/css" params { family: "open-sans:800", display: "swap" }' var='fonts'>
-          <link rel='preload' expr:href='data:fonts' as='style'/>
-          <link expr:href='data:fonts' rel='stylesheet' />
-        </b:with>
+      <b:includable id='widget-title'>
+        <b:include name='@attr' data='{["id"],["data-version"]}'/>
+        <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
+          <div class='widget-title'>
+            <span class='widget-name'>
+              <b:eval expr='data:defaultTitle ?: data:title'/>
+            </span>
+          </div>
+        </b:if>
       </b:includable>
-      <b:includable id='m:root'>
-        <b:include name='@attr' data='{["xmlns"],["xmlns:b"],["xmlns:data"],["xmlns:expr"]}'/>
+      <b:includable id='noContentPlaceholder'>
+        <b:if cond='data:posts.empty'>
+          <div class="message">
+            <b:if cond='data:view.isError'>
+              <b:class name='error'/>
+              <data:this.navMessage/>
+              <b:else/>
+              <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:this.navMessage'/>
+            </b:if>
+          </div>
+        </b:if>
       </b:includable>
       <b:includable id='widget:AdSense'>
         <b:include name='@ads'/>
@@ -823,28 +845,6 @@
             <li class='textlist-item'><data:item/></li>
           </b:loop>
         </ul>
-      </b:includable>
-      <b:includable id='widget-title'>
-        <b:include name='@attr' data='{["id"],["data-version"]}'/>
-        <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
-          <div class='widget-title'>
-            <span class='widget-name'>
-              <b:eval expr='data:defaultTitle ?: data:title'/>
-            </span>
-          </div>
-        </b:if>
-      </b:includable>
-      <b:includable id='noContentPlaceholder'>
-        <b:if cond='data:posts.empty'>
-          <div class="message">
-            <b:if cond='data:view.isError'>
-              <b:class name='error'/>
-              <data:this.navMessage/>
-              <b:else/>
-              <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:this.navMessage'/>
-            </b:if>
-          </div>
-        </b:if>
       </b:includable>
     </b:defaultmarkup>
     <b:defaultmarkup type='All'>

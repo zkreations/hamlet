@@ -24,11 +24,11 @@
   <b:include name='@kind'/>
   <b:tag name='div' class='layout-edit' cond='data:view.isLayoutMode and data:skin.vars.a_layoutEdit'>
   {{!-- Offcanvas --}}
-  {{> offcanvas}}
+  {{> partial-offcanvas}}
   <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
     {{!-- Header --}}
     <header class='header'>
-      {{> header}}
+      {{> partial-header}}
     </header>
     {{!-- Content --}}
     <div class='template container'>
@@ -53,7 +53,7 @@
       </main>
       {{!-- footer --}}
       <footer class='footer'>
-        {{> footer}}
+        {{> partial-footer}}
       </footer>
     </div>
   </b:tag>

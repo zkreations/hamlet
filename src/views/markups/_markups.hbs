@@ -25,15 +25,16 @@ Default markups for all widgets
     {{> @meta}}
     {{> @picture}}
     {{> @snippet}}
-    {{!-- modules:post --}}
+    {{!-- components --}}
+    {{> head}}
+    {{> root}}
     {{> postCard}}
     {{> postComments}}
     {{> postInlineAd}}
     {{> postPagination}}
     {{> postView}}
-    {{!-- modules:others --}}
-    {{> head}}
-    {{> root}}
+    {{> widget-title}}
+    {{> noContentPlaceholder}}
     {{!-- widgets (Read-only excluded: Attribution, Followers) --}}
     {{> AdSense}}
     {{> Blog}}
@@ -51,9 +52,6 @@ Default markups for all widgets
     {{> Profile}}
     {{> Text}}
     {{> TextList}}
-    {{!-- Server-side --}}
-    {{> widget-title}}
-    {{> noContentPlaceholder}}
   </b:defaultmarkup>
   {{!-- Add default markups for all widgets --}}
   <b:defaultmarkup type='All'>
