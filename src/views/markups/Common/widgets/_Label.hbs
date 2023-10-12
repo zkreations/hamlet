@@ -8,7 +8,7 @@ Content of the widget Label
   {{!-- Add the class 'labels-list' or 'labels-cloud' depending on the display --}}
   <div expr:class='"labels labels-" + data:display'>
     <b:loop values='data:labels' var='label'>
-      <a class='labels-link' expr:href='data:label.url'>
+      <a class='labels-link' expr:href='data:label.url' rel='nofollow'>
         {{!-- If the link is the current page, add the class 'is-here' --}}
         <b:class cond='data:label.url == data:view.url' name='is-here'/>
         <data:label.name/>

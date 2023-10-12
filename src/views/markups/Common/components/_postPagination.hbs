@@ -7,7 +7,7 @@ Module for creating a post card
   <b:tag class='blog-pager' id='blog-pager' cond='data:newerPageUrl or data:olderPageUrl' name='div'>
     {{!-- Newer posts button --}}
     <b:if cond='data:newerPageUrl'>
-      <a class='pager-button' expr:href='data:newerPageUrl' expr:aria-label='data:messages.newerPosts'>
+      <a class='pager-button' expr:href='data:newerPageUrl' expr:aria-label='data:messages.newerPosts' rel='nofollow'>
         <svg class="i i-arrow-left-long" viewBox="0 0 24 24">
           <path d="m6 9-3 3 3 3m15-3H3"/>
         </svg>
@@ -15,7 +15,7 @@ Module for creating a post card
     </b:if>
     {{!-- Older posts button --}}
     <b:if cond='data:olderPageUrl'>
-      <a class='pager-button' expr:href='data:olderPageUrl' expr:aria-label='data:messages.olderPosts'>
+      <a class='pager-button' expr:href='data:olderPageUrl' expr:aria-label='data:messages.olderPosts' rel='nofollow'>
         <svg class="i i-arrow-right-long" viewBox="0 0 24 24">
           <path d="m18 9 3 3-3 3M3 12h18"/>
         </svg>

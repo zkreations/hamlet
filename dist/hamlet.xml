@@ -572,14 +572,14 @@
       <b:includable id='post:pagination'>
         <b:tag class='blog-pager' id='blog-pager' cond='data:newerPageUrl or data:olderPageUrl' name='div'>
           <b:if cond='data:newerPageUrl'>
-            <a class='pager-button' expr:href='data:newerPageUrl' expr:aria-label='data:messages.newerPosts'>
+            <a class='pager-button' expr:href='data:newerPageUrl' expr:aria-label='data:messages.newerPosts' rel='nofollow'>
               <svg class="i i-arrow-left-long" viewBox="0 0 24 24">
                 <path d="m6 9-3 3 3 3m15-3H3"/>
               </svg>
             </a>
           </b:if>
           <b:if cond='data:olderPageUrl'>
-            <a class='pager-button' expr:href='data:olderPageUrl' expr:aria-label='data:messages.olderPosts'>
+            <a class='pager-button' expr:href='data:olderPageUrl' expr:aria-label='data:messages.olderPosts' rel='nofollow'>
               <svg class="i i-arrow-right-long" viewBox="0 0 24 24">
                 <path d="m18 9 3 3-3 3M3 12h18"/>
               </svg>
@@ -771,7 +771,7 @@
       <b:includable id='widget:Label'>
         <div expr:class='"labels labels-" + data:display'>
           <b:loop values='data:labels' var='label'>
-            <a class='labels-link' expr:href='data:label.url'>
+            <a class='labels-link' expr:href='data:label.url' rel='nofollow'>
               <b:class cond='data:label.url == data:view.url' name='is-here'/>
               <data:label.name/>
               <b:if cond='data:this.showFreqNumbers'>
