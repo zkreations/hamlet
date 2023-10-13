@@ -9,14 +9,18 @@ Module for creating a post card
       <a class='card-content' expr:href='data:post.url.canonical'>
         {{!-- If the post has a featured image, display it --}}
         <b:if cond='data:post.featuredImage'>
-          <b:class name='has-image'/>
-          <b:include name='@image' data='{
-              class: "card-image",
-              src: data:post.featuredImage,
-              resize: 420, ratio: "1:1",
-              params: data:skin.vars.c_imageParams,
-              loading: (data:i gt 3 ? "lazy" : "")
-            }'/>
+          {{!-- Check if featured image is a YouTube video --}}
+          <b:with value='data:post.featuredImage.isYoutube' var='isYoutube'>
+            <b:class name='has-image'/>
+            <b:include name='@image' data='{
+                class: "card-image",
+                src: data:post.featuredImage,
+                resize: (data:isYoutube ? 600 : 420),
+                ratio: (data:isYoutube ? "16:9" : "4:3"),
+                params: data:skin.vars.c_imageParams,
+                loading: (data:i gt 3 ? "lazy" : "")
+              }'/>
+          </b:with>
         </b:if>
         <div class="card-meta">
           {{!-- If title is empty, display "No title" --}}

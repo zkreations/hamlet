@@ -145,13 +145,12 @@ button:not(:disabled) {
   --color-text: #fff;
 }
 .card-image {
-  width: 100%;
   position: absolute;
-  top: 0;
-  height: 100%;
-  left: 0;
   -o-object-fit: cover;
      object-fit: cover;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 .card-meta {
   padding: 3rem;

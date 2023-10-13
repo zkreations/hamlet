@@ -21,7 +21,7 @@ Create custom image tag
       ? data:src.youtubeMaxResDefaultUrl
       : data:src' var='source'>
     <b:with value='(data:resize
-      ? resizeImage(data:src, data:resize, data:ratio)
+      ? resizeImage(data:source, data:resize, data:ratio)
       : (data:source))' var='image'>
       <b:tag expr:alt='data:alt ?: data:messages.image' name='img'>
         {{!-- Close tag --}}
