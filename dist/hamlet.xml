@@ -297,6 +297,35 @@
         <b:class cond='data:view.isPreview' name='is-preview'/>
         <b:class cond='data:view.isSingleItem' expr:name='"is-single single-id-" + (data:view.postId ?: data:view.pageId)'/>
       </b:includable>
+      <b:includable id='@menu'>
+        <b:with value='data:prefix ?: "__"' var='prefix'>
+          <b:if cond='data:links[0].title contains data:prefix'>
+            <b:comment render='true'>The first element can't have the prefix</b:comment>
+          <b:elseif cond='data:links any (l => l.title + 0 == l.title)'/>
+            <b:comment render='true'>The element can't be a number</b:comment>
+          <b:elseif cond='!data:links.any'/>
+            <b:comment render='true'>The array is empty</b:comment>
+          <b:else/>
+            <ul class='nav'>
+              <b:class cond='data:class' expr:name='data:class'/>
+              <b:attr name='id' expr:value='data:id'/>
+              <b:loop index='i' values='data:links' var='link'>
+                <b:with value='{ current: (data:link.title contains data:prefix), next: (data:links[data:i + 1].title contains data:prefix) }' var='hasPrefix'>
+                <b:with value='{ start: (data:hasPrefix.next and !data:hasPrefix.current), end: (!data:hasPrefix.next and data:hasPrefix.current) }' var='menu'>
+                  &lt;li class="nav-item<b:if cond='data:menu.start'> has-subnav</b:if>"&gt;
+                  <a class='nav-link' expr:href='data:link.href'><data:link.title/></a>
+                  <b:if cond='data:menu.start'>
+                    &lt;ul class="nav-subnav"&gt;
+                  </b:if>
+                  <b:if cond='data:menu.end'>&lt;/li&gt;&lt;/ul&gt;</b:if>
+                  <b:if cond='!data:menu.start'>&lt;/li&gt;</b:if>
+                </b:with>
+                </b:with>
+              </b:loop>
+            </ul>
+          </b:if>
+        </b:with>
+      </b:includable>
       <b:includable id='@meta'>
         <meta expr:charset='data:blog.encoding'/>
         <meta content='width=device-width,initial-scale=1' name='viewport'/>
