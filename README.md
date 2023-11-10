@@ -25,6 +25,8 @@
 
 ## Example Template Features
 
+![pagespeed](https://raw.githubusercontent.com/zkreations/hamlet/main/dist/images/pagespeed.web.png)
+
 - No dependencies
 - Optimized for modern SEO.
 - Optimized for AdSense.
