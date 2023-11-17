@@ -23,3 +23,8 @@ table tr > * {
 :where(.section.no-items) {
   display: none;
 }
+
+// No show adsense ads if they are not filled
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}

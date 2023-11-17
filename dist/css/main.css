@@ -245,6 +245,10 @@ table tr > * {
   display: none;
 }
 
+ins.adsbygoogle[data-ad-status=unfilled] {
+  display: none !important;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
