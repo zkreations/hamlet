@@ -67,6 +67,7 @@
   &-restore-button {
     padding: 1rem;
     width: 100%;
+    border: 1px solid var(--color-border);
 
     &:not(.is-replying) {
       display: none
@@ -76,5 +77,6 @@
   &-reply-button {
     padding: 0.25rem 0.75rem;
     margin-right: 0.5rem;
+    border: 1px solid var(--color-border);
   }
 }

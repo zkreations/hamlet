@@ -1,74 +1,209 @@
-* {
-  margin: 0
-}
+// Reset
+// Cross-browser style consistency
 
-*,
-::after,
-::before {
-  box-sizing: border-box
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-  background-color: var(--bg-body);
+html {
   line-height: 1.5;
-  color: var(--color-text);
+  -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--primary);
-  text-decoration: none
+// Border-box model for all elements
+// https://joshwcomeau.com/css/custom-css-reset/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
 
-img,
-svg,
-video {
-  height: auto
+// Percentage based heights in the app
+// https://joshwcomeau.com/css/custom-css-reset/
+
+html,
+body {
+  height:100%;
 }
 
-[hidden] {
-  display: none
+// Remove default margin
+// https://joshwcomeau.com/css/custom-css-reset/
+
+* {
+  margin: 0;
 }
 
-iframe {
-  border: 0 none
+// Removes unnecessary padding
+
+fieldset,
+legend {
+  padding: 0;
 }
+
+// Remove unnecessary border
 
 iframe,
-img,
-object,
-svg,
-video {
-  display: block;
-  max-width: 100%;
+fieldset {
+  border-width: 0;
 }
 
-audio, video {
-  width: 100%;
+// Remove link styles.
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-p,
+// 1. Heading and paragraph styles are inherited from the base text.
+// 2. Avoid text overflows
+// https://joshwcomeau.com/css/custom-css-reset/
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  overflow-wrap: break-word
+  font-size: inherit;
+  font-weight: inherit;
+  overflow-wrap: break-word;
+}
+
+// Address tag styles the same as the base text
+
+address {
+  font-style: normal;
+  line-height: inherit;
+}
+
+// Correct text decoration in Chrome, Edge and Safari.
+
+abbr[title] {
+  text-decoration: underline dotted;
+}
+
+// Correct font weight in Edge and Safari.
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+// Correct font size in all browsers
+
+small {
+  font-size: 80%;
+}
+
+// Prevent the `sub` and `sup` elements from affecting the height of the
+// line boxes in which they appear.
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+// Form elements
+// Remove default style in all browsers
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  padding: 0;
+  border-width: 0;
+  font-size: 100%;
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+// Inputs and textareas must be responsive
+
+textarea,
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
+// Text field limited to vertical to avoid horizontal overflow
+
+textarea {
+  resize: vertical;
+}
+
+// Remove text transform inheritance in Edge and Firefox.
+
+button,
+select {
+  text-transform: none;
+}
+
+// All buttons have the same cursor style, by default.
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+// Adds correct vertical alignment in Chrome, Firefox and Opera.
+
+progress {
+  vertical-align: baseline;
+}
+
+// Fixes inability to style clickable types in iOS and Safari.
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+// We added the correct box model in all browsers.
+
+summary {
+  display: list-item;
+}
+
+// We always hide elements with the HTML `hidden` attribute.
+
+[hidden] {
+  display: none;
+}
+
+// Remove list styles in all browsers.
+
+ol,
+ul,
+dl,
+dd {
+  list-style: none;
+  padding: 0;
 }
 
 table {
   border-collapse: collapse;
   max-width: 100%;
-}
-
-ol, ul {
-  list-style: none;
-  padding: 0;
 }
 
 tbody,
@@ -80,25 +215,45 @@ tr {
   text-align: inherit;
 }
 
-table tr>* {
+tr>* {
   padding: 0.75rem;
-  border: 1px solid var(--color-border);
   word-break: normal;
 }
 
-button,
-input,
-textarea {
-  padding: 0;
-  border-width: 0;
-  font-size: 100%;
-  font-family: inherit;
-  line-height: inherit;
-  color: inherit;
+// Embedded elements
+// Maintains aspect ratio
+// https://github.com/jensimmons/cssremedy/issues/14
+
+img,
+svg,
+video,
+canvas {
+  height: auto;
 }
 
-[type=button]:not(:disabled),
-[type=submit]:not(:disabled),
-button:not(:disabled) {
-  cursor: pointer;
+source {
+  display: none;
+}
+
+// 1. Convert to block as mostly intended
+// 2. Responsive by default
+// https://github.com/jensimmons/cssremedy/issues/14
+
+img,
+svg,
+video,
+canvas,
+iframe,
+embed,
+object {
+  display: block;
+  max-width: 100%;
+}
+
+// Responsive by default for Audio and video
+// https://github.com/jensimmons/cssremedy
+
+audio,
+video {
+  width: 100%;
 }
