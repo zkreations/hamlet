@@ -34,23 +34,7 @@
     <div class='template'>
       <div class='container'>
         <main class='main'>
-          <b:section id='content'>
-            <b:widget type='Blog' version='2' locked='true'>
-              {{!-- Custom Metadata include --}}
-              <b:includable id="postMetadataJSONImage">
-                <b:with value='resizeImage(data:post.featuredImage, 1200, "1200:630")' var='image'>
-                  <b:if cond='data:image'>
-                    "image": {
-                      "@type": "ImageObject",
-                      "url": "<b:eval expr='data:image.jsonEscaped'/>",
-                      "width": <b:eval expr='data:image.width'/>,
-                      "height":  <b:eval expr='data:image.height'/>
-                    },
-                  </b:if>
-                </b:with>
-              </b:includable>
-            </b:widget>
-          </b:section>
+          {{> partial-main}}
         </main>
         {{!-- footer --}}
         <footer class='footer'>
