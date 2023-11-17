@@ -6,10 +6,11 @@
   --color-header-title: $(color.header.title);
   --color-header-subtitle: $(color.header.subtitle);
 
-  --font-title: $(font.title.family);
+  --font-title-family: $(font.title.family);
 
-  --bg-image-header: $(body.background);
-  --bg-header: $(body.background.color);
+  --body-background: $(body.background);
+  --body-background-color: $(body.background.color);
+
   --bg-post: $(bg.post);
   --bg-body: $(bg.body);
   --bg-sidebar: $(bg.sidebar);

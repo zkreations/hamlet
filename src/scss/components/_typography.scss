@@ -82,7 +82,7 @@
   // Headings
   :where(h1, h2, h3, h4, h5, h6) {
     margin-bottom: var(--typography-spacing-headings);
-    font-family: var(--font-title);
+    font-family: var(--font-title-family);
     color: var(--color-title);
     font-weight: 800;
   }

@@ -9,9 +9,9 @@
 .header {
   padding: 7.5rem 0;
   text-align: center;
-  background: var(--bg-image-header);
+  background: var(--body-background);
   background-size: cover;
-  background-color: var(--bg-header);
+  background-color: var(--body-background-color);
   
   &-logo {
     display: flex;
