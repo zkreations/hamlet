@@ -28,9 +28,15 @@ let data = {}
 
 // Handlebars helpers
 // If a helper is missing, show a message in the console
-Handlebars.registerHelper('helperMissing', function (/* dynamic arguments */) {
+Handlebars.registerHelper('helperMissing', function () {
   const options = arguments[arguments.length - 1]
   return console.error(`Helper: {{${options.name}}} does not exist`)
+})
+
+// if block helper is missing is missing, show a message in the console
+Handlebars.registerHelper('blockHelperMissing', function () {
+  const options = arguments[arguments.length - 1]
+  return console.error(`Block helper: {{#${options.name}}} does not exist`)
 })
 
 // Include a file
