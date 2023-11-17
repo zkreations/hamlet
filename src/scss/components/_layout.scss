@@ -38,6 +38,11 @@
   &-search {
     right: 2rem;
   }
+
+  // No auto ads on header
+  .google-auto-placed {
+    display: none !important
+  }
 }
 
 .template {

@@ -331,6 +331,9 @@ ins.adsbygoogle[data-ad-status=unfilled] {
 .header-search {
   right: 2rem;
 }
+.header .google-auto-placed {
+  display: none !important;
+}
 
 .template {
   padding-top: 4rem;
