@@ -148,7 +148,34 @@ In the `theme.hbs` file, or in any other module, you can import the module with 
 
 You can create any number of modules, and import them in any file, but the name of the module must be unique, because if you create two modules with the same name, the second one will overwrite the first one.
 
-### Environment variables
+
+### Readability
+
+You can use spaces and line breaks in the attributes of all the b tags to improve code clarity. When compiling, the spaces will be normalized:
+
+
+```xml
+<b:include data='{
+    name: "John Doe",
+    birthday: {
+      day: 1,
+      month: 1,
+      year: 1990
+    }
+  }' name='person'>
+```	
+
+The result will be:
+
+```xml
+<b:include data='{ name: "John Doe", birthday: { day: 1, month: 1, year: 1990 } }' name='person'>
+```
+
+## Additional data
+
+Exist additional data that is added to the `data.json` file during compilation. This data contains more information about how the template is being built.
+
+### devMode
 
 You can also use the `devMode` variable that returns `true` or `false` depending on the value of the `NODE_ENV` environment variable. For example, if you want to show a message in the console only in development mode, you can use the following code:
 
@@ -157,6 +184,58 @@ You can also use the `devMode` variable that returns `true` or `false` depending
   <script>console.log("Hello world!")</script>
 {{/if}}
 ```
+
+### skinVars
+
+This variable contains all the Blogger variables declared within groups. For example, if you have groups like this:
+
+```xml
+<Group description="Backgrounds">
+  <Variable name="body.background.color" description="Header color" type="color" value="#222" default="#222"/>
+  <Variable name="bg.body" description="Body background color" type="color" value="#fff" default="#fff"/>
+</Group>
+```
+
+The `skinVars` variable will contain:
+
+```js
+skinVars: {
+  'body-background-color': '$(body.background.color)',
+  'bg-body': '$(bg.body)',
+}
+```
+
+After that, you can iterate over this variable using the Handlebars syntax to finally build the CSS variables that will be created during the compilation. For example:
+
+```hbs
+:root {
+{{#each skinVars}}
+  {{@key}}: {{this}};
+{{/each}}
+}
+```
+
+
+Finally, the result will be:
+
+```css
+:root {
+  --body-background-color: $(body.background.color);
+  --bg-body: $(bg.body);
+}
+```
+
+The name assigned to the CSS variable is the same as the one you used for the Blogger variable, replacing dots with dashes if they exist. Specifically, if the Blogger variable is of type "font", you will obtain two CSS variables, one containing the complete value and another containing only the font name.
+
+```js
+skinVars: {
+  'font-title': '$(font.title)',
+  'font-title-family': '$(font.title.family)',
+}
+```
+
+This helps to keep the CSS code cleaner and separated from Blogger. You will also save time by not having to write the CSS variables manually.
+
 
 ### Helpers
 
