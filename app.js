@@ -290,7 +290,7 @@ const skinToCssVars = (template) => {
 
     variableMatches.forEach((variableMatch) => {
       const variableName = variableMatch.match(/name="([^"]+)"/)[1]
-      const cssVariable = `--${variableName.replace(/\./g, '-')}`
+      const cssVariable = variableName.replace(/\./g, '-')
       const cssValue = `$(${variableName})`
 
       skinToCssVars[cssVariable] = cssValue
