@@ -34,10 +34,19 @@ Variables b:skin
     {{> Font}}
     {{> Hack}}
 
+    Skin CSS variables
+    =====================*/
+    :root {
+    {{#each skinVars}}
+      {{@key}}: {{this}};
+    {{/each}}
+    }
+
+    /*
     All styles
     =====================*/
-
     {{asset '/dist/css/main'}}
+
     /*
     Your custom styles
     =====================*/

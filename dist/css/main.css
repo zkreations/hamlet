@@ -1,16 +1,4 @@
 :root {
-  --primary: $(primary);
-  --color-text: $(color.text);
-  --color-title: $(color.title);
-  --color-border: $(color.border);
-  --color-header-title: $(color.header.title);
-  --color-header-subtitle: $(color.header.subtitle);
-  --font-title-family: $(font.title.family);
-  --body-background: $(body.background);
-  --body-background-color: $(body.background.color);
-  --bg-post: $(bg.post);
-  --bg-body: $(bg.body);
-  --bg-sidebar: $(bg.sidebar);
   --transition-config: 0.5s cubic-bezier(0.54,0,0.1,1);
   --sidebar-gap: 2rem;
   --form-padding: .75rem 1rem;

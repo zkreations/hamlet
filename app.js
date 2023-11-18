@@ -277,6 +277,37 @@ const eraseAttrSpaces = (template) => {
   return transformedHTML
 }
 
+// Extract the skin variables and convert them to CSS variables
+const skinToCssVars = (template) => {
+  const regexGroup = /<Group[^>]*>([\s\S]*?)<\/Group>/g
+  const regexVariable = /<Variable\s+([^>]+)>/g
+
+  const matches = template.match(regexGroup) || []
+  const skinToCssVars = {}
+
+  matches.forEach((group) => {
+    const variableMatches = group.match(regexVariable) || []
+
+    variableMatches.forEach((variableMatch) => {
+      const variableName = variableMatch.match(/name="([^"]+)"/)[1]
+      const cssVariable = `--${variableName.replace(/\./g, '-')}`
+      const cssValue = `$(${variableName})`
+
+      skinToCssVars[cssVariable] = cssValue
+
+      // Check if the variable is a font
+      if (variableMatch.includes('type="font"')) {
+        const cssVariableFamily = `${cssVariable}-family`
+        const cssValueFamily = `$(${variableName}.family)`
+
+        skinToCssVars[cssVariableFamily] = cssValueFamily
+      }
+    })
+  })
+
+  return skinToCssVars
+}
+
 // Compile all Handlebars templates
 const compileHbs = (folderPath = sourceDir) => {
   // Register all partials in the source directory
@@ -300,18 +331,29 @@ const compileHbs = (folderPath = sourceDir) => {
       // If it's a directory, recursively search for templates
       compileHbs(filePath)
     } else {
-      // Cargar los datos del archivo data.json
-
+      // If it's a file, load the data file and compile the template
       if (fs.existsSync(dataFile)) {
         data = JSON.parse(fs.readFileSync(dataFile, 'utf8'))
       }
 
+      // Add the devMode variable to the data
       data.devMode = devMode
 
+      let output = ''
       const source = fs.readFileSync(filePath, 'utf8')
       const template = Handlebars.compile(source)
-      let output = template(data)
 
+      // Generate the output with the data
+      output = template(data)
+
+      // Extract the skin variables and convert them to CSS variables
+      const skinVars = skinToCssVars(output)
+      data.skinVars = skinVars
+
+      // Generate the output with new skin variables
+      output = template(data)
+
+      // Format the output
       output = widgetCounter(output)
       output = eraseAttrSpaces(output)
 
