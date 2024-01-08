@@ -21,8 +21,8 @@ const sourceDir = './src'
 const distDir = './dist'
 const dataFile = './data.json'
 
-require('dotenv').config()
-const devMode = process.env.NODE_ENV !== 'production'
+const [, , command] = process.argv
+const devMode = ['development', 'dev'].includes(command)
 
 let data = {}
 
@@ -409,7 +409,7 @@ const compileHbs = (folderPath = sourceDir) => {
 }
 
 // Watch for changes in the source directory
-if (process.argv[2] === 'compile') {
+if (command === 'compile') {
   (async () => {
     try {
       console.log(`${devMode ? 'Development mode' : 'Production mode'}: Compiling...`)
