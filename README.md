@@ -177,7 +177,7 @@ Exist additional data that is added to the `data.json` file during compilation. 
 
 ### devMode
 
-You can also use the `devMode` variable that returns `true` or `false` depending on the value of the `NODE_ENV` environment variable. For example, if you want to show a message in the console only in development mode, you can use the following code:
+The variable `devMode` is a boolean that indicates whether it is being compiled in development or production mode. This is useful for showing or not certain elements in the code. For example:
 
 ```hbs
 {{#if devMode}}
@@ -257,7 +257,7 @@ If I want to import a file inside a node module, use `~` (tilde) before the name
 /*]]>*/</script>
 ```
 
-Also, you can use the **environment variable** to decide whether to load the minified files or not. To do this, include the file without the extension, for example:
+To decide whether to load the minified files or not. To do this, include the file without the extension, for example:
 
 ```hbs
 <style>/*<![CDATA[*/
@@ -265,7 +265,7 @@ Also, you can use the **environment variable** to decide whether to load the min
 /*]]>*/</style>
 ```
 
-With this, depending on whether the `NODE_ENV` environment variable is `production` or `development`, the `main.min.css` or `main.css` file will be loaded respectively.
+With this, depending on whether you have executed `npm run dev` or `npm run prod` in the console, the `main.css` or `main.min.css` file will be loaded respectively.
 
 #### variable
 
@@ -289,6 +289,54 @@ All atributtes are optional, but you can add them if you want. For example, if I
 
 To see all the available attributes, see the [Blogger Code documentation](https://bloggercode-blogconnexion.blogspot.com/2014/06/tag-b-skin-b-template-skin.html).
 
+
+#### startsWith
+
+The `startsWith` helper is used to check if a string starts with a certain value. For example:
+
+```hbs
+{{#if (startsWith title "Hamlet")}}
+  <h1>{{title}}</h1>
+{{/if}}
+```
+
+#### endsWith
+
+The `endsWith` check if a string ends with a certain value. For example:
+
+```hbs
+{{#if (endsWith title "Hamlet")}}
+  <h1>{{title}}</h1>
+{{/if}}
+```
+
+#### includes
+
+The `includes` helper is used to check if a string contains a certain value. For example:
+
+```hbs
+{{#if (includes title "Hamlet")}}
+  <h1>{{title}}</h1>
+{{/if}}
+```
+
+#### replace
+
+The `replace` helper is used to replace a string with another. For example:
+
+```hbs
+{{replace title "Hamlet" "Macbeth"}}
+```
+
+#### not
+
+The `not` helper is used to negate a boolean. For example:
+
+```hbs
+{{#if (not title)}}
+  <h1>{{title}}</h1>
+{{/if}}
+```
 
 ## Contributing
 
