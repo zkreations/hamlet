@@ -112,6 +112,46 @@ Handlebars.registerHelper('variable', function (name = 'null', options) {
   return new Handlebars.SafeString(escapedOutput)
 })
 
+// Validate that all arguments are strings
+function validateStrings (...args) {
+  if (args.some(arg => typeof arg !== 'string')) {
+    throw new Error('All arguments must be strings')
+  }
+}
+
+// Utility helpers
+// StartsWith
+Handlebars.registerHelper('startsWith', function (string, prefix) {
+  validateStrings(string, prefix)
+  return string.startsWith(prefix)
+})
+
+// EndsWith
+Handlebars.registerHelper('endsWith', function (string, suffix) {
+  validateStrings(string, suffix)
+  return string.endsWith(suffix)
+})
+
+// Includes
+Handlebars.registerHelper('includes', function (string, substring) {
+  validateStrings(string, substring)
+  return string.includes(substring)
+})
+
+// Not
+Handlebars.registerHelper('not', function (value) {
+  if (typeof value === 'undefined') {
+    throw new Error('The argument must be defined')
+  }
+  return !value
+})
+
+// Replace
+Handlebars.registerHelper('replace', function (string, search, replacement) {
+  validateStrings(string, search, replacement)
+  return string.replace(search, replacement)
+})
+
 // Calculate time of execution of a function
 const timer = async (fn, message, ...args) => {
   const currentTime = new Date()
