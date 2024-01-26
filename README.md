@@ -52,6 +52,12 @@ To start listening to changes and automatically compile, run in console:
 npm run dev
 ```
 
+Also, you can start everything and compile in production mode, essentially it is the same, but some things will change that are only visible in development mode:
+
+```cmd
+npm run prod
+```
+
 To compile only once:
 
 ```cmd
