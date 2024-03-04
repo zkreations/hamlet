@@ -20,13 +20,17 @@ Create custom picture tag
       ? data:src.youtubeMaxResDefaultUrl
       : data:src' var='source'>
     <b:with value='{
-        set: resizeImage(data:src, (data:resizeSet ?: [700,400]), data:ratio),
-        size: resizeImage(data:src, (data:resizeSet.first ?: 700), data:ratio),
+        set: resizeImage(data:source, (data:resizeSet ?: [700,400]), data:ratio),
+        size: resizeImage(data:source, (data:resizeSet.first ?: 600), data:ratio),
       }' var='images'>
       {{!-- Generate all sizes --}}
       <b:loop reverse='true' index='i' values='data:images.set' var='image'>
         {{!-- Check if image is hosted on Google for additional parameters --}}
-        <b:with value='data:params and (data:image.url contains "r.googleusercontent.com/img/a/")
+        <b:with value='{
+            a: "googleusercontent.com/img/a/",
+            b: "googleusercontent.com/blogger_img_proxy"
+          }' var='host'> 
+        <b:with value='data:params and ((data:image.url contains data:host.a) or (data:image.url contains data:host.b))
           ? (data:image.url + "-" + data:params)
           : data:image.url' var='imageUrl'>
           <b:if cond='data:images.set.size != (data:i + 1)'>
@@ -43,6 +47,7 @@ Create custom picture tag
               <b:attr name='loading' expr:value='data:loading'/>
             </b:tag>
           </b:if>
+        </b:with>
         </b:with>
       </b:loop>
     </b:with>
