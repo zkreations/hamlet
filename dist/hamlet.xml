@@ -448,7 +448,7 @@
               <b:if cond='data:post.featuredImage'>
                 <b:with value='data:post.featuredImage.isYoutube' var='isYoutube'>
                   <b:class name='has-image'/>
-                  <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: (data:isYoutube ? 600 : 420), ratio: (data:isYoutube ? "16:9" : "4:3"), params: data:skin.vars.c_imageParams, loading: (data:i gt 3 ? "lazy" : "") }'/>
+                  <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: (data:isYoutube ? 600 : 420), ratio: (data:isYoutube ? "16:9" : "4:3"), params: data:skin.vars.c_imageParams, loading: (data:i gt 2 ? "lazy" : "") }'/>
                 </b:with>
               </b:if>
               <div class="card-meta">
