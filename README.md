@@ -35,13 +35,13 @@ npm install
 
 To start listening to changes and automatically compile, run in console:
 
-```cmd
+```bash
 npm run start
 ```
 
 To compile only once:
 
-```cmd
+```bash
 npm run build
 ```
 
