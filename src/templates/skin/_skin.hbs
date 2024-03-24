@@ -14,38 +14,31 @@ Variables b:skin
 
     Admin
     =====================
-    {{> setAdmin}}
+    {{> setting-admin}}
 
     General
     =====================
-    {{> setGeneral}}
+    {{> setting-general}}
 
     Translatable strings
     =====================
-    {{> Translatable}}
+    {{> setting-text}}
 
     Customization
     =====================
-    # Mandatory variable to enable dynamic layout
-    {{variable "keycolor" type="color" value="#2196f3"}}
-    
-    {{> Background}}
+    {{> Backgrounds}}
     {{> Color}}
     {{> Font}}
     {{> Hack}}
 
     Skin CSS variables
     =====================*/
-    :root {
-    {{#each skinVars}}
-      --{{@key}}: {{this}};
-    {{/each}}
-    }
+    {{> Vars}}
 
     /*
     All styles
     =====================*/
-    {{asset '/dist/css/main'}}
+    {{asset '/dist/css/main.min.css'}}
 
     /*
     Your custom styles

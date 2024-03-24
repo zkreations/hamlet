@@ -5,7 +5,7 @@ Default markups for all widgets
 --}}
 <b:defaultmarkups>
   {{!-- Clean all inclusions of all widgets automatically  --}}
-  {{#each defaultIncludables}}
+  {{#each defaultmarkups}}
   <b:defaultmarkup type='{{@key}}'>
     {{#each this}}
     <b:includable id='{{this}}'/>

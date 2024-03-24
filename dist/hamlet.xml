@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:js='true' b:defaultwidgetversion="2" b:layoutsVersion="3" expr:dir="data:blog.languageDirection" expr:lang="data:blog.locale">
+<html b:js='true' b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale'>
 <b:include name='m:root'/>
 <head>
   <title>
@@ -26,16 +26,16 @@
       <Variable name="c.avatar" description="c.avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
       
       [image] HD Favicon URL.
-      <Variable name="c.favicon" description="c.favicon" type="string" value=""/>
+      <Variable name="c.favicon" description="c.favicon" type="string"/>
       
       [string] Formspree.io form ID.
-      <Variable name="c.formspree" description="c.formspree" type="string" value=""/>
+      <Variable name="c.formspree" description="c.formspree" type="string"/>
       
       [string] Image parameters: https://zkreations.com/image-params
       <Variable name="c.imageParams" description="c.imageParams" type="string" value="rw-l80-e30"/>
       
       [image] Url of default Open Graph image.
-      <Variable name="c.ogImage" description="c.ogImage" type="string" value=""/>
+      <Variable name="c.ogImage" description="c.ogImage" type="string"/>
   
       Translatable strings
       =====================
@@ -44,11 +44,11 @@
   
       Customization
       =====================
-      # Mandatory variable to enable dynamic layout
+      [!] Mandatory variable to enable dynamic layout
       <Variable name="keycolor" description="keycolor" type="color" value="#2196f3" default="#2196f3"/>
       
       <Group description="Backgrounds">
-        <Variable name="body.background" description="Header Background" type="background" value="$(color) none repeat scroll top center" color="$(body.background.color)" default="$(color) none repeat scroll top center"/>
+        <Variable name="body.background" description="Header Background" type="background" color="$(body.background.color)" value="$(color) none repeat scroll top center" default="$(color) none repeat scroll top center"/>
         <Variable name="body.background.color" description="Header color" type="color" value="#222" default="#222"/>
         <Variable name="bg.body" description="Body background color" type="color" value="#fff" default="#fff"/>
         <Variable name="bg.post" description="Post background color" type="color" value="#e0e0e0" default="#e0e0e0"/>
@@ -65,7 +65,7 @@
       <Group description="Font">
         <Variable name="font.title" description="Title Font" type="font" value="800 14px var(--font-open-sans)" default="800 14px var(--font-open-sans)"/>
       </Group>
-      <Variable name="posts.text.color" description="posts.text.color" type="color" value="#666" hideEditor="true" default="#666"/>
+      <Variable name="posts.text.color" description="posts.text.color" hideEditor="true" type="color" value="#666" default="#666"/>
       <Variable name="posts.link.color" description="posts.link.color" type="string" value="#666"/>
       <Variable name="posts.text.font" description="posts.text.font" type="string" value="15px Roboto"/>
       <Variable name="posts.background.color" description="posts.background.color" type="string" value="transparent"/>
@@ -76,17 +76,20 @@
       Skin CSS variables
       =====================*/
       :root {
+        /* Backgrounds */
         --body-background: $(body.background);
         --body-background-color: $(body.background.color);
         --bg-body: $(bg.body);
         --bg-post: $(bg.post);
         --bg-sidebar: $(bg.sidebar);
+        /* Color */
         --primary: $(primary);
         --color-title: $(color.title);
         --color-text: $(color.text);
         --color-border: $(color.border);
         --color-header-title: $(color.header.title);
         --color-header-subtitle: $(color.header.subtitle);
+        /* Font */
         --font-title: $(font.title);
         --font-title-family: $(font.title.family);
       }
@@ -484,7 +487,6 @@
             <script>
               /*<![CDATA[*/
               !function(){"use strict";const e=document.getElementById("comment-form"),r=document.getElementById("form-script"),t=document.getElementById("form-restore"),n=document.querySelectorAll("[data-parent-id]"),c="is-active",o="is-replying",s="has-reply-form";function i(e){if(!e)return;const r=e.value.replace(/<script.*?src='(.*?)'.*?><\/script>/,"$1");e.remove(),(e=>new Promise(((r,t)=>{const n=document.createElement("script");n.src=e,n.onload=r,n.onerror=t,document.head.appendChild(n)})))(r).then((()=>BLOG_CMT_createIframe("https://www.blogger.com/rpc_relay.html"))).catch((e=>console.error(e)))}function m(e,r){if(!e)return;const t=e.match(/<iframe[^>]*\s+src="([^"]*)"/i)[1];return{originalSrc:t,form:r?e.replace(t,r):e}}(n=>{var a,l,d;if(a=r,l=()=>{i(r)},d={rootMargin:"200px"},new IntersectionObserver(((e,r)=>{e.forEach((e=>{e.isIntersecting&&(l(),r.unobserve(e.target))}))}),{...d}).observe(a),!n)return;const u=e.innerHTML,{originalSrc:f,form:p}=m(u),v=document.createElement("div");let g;v.id="reply-form",n.forEach((r=>{r.onclick=()=>{const n=r.dataset.parentId,i=document.querySelector(`#c${n} .comments-replies`),a=document.getElementById("reply-form");if(g===r)return;a?(a.parentElement.classList.remove(s),a.remove()):(e.innerHTML="",t.classList.add(o)),g&&g.classList.remove(c);const l=`${f}&parentID=${n}`,{form:d}=m(u,l);r.classList.add(c),g=r,v.innerHTML=d,i.classList.add(s),i.insertAdjacentElement("afterbegin",v)}})),t&&(t.onclick=()=>{if(g){const r=document.getElementById("reply-form");t.classList.remove(o),e.innerHTML=p,g.classList.remove(c),g=null,r.parentElement.classList.remove(s),r.remove()}})})(n)}();
-      
               /*]]>*/
             </script>
             <b:else/>
@@ -941,7 +943,7 @@
           <b:include name='@attr' data='{["id"],["data-version"]}'/>
         </b:includable>
       </b:widget>
-      <b:widget id='Label1' type='Label' title='Etiquetas'/>
+      <b:widget id='Label1' type='Label' title='Etiquetas' version='2'/>
     </b:section>
     <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
       <input class='big-search-input' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' spellcheck='false' type='text'/>
