@@ -5,6 +5,7 @@ Remplace widget-title
 --}}
 <b:includable id='widget-title'>
   <b:include name='@attr' data='{["id"],["data-version"]}'/>
+  <b:class expr:name='data:widget.instanceId'/>
   {{!-- If sectionId is not "header" or title exists --}}
   <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
     {{!-- Title --}}
