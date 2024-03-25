@@ -235,9 +235,9 @@
     <b:defaultmarkup type='Common'>
       <b:includable id='@ads'>
         <b:tag class='adsbygoogle' name='ins' data-full-width-responsive='true'>
-          <b:attr name='data-ad-slot' expr:value='data:slot'/>
           <b:attr name='data-ad-client' expr:value='data:adClientId ?: data:blog.adsenseClientId'/>
           <b:attr name='data-ad-host' expr:value='data:blog.adsenseHostId'/>
+          <b:attr name='data-ad-slot' expr:value='data:slot'/>
           <b:attr name='data-ad-format' expr:value='data:layout ? "fluid" : "auto"'/>
           <b:attr expr:name='"data-ad-layout" + (data:layout != "in-article" ? "-key" : "")' expr:value='data:layout'/>
           <b:attr name='style' expr:value='data:style ?: "display: block"'/>
@@ -283,8 +283,10 @@
               <b:attr name='height' expr:value='data:height ?: data:image.height'/>
               <b:attr name='sizes' expr:value='data:sizes'/>
               <b:attr name='loading' expr:value='data:loading'/>
-              <b:with value='{ a: "googleusercontent.com/img/a/", b: "googleusercontent.com/blogger_img_proxy" }' var='host'> 
-              <b:with value='data:params and ((data:image contains data:host.a) or (data:image contains data:host.b)) ? ("-" + data:params) : ""' var='params'>
+              <b:with value='[ "content.com/img/a/", "content.com/blogger_img_proxy" ]' var='servers'> 
+              <b:with value='data:params and (data:servers any (server => server in data:image))
+                ? ("-" + data:params)
+                : ""' var='params'>
                 <b:attr name='src' expr:value='(data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image) + data:params'/>
               </b:with>
               </b:with>
@@ -378,8 +380,10 @@
           <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='source'>
           <b:with value='{ set: resizeImage(data:source, (data:resizeSet ?: [700,400]), data:ratio), size: resizeImage(data:source, (data:resizeSet.first ?: 600), data:ratio), }' var='images'>
             <b:loop reverse='true' index='i' values='data:images.set' var='image'>
-              <b:with value='{ a: "googleusercontent.com/img/a/", b: "googleusercontent.com/blogger_img_proxy" }' var='host'> 
-              <b:with value='data:params and ((data:image.url contains data:host.a) or (data:image.url contains data:host.b)) ? (data:image.url + "-" + data:params) : data:image.url' var='imageUrl'>
+              <b:with value='[ "content.com/img/a/", "content.com/blogger_img_proxy" ]' var='servers'> 
+              <b:with value='data:params and (data:servers any (server => server in data:image.url))
+                ? (data:image.url + "-" + data:params)
+                : data:image.url' var='imageUrl'>
                 <b:if cond='data:images.set.size != (data:i + 1)'>
                   <source expr:media='"(min-width:" + data:image.size + "px)"' expr:srcset='data:imageUrl'/>
                 <b:else/>

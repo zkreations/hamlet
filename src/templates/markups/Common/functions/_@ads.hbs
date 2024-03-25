@@ -7,17 +7,16 @@ Create adsense ads
 --}}
 <b:includable id='@ads'>
   <b:tag class='adsbygoogle' name='ins' data-full-width-responsive='true'>
-    {{!-- ID de anuncio creado en Adsense --}}
-    <b:attr name='data-ad-slot' expr:value='data:slot'/>
-    {{!-- ID de Adsense--}}
+    {{!-- Ad client ID & host ID --}}
     <b:attr name='data-ad-client' expr:value='data:adClientId ?: data:blog.adsenseClientId'/>
-    {{!-- ID de Host (Blogger) --}}
     <b:attr name='data-ad-host' expr:value='data:blog.adsenseHostId'/>
-    {{!-- Formato de anuncio --}}
+    {{!-- Ads slot ID --}}
+    <b:attr name='data-ad-slot' expr:value='data:slot'/>
+    {{!-- Ads format --}}
     <b:attr name='data-ad-format' expr:value='data:layout ? "fluid" : "auto"'/>
-    {{!-- ID de layout (anuncios in-feed & in-article) --}}
+    {{!-- Layout (in-feed & in-article ads) --}}
     <b:attr expr:name='"data-ad-layout" + (data:layout != "in-article" ? "-key" : "")' expr:value='data:layout'/>
-    {{!-- Estilos en linea --}}
+    {{!-- Inline style --}}
     <b:attr name='style' expr:value='data:style ?: "display: block"'/>
   </b:tag>
   <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
