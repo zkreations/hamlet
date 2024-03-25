@@ -37,11 +37,11 @@ Create custom image tag
         {{!-- Loading attribute --}}
         <b:attr name='loading' expr:value='data:loading'/>
         {{!-- Check if image is hosted on Google for additional parameters --}}
-        <b:with value='{
-            a: "googleusercontent.com/img/a/",
-            b: "googleusercontent.com/blogger_img_proxy"
-          }' var='host'> 
-        <b:with value='data:params and ((data:image contains data:host.a) or (data:image contains data:host.b))
+        <b:with value='[
+          "content.com/img/a/",
+          "content.com/blogger_img_proxy"
+        ]' var='servers'> 
+        <b:with value='data:params and (data:servers any (server => server in data:image))
           ? ("-" + data:params)
           : ""' var='params'>
           {{!-- If srcset exists, generate the src attribute --}}
