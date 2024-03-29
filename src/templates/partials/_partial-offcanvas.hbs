@@ -10,13 +10,13 @@ Partial: Offcanvas
   {{!-- Sidebar --}}
   <b:section id='sidebar' class='sidebar' ads='true'>
     {{!-- Custom PageList widget (disable title) --}}
-    <b:widget type='PageList' version='2' locked='true'>
+    <b:widget type='PageList' locked='true'>
       <b:includable id='widget-title'>
         <b:include name='@attr' data='{["id"],["data-version"]}'/>
       </b:includable>
     </b:widget>
     {{!-- Other widgets --}}
-    <b:widget type='Label' title='Etiquetas'/>
+    <b:widget type='Label' title='Labels'/>
   </b:section>
   {{!-- Search --}}
   <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>

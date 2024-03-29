@@ -928,12 +928,12 @@
   <input class='offcanvas-control' type='checkbox' name="offcanvas" id='show-search'/>
   <div class='offcanvas layout-section'>
     <b:section id='sidebar' class='sidebar' ads='true'>
-      <b:widget id='PageList1' type='PageList' version='2' locked='true'>
+      <b:widget id='PageList1' type='PageList' locked='true' version='2'>
         <b:includable id='widget-title'>
           <b:include name='@attr' data='{["id"],["data-version"]}'/>
         </b:includable>
       </b:widget>
-      <b:widget id='Label1' type='Label' title='Etiquetas' version='2'/>
+      <b:widget id='Label1' type='Label' title='Labels' version='2'/>
     </b:section>
     <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
       <input class='big-search-input' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' spellcheck='false' type='text'/>
@@ -942,14 +942,14 @@
   <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
     <header class='header'>
       <b:section id='header'>
-        <b:widget id='Header1' type='Header' version='2' locked='true'/>
+        <b:widget id='Header1' type='Header' locked='true' version='2'/>
       </b:section>
     </header>
     <div class='template'>
       <div class='container'>
         <main class='main'>
           <b:section id='content'>
-            <b:widget id='Blog1' type='Blog' version='2' locked='true'>
+            <b:widget id='Blog1' type='Blog' locked='true' version='2'>
               <b:includable id="postMetadataJSONImage">
                 <b:with value='resizeImage(data:post.featuredImage, 1200, "1200:630")' var='image'>
                   <b:if cond='data:image'>
