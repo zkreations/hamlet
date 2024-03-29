@@ -284,9 +284,7 @@
               <b:attr name='sizes' expr:value='data:sizes'/>
               <b:attr name='loading' expr:value='data:loading'/>
               <b:with value='[ "content.com/img/a/", "content.com/blogger_img_proxy" ]' var='servers'> 
-              <b:with value='data:params and (data:servers any (server => server in data:image))
-                ? ("-" + data:params)
-                : ""' var='params'>
+              <b:with value='data:params and (data:servers any (server => server in data:image)) ? ("-" + data:params) : ""' var='params'>
                 <b:attr name='src' expr:value='(data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image) + data:params'/>
               </b:with>
               </b:with>
@@ -381,9 +379,7 @@
           <b:with value='{ set: resizeImage(data:source, (data:resizeSet ?: [700,400]), data:ratio), size: resizeImage(data:source, (data:resizeSet.first ?: 600), data:ratio), }' var='images'>
             <b:loop reverse='true' index='i' values='data:images.set' var='image'>
               <b:with value='[ "content.com/img/a/", "content.com/blogger_img_proxy" ]' var='servers'> 
-              <b:with value='data:params and (data:servers any (server => server in data:image.url))
-                ? (data:image.url + "-" + data:params)
-                : data:image.url' var='imageUrl'>
+              <b:with value='data:params and (data:servers any (server => server in data:image.url)) ? (data:image.url + "-" + data:params) : data:image.url' var='imageUrl'>
                 <b:if cond='data:images.set.size != (data:i + 1)'>
                   <source expr:media='"(min-width:" + data:image.size + "px)"' expr:srcset='data:imageUrl'/>
                 <b:else/>
