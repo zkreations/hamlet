@@ -1,18 +1,18 @@
 <div align="center">
-  <img width='100' src="https://raw.githubusercontent.com/zkreations/hamlet/main/dist/images/logo.png" align="center" />
+  <img width='50' src="https://raw.githubusercontent.com/zkreations/hamlet/main/static/logo.png" align="center" height='50'/>
 
-  # Hamlet 
+  # Hamlet
 
   <p>Development environment for creating Blogger templates with handlebars, which includes an example template with best practices that a true Blogger developer should follow.<p>
 
   <p><a href="https://hamlet.zkreations.com/"><strong> Live Demo &rarr;</strong></a></p>
 
-  <img src="https://raw.githubusercontent.com/zkreations/hamlet/main/dist/images/screenshot.png" align="center" />
+  <img src="https://raw.githubusercontent.com/zkreations/hamlet/main/static/screenshot.png" align="center" />
 </div>
 
 ## Template Features
 
-![pagespeed](https://raw.githubusercontent.com/zkreations/hamlet/main/dist/images/pagespeed.web.png)
+![pagespeed](https://raw.githubusercontent.com/zkreations/hamlet/main/static/pagespeed.web.png)
 
 - No dependencies
 - Optimized for modern SEO.
@@ -47,7 +47,10 @@ npm run build
 
 ## Compiler
 
-The compiler is now an independent module of this project, you can find it in the repository [Hamlet Compiler](https://github.com/zkreations/hamlet-builder), where you will also find the necessary documentation for its use.
+The compiler is now an independent module of this project, you can find it in the repository [Hamlet Builder](https://github.com/zkreations/hamlet-builder), where you will also find the necessary documentation for its use.
+
+![hamlet-builder](https://raw.githubusercontent.com/zkreations/hamlet/main/static/hamlet-builder.png)
+
 
 ## Supporting
 
