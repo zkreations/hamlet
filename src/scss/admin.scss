@@ -4,7 +4,7 @@
 // @license: MIT
 // @description: WP-style is a layout for Blogger that mimics the WordPress admin panel.
 
-// Variables 
+// Variables
 $widgets: (
   AdSense: "AdSense",
   HTML: "HTML",
@@ -219,21 +219,21 @@ body#layout {
       .editlink.icon {
         @include access-mode-edit;
       }
-  
+
       &:hover {
         border-color: #c3c4c7
       }
-  
+
       .layout-title {
         margin: 0 58px 0 0
       }
-  
+
     }
-  
+
     .widget.el_active .editlink.icon {
       display: block
     }
-  
+
     .locked-widget .widget-content {
       background-position: center right 46px
     }

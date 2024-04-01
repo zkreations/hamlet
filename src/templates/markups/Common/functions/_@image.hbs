@@ -40,7 +40,7 @@ Create custom image tag
         <b:with value='[
           "content.com/img/a/",
           "content.com/blogger_img_proxy"
-        ]' var='servers'> 
+        ]' var='servers'>
         <b:with value='data:params and (data:servers any (server => server in data:image))
           ? ("-" + data:params)
           : ""' var='params'>

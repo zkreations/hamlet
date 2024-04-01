@@ -13,7 +13,7 @@
     </b:if>
     <style>/*<![CDATA[*/
     /*]]>*/</style>
-    <b:defaultmarkups> 
+    <b:defaultmarkups>
       <b:defaultmarkup type='All'>
         <b:includable id='main'/>
         <b:includable id='content'/>

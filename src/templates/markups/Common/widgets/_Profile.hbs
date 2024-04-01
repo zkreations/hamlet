@@ -12,10 +12,10 @@ Content of the widget Profile
       <b:loop values='data:authors' var='author'>
         <a class='profile-image' expr:href='data:author.userUrl' rel='nofollow' expr:title='data:author.display-name'>
           <b:include name='@image' data='{
-              src: (data:author.authorPhoto.image ?: data:skin.vars.c_avatar),
-              resize: 60,
-              ratio: "1:1"
-            }'/>
+            src: (data:author.authorPhoto.image ?: data:skin.vars.c_avatar),
+            resize: 60,
+            ratio: "1:1"
+          }'/>
         </a>
       </b:loop>
     {{!-- Show individual profile --}}
