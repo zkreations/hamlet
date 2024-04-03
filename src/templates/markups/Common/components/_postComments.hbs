@@ -33,8 +33,11 @@ Comment form
       {{!-- Comment script --}}
       <script>
         /*<![CDATA[*/
-        {{asset '/dist/js/comments.min.js'}}
-        /*]]>*/
+        {{#if development}}
+          {{asset '/dist/js/comments.js'}}
+        {{else}}
+          {{asset '/dist/js/comments.min.js'}}
+        {{/if}}/*]]>*/
       </script>
       <b:else/>
       {{!-- Else, show the message that comments are closed --}}
