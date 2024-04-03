@@ -27,23 +27,10 @@
 
 ## Getting Started
 
-Clone, fork, or download this repository to your PC, and within the root directory of this folder, run in console:
+Clone, fork, or download this repository to your PC, and within the root directory of this folder, run in console `npm install` to install the necessary dependencies. To finish the installation, you can use any of the following commands:
 
-```bash
-npm install
-```
-
-To start listening to changes and automatically compile, run in console:
-
-```bash
-npm run start
-```
-
-To compile only once:
-
-```bash
-npm run build
-```
+- `npm run start` To start listening to changes and automatically compile the files.
+- `npm run build` To compile only once.
 
 ## Compiler
 
