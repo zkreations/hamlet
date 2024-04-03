@@ -8,7 +8,7 @@
   </title>
   <b:include name='m:head'/>
   <b:if cond="!data:view.isLayoutMode">
-    <b:skin><![CDATA[
+    <b:skin version='1.0.0'><![CDATA[
       /*!
         * Name      : Hamlet
         * Version   : 1.0.0
