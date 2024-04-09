@@ -928,11 +928,7 @@
   <input class='offcanvas-control' type='checkbox' name="offcanvas" id='show-search'/>
   <div class='offcanvas layout-section'>
     <b:section id='sidebar' class='sidebar' ads='true'>
-      <b:widget id='PageList1' type='PageList' locked='true' version='2'>
-        <b:includable id='widget-title'>
-          <b:include name='@attr' data='{["id"],["data-version"]}'/>
-        </b:includable>
-      </b:widget>
+      <b:widget id='PageList1' type='PageList' title='' version='2'/>
       <b:widget id='Label1' type='Label' title='Labels' version='2'/>
     </b:section>
     <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
