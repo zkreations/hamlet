@@ -1,18 +1,17 @@
-@import "settings/variables";
-@import "settings/root";
+@use "settings/root";
 
-@import "generic/reset";
-@import "object/common";
+@use "generic/reset";
+@use "object/common";
 
-@import "components/cards";
-@import "components/layout";
-@import "components/offcanvas";
-@import "components/form";
-@import "components/pagination";
-@import "components/posts";
-@import "components/comments";
-@import "components/error";
-@import "components/message";
-@import "components/widgets";
+@use "components/cards";
+@use "components/layout";
+@use "components/offcanvas";
+@use "components/form";
+@use "components/pagination";
+@use "components/posts";
+@use "components/comments";
+@use "components/error";
+@use "components/message";
+@use "components/widgets";
 
-@import "components/typography";
+@use "components/typography";
