@@ -3,8 +3,8 @@ Partial: Offcanvas
 @author zkreations
 --}}
 {{!-- Offcanvas controls --}}
-<input class='offcanvas-control' type='checkbox' name="offcanvas" id='show-sidebar'/>
-<input class='offcanvas-control' type='checkbox' name="offcanvas" id='show-search'/>
+<input class='switch-control switch-sidebar' type='checkbox' name="offcanvas" id='show-sidebar'/>
+<input class='switch-control switch-search' type='checkbox' name="offcanvas" id='show-search'/>
 {{!-- Offcanvas --}}
 <div class='offcanvas layout-section'>
   {{!-- Sidebar --}}
@@ -13,7 +13,7 @@ Partial: Offcanvas
     <b:widget type='Label' title='Labels'/>
   </b:section>
   {{!-- Search --}}
-  <form class='big-search' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
-    <input class='big-search-input' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' spellcheck='false' type='text'/>
+  <form class='searchbox' expr:action='data:blog.searchUrl' method='get' tabindex='-1'>
+    <input class='searchbox-input' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' spellcheck='false' type='text'/>
   </form>
 </div>
