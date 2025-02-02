@@ -1,0 +1,19 @@
+.alignleft {
+  float: left;
+  clear: left;
+  margin-right: var(--typography-spacing);
+  margin-top: 0.5rem;
+}
+
+.alignright {
+  float: right;
+  clear: right;
+  margin-left: var(--typography-spacing);
+  margin-top: 0.5rem;
+}
+
+.aligncenter {
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}

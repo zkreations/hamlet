@@ -1,0 +1,11 @@
+// Meteor Icons
+// @url: https://meteoricons.com/
+.i {
+  stroke-width: var(--i-stroke, 2);
+  width: var(--i-size, 24px);
+  height: var(--i-size, 24px);
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}

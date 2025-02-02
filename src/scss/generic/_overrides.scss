@@ -1,19 +1,4 @@
 
-body {
-  font-family: var(--font-system);
-  background-color: var(--bg-body);
-  color: var(--color-text);
-}
-
-a {
-  color: var(--primary);
-}
-
-table tr > * {
-  border: 1px solid var(--color-border);
-}
-
-
 // Display none for the admin controls
 :where(.item-control, .blog-admin) {
   display: none

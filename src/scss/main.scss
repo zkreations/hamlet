@@ -1,17 +1,36 @@
-@use "settings/root";
+// 1. Settings: Global variables and configurations
+@use 'settings/_root';
 
-@use "generic/reset";
-@use "object/common";
+// 2. Generic: Resets and base styles
+@use 'generic/_reset';
+@use 'generic/_overrides';
 
-@use "components/cards";
-@use "components/layout";
-@use "components/offcanvas";
-@use "components/form";
-@use "components/pagination";
-@use "components/posts";
-@use "components/comments";
-@use "components/error";
-@use "components/message";
-@use "components/widgets";
+// 3. Elements: Styles for native HTML elements
+@use 'elements/_base';
 
-@use "components/typography";
+// 4. Objects: Layout patterns and structure
+@use 'objects/_container';
+@use 'objects/_columns';
+@use 'objects/_layout';
+@use 'objects/_template';
+
+// 5. Components: UI components
+@use 'components/_buttons';
+@use 'components/_cards';
+@use 'components/_comments';
+@use 'components/_footer';
+@use 'components/_form';
+@use 'components/_header';
+@use 'components/_icons';
+@use 'components/_message';
+@use 'components/_pagination';
+@use 'components/_paragraphs';
+@use 'components/_posts';
+@use 'components/_searchbox';
+@use 'components/_sidebar';
+@use 'components/_switch';
+@use 'components/_typography';
+@use 'components/_widgets';
+
+// 6. Utilities: Utility classes and helpers
+@use 'utilities/_text';

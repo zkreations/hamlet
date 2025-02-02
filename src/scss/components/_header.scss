@@ -1,0 +1,49 @@
+.header {
+  padding: 7.5rem 0;
+  text-align: center;
+  background: var(--body-background);
+  background-size: cover;
+  background-color: var(--body-background-color);
+
+  &-logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-title {
+    font-size: 1.75rem;
+
+    a {
+      color: var(--color-header-title)
+    }
+  }
+
+  &-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-header-subtitle)
+  }
+
+  &-bars {
+    left: 2rem;
+
+    // See _switch.scss
+    &::before {
+      pointer-events: var(--switch-bars, none);
+      opacity: var(--switch-bars, 0);
+    }
+  }
+
+  &-search {
+    right: 2rem;
+
+    &::before {
+      pointer-events: var(--switch-search, none);
+      opacity: var(--switch-search, 0);
+    }
+  }
+
+  // No auto ads on header
+  .google-auto-placed {
+    display: none !important
+  }
+}

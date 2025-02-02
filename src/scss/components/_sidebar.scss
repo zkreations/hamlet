@@ -1,0 +1,20 @@
+.sidebar {
+  // See _switch.scss
+  transform: translateX(var(--switch-sidebar-position, -100%));
+
+  // Sidebar Styles
+  transition: transform var(--transition-config);
+  position: fixed;
+  width: var(--sidebar-width);
+  background-color: var(--bg-sidebar);
+  inset: 0;
+  z-index: 10;
+  padding: var(--sidebar-gap);
+  overflow-y: auto;
+
+  > * + * {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--sidebar-gap);
+    margin-top: var(--sidebar-gap);
+  }
+}
