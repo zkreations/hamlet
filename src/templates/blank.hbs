@@ -20,13 +20,7 @@
     {{!-- Default markups --}}
     <b:defaultmarkups>
       {{!-- Clean all inclusions of all widgets automatically  --}}
-      {{#each defaultmarkups}}
-      <b:defaultmarkup type='{{@key}}'>
-        {{#each this}}
-        <b:includable id='{{this}}'/>
-        {{/each}}
-      </b:defaultmarkup>
-      {{/each}}
+      {{> super.defaultmarkups}}
     </b:defaultmarkups>
   </head>
   <body>
