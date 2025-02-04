@@ -235,6 +235,11 @@
       <b:includable id='feeds'/>
     </b:defaultmarkup>
     <b:defaultmarkup type='Common'>
+      <b:includable id='@adsense'>
+        <b:if cond='data:blog.adsenseHostId and not data:blog.adsenseAutoAds'>
+          <b:tag async='async' name='script' cond='data:blog.adsenseClientId and data:blog.adsenseHasAds' expr:src='"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" params {client: data:blog.adsenseClientId}' crossorigin='anonymous'/>
+        </b:if>
+      </b:includable>
       <b:includable id='@ads'>
         <b:tag class='adsbygoogle' name='ins' data-full-width-responsive='true'>
           <b:attr name='data-ad-client' expr:value='data:adClientId ?: data:blog.adsenseClientId'/>
@@ -245,11 +250,6 @@
           <b:attr name='style' expr:value='data:style ?: "display: block"'/>
         </b:tag>
         <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
-      </b:includable>
-      <b:includable id='@adsense'>
-        <b:if cond='data:blog.adsenseHostId and not data:blog.adsenseAutoAds'>
-          <b:tag async='async' name='script' cond='data:blog.adsenseClientId and data:blog.adsenseHasAds' expr:src='"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" params {client: data:blog.adsenseClientId}' crossorigin='anonymous'/>
-        </b:if>
       </b:includable>
       <b:includable id='@attr'>
         <b:loop values='data:' var='i'>
@@ -677,26 +677,6 @@
       <b:includable id='widget:AdSense'>
         <b:include name='@ads'/>
       </b:includable>
-      <b:includable id='widget:Blog'>
-        <b:with value='data:widgets.Blog1.allBylineItems' var='show'>
-          <b:if cond='data:view.isSingleItem'>
-            <article class="post">
-              <b:with value='data:posts.first' var='post'>
-                <b:include name='post:view'/>
-              </b:with>
-            </article>
-          <b:else/>
-            <b:if cond='data:posts.empty or data:view.isError'>
-              <b:include name='noContentPlaceholder'/>
-              <b:else/>
-              <div class='cards'>
-                <b:include name='post:card'/>
-              </div>
-              <b:include name='post:pagination'/>
-            </b:if>
-          </b:if>
-        </b:with>
-      </b:includable>
       <b:includable id='widget:BlogArchive'>
         <b:switch var='data:style'>
           <b:case value='HIERARCHY'/>
@@ -747,6 +727,26 @@
           <input class='search-input form-control' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' expr:value='data:view.search.query.escaped' required='required' spellcheck='false' type='text'/>
         </form>
       </b:includable>
+      <b:includable id='widget:Blog'>
+        <b:with value='data:widgets.Blog1.allBylineItems' var='show'>
+          <b:if cond='data:view.isSingleItem'>
+            <article class="post">
+              <b:with value='data:posts.first' var='post'>
+                <b:include name='post:view'/>
+              </b:with>
+            </article>
+          <b:else/>
+            <b:if cond='data:posts.empty or data:view.isError'>
+              <b:include name='noContentPlaceholder'/>
+              <b:else/>
+              <div class='cards'>
+                <b:include name='post:card'/>
+              </div>
+              <b:include name='post:pagination'/>
+            </b:if>
+          </b:if>
+        </b:with>
+      </b:includable>
       <b:includable id='widget:ContactForm'>
         <form class='contact-form' expr:action='"https://formspree.io/f/" + data:skin.vars.c_formspree' method='POST'>
           <input class='contact-input form-control' type='text' expr:placeholder='data:contactFormNameMsg' name='name' required='required'/>
@@ -759,6 +759,9 @@
         <b:with value='data:widgets.Blog1.allBylineItems' var='show'>
           <b:include name='post:card'/>
         </b:with>
+      </b:includable>
+      <b:includable id='widget:HTML'>
+        <data:content/>
       </b:includable>
       <b:includable id='widget:Header'>
         <b:if cond='data:widget.sectionId != "header"'>
@@ -800,9 +803,6 @@
             </svg>
           </label>
         </b:if>
-      </b:includable>
-      <b:includable id='widget:HTML'>
-        <data:content/>
       </b:includable>
       <b:includable id='widget:Image'>
         <figure class='media'>
@@ -884,15 +884,15 @@
           </b:if>
         </div>
       </b:includable>
-      <b:includable id='widget:Text'>
-        <data:content/>
-      </b:includable>
       <b:includable id='widget:TextList'>
         <ul class='textlist'>
           <b:loop values='data:items' var='item'>
             <li class='textlist-item'><data:item/></li>
           </b:loop>
         </ul>
+      </b:includable>
+      <b:includable id='widget:Text'>
+        <data:content/>
       </b:includable>
     </b:defaultmarkup>
     <b:defaultmarkup type='All'>
