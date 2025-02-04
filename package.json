@@ -1,10 +1,11 @@
 {
   "name": "hamlet",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple and lightweight starter theme for Blogger.",
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "dev": "hamlet --mode development --watch",
     "start": "hamlet --mode production --watch",
     "build": "hamlet --mode production"
   },
