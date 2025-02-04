@@ -417,6 +417,29 @@
           <b:comment render='true'>No text to display</b:comment>
         </b:if>
       </b:includable>
+      <b:includable id='noContentPlaceholder'>
+        <b:if cond='data:posts.empty'>
+          <div class="message">
+            <b:if cond='data:view.isError'>
+              <b:class name='error'/>
+              <data:this.navMessage/>
+              <b:else/>
+              <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:this.navMessage'/>
+            </b:if>
+          </div>
+        </b:if>
+      </b:includable>
+      <b:includable id='widget-title'>
+        <b:include name='@attr' data='{["id"],["data-version"]}'/>
+        <b:class expr:name='data:widget.instanceId'/>
+        <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
+          <div class='widget-title'>
+            <span class='widget-name'>
+              <b:eval expr='data:defaultTitle ?: data:title'/>
+            </span>
+          </div>
+        </b:if>
+      </b:includable>
       <b:includable id='m:root'>
         <b:include name='@attr' data='{["xmlns"],["xmlns:b"],["xmlns:data"],["xmlns:expr"]}'/>
       </b:includable>
@@ -648,29 +671,6 @@
           <b:include name='comment:main' data='{ depth: 2, texts: { delete: data:skin.vars.t_delete, reply: data:skin.vars.t_reply } }'/>
         </footer>
         <b:include name="postMetadataJSON"/>
-      </b:includable>
-      <b:includable id='widget-title'>
-        <b:include name='@attr' data='{["id"],["data-version"]}'/>
-        <b:class expr:name='data:widget.instanceId'/>
-        <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
-          <div class='widget-title'>
-            <span class='widget-name'>
-              <b:eval expr='data:defaultTitle ?: data:title'/>
-            </span>
-          </div>
-        </b:if>
-      </b:includable>
-      <b:includable id='noContentPlaceholder'>
-        <b:if cond='data:posts.empty'>
-          <div class="message">
-            <b:if cond='data:view.isError'>
-              <b:class name='error'/>
-              <data:this.navMessage/>
-              <b:else/>
-              <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:this.navMessage'/>
-            </b:if>
-          </div>
-        </b:if>
       </b:includable>
       <b:includable id='widget:AdSense'>
         <b:include name='@ads'/>
