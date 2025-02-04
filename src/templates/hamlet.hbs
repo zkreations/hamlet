@@ -7,10 +7,13 @@
     <data:view.title.escaped/>
   </title>
   <b:include name='m:head'/>
-  {{!-- Default skin --}}
-  {{> skin}}
-  {{!-- Default markups --}}
-  {{> markups}}
+  {{!--  --}}
+  <b:if cond="!data:view.isLayoutMode">
+    {{> skin}}
+  <b:else/>
+    {{> template-skin}}
+  </b:if>
+  {{> defaultmarkups}}
   {{!-- Generate responsive image styles --}}
   <b:if cond='not data:view.isPreview'>
     <b:include data='{
@@ -23,7 +26,6 @@
 <body>
   <b:include name='@kind'/>
   <b:tag name='div' class='layout-edit' cond='data:view.isLayoutMode and data:skin.vars.a_layoutEdit'>
-  {{!-- Offcanvas --}}
   {{> partial-offcanvas}}
   <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
     {{!-- Header --}}
@@ -36,7 +38,6 @@
         <main class='main'>
           {{> partial-main}}
         </main>
-        {{!-- footer --}}
         <footer class='footer'>
           {{> partial-footer}}
         </footer>

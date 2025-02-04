@@ -1,0 +1,63 @@
+{{!--
+b:skin content (for Customization Mode)
+@author zkreations
+@docs https://bloggercode-blogconnexion.blogspot.com/2014/06/tag-b-skin-b-template-skin.html
+--}}
+<b:skin version='{{version}}'><![CDATA[
+  /*!
+    * Name      : {{name}}
+    * Version   : {{version}}
+    * License   : {{license}}
+    *//*!
+
+  Admin
+  =====================
+  {{> setting-admin}}
+
+  General
+  =====================
+  {{> setting-general}}
+
+  Translatable strings
+  =====================
+  {{> setting-text}}
+
+  Customization
+  =====================
+  {{> Backgrounds}}
+  {{> Color}}
+  {{> Font}}
+  {{> Hack}}
+
+  Skin CSS variables
+  =====================*/
+  :root {
+    /* Backgrounds */
+    --body-background: $(body.background);
+    --body-background-color: $(body.background.color);
+    --bg-body: $(bg.body);
+    --bg-post: $(bg.post);
+    --bg-sidebar: $(bg.sidebar);
+
+    /* Color */
+    --primary: $(primary);
+    --color-title: $(color.title);
+    --color-text: $(color.text);
+    --color-border: $(color.border);
+    --color-header-title: $(color.header.title);
+    --color-header-subtitle: $(color.header.subtitle);
+
+    /* Font */
+    --font-title: $(font.title);
+    --font-title-family: $(font.title.family);
+  }
+
+  /*
+  All styles
+  =====================*/
+  {{asset '/dist/css/main.min.css'}}
+
+  /*
+  Your custom styles
+  =====================*/
+]]></b:skin>
