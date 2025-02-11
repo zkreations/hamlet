@@ -1,9 +1,0 @@
-{{!--
-AdSense async script
-@author zkreations
---}}
-<b:includable id='@adsense'>
-  <b:if cond='data:blog.adsenseHostId and not data:blog.adsenseAutoAds'>
-    <b:tag async='async' name='script' cond='data:blog.adsenseClientId and data:blog.adsenseHasAds' expr:src='"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" params {client: data:blog.adsenseClientId}' crossorigin='anonymous'/>
-  </b:if>
-</b:includable>
