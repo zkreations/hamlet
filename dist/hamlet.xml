@@ -235,11 +235,6 @@
       <b:includable id='feeds'/>
     </b:defaultmarkup>
     <b:defaultmarkup type='Common'>
-      <b:includable id='@adsense'>
-        <b:if cond='data:blog.adsenseHostId and not data:blog.adsenseAutoAds'>
-          <b:tag async='async' name='script' cond='data:blog.adsenseClientId and data:blog.adsenseHasAds' expr:src='"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" params {client: data:blog.adsenseClientId}' crossorigin='anonymous'/>
-        </b:if>
-      </b:includable>
       <b:includable id='@ads'>
         <b:tag class='adsbygoogle' name='ins' data-full-width-responsive='true'>
           <b:attr name='data-ad-client' expr:value='data:adClientId ?: data:blog.adsenseClientId'/>
@@ -250,6 +245,11 @@
           <b:attr name='style' expr:value='data:style ?: "display: block"'/>
         </b:tag>
         <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
+      </b:includable>
+      <b:includable id='@adsense'>
+        <b:if cond='data:blog.adsenseHostId and not data:blog.adsenseAutoAds'>
+          <b:tag async='async' name='script' cond='data:blog.adsenseClientId and data:blog.adsenseHasAds' expr:src='"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" params {client: data:blog.adsenseClientId}' crossorigin='anonymous'/>
+        </b:if>
       </b:includable>
       <b:includable id='@attr'>
         <b:loop values='data:' var='i'>
