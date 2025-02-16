@@ -618,7 +618,19 @@ table tr > * {
   margin-bottom: var(--typography-spacing-headings);
   font-family: var(--font-title-family);
   color: var(--color-title);
-  font-weight: 800;
+  font-weight: 700;
+}
+.typography :where(h1) {
+  font-size: 2rem;
+}
+.typography :where(h2) {
+  font-size: 1.75rem;
+}
+.typography :where(h3) {
+  font-size: 1.5rem;
+}
+.typography :where(h4) {
+  font-size: 1.25rem;
 }
 .typography :where(blockquote) {
   border-inline-start: 4px solid var(--color-border);
