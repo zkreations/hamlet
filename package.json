@@ -21,7 +21,7 @@
   "homepage": "https://github.com/zkreations/hamlet#readme",
   "dependencies": {
     "blogger-admin-wp": "^1.0.0",
-    "hamlet-builder": "^1.0.30"
+    "hamlet-builder": "^1.0.37"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
