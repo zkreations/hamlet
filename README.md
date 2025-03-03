@@ -29,7 +29,8 @@
 
 Clone, fork, or download this repository to your PC, and within the root directory of this folder, run in console `npm install` to install the necessary dependencies. To finish the installation, you can use any of the following commands:
 
-- `npm run start` To start listening to changes and automatically compile the files.
+- `npm run dev` To start listening to changes and automatically compile the files in development mode.
+- `npm run start` To start listening to changes and automatically compile the files in production mode.
 - `npm run build` To compile only once.
 
 ## Compiler
