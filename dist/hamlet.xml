@@ -426,10 +426,8 @@
         <b:include name='@meta' data='{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }'/>
         <b:include name='@adsense'/>
         <b:include data='blog' name='google-analytics'/>
-      
         <link href='https://fonts.bunny.net' rel='preconnect'/>
         <link href='https://blogger.googleusercontent.com' rel='preconnect'/>
-      
         <b:with value='"https://fonts.bunny.net/css" params { family: "open-sans:800", display: "swap" }' var='fonts'>
           <link rel='preload' expr:href='data:fonts' as='style'/>
           <link expr:href='data:fonts' rel='stylesheet' />
@@ -766,16 +764,13 @@
       <b:includable id='widget:Header'>
         <b:if cond='data:widget.sectionId != "header"'>
           <data:messages.theresNothingHere/>
-      
           <b:else/>
           <b:class name='header-wrapper'/>
-      
           <label class='header-bars switch' for='show-sidebar'>
             <svg class="i i-bars" viewBox="0 0 24 24">
               <path d="M3 6h18M3 12h18M3 18h18"></path>
             </svg>
           </label>
-      
           <div class='container'>
             <b:if cond='data:image'>
               <a class="header-logo" expr:href='data:blog.homepageUrl'>
@@ -795,7 +790,6 @@
               </div>
             </b:if>
           </div>
-      
           <label class='header-search switch' for='show-search'>
             <svg class="i i-search" viewBox="0 0 24 24">
               <circle cx="10" cy="10" r="7"></circle>

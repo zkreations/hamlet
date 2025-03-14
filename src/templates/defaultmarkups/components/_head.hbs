@@ -9,11 +9,9 @@ Module for head content
     }'/>
   <b:include name='@adsense'/>
   <b:include data='blog' name='google-analytics'/>
-
   {{!-- Preconnect Resources --}}
   <link href='https://fonts.bunny.net' rel='preconnect'/>
   <link href='https://blogger.googleusercontent.com' rel='preconnect'/>
-
   {{!-- Preload Fonts --}}
   <b:with value='"https://fonts.bunny.net/css" params { family: "open-sans:800", display: "swap" }' var='fonts'>
     <link rel='preload' expr:href='data:fonts' as='style'/>

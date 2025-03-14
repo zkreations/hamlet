@@ -8,17 +8,15 @@ Content of the widget Header
   <b:if cond='data:widget.sectionId != "header"'>
     {{!-- If sectionId is not "header" --}}
     <data:messages.theresNothingHere/>
-
     {{!-- If sectionId is "header" --}}
     <b:else/>
     <b:class name='header-wrapper'/>
-
+    {{!-- Switch sidebar --}}
     <label class='header-bars switch' for='show-sidebar'>
       <svg class="i i-bars" viewBox="0 0 24 24">
         <path d="M3 6h18M3 12h18M3 18h18"></path>
       </svg>
     </label>
-
     <div class='container'>
       {{!-- If image exists --}}
       <b:if cond='data:image'>
@@ -41,7 +39,7 @@ Content of the widget Header
         </div>
       </b:if>
     </div>
-
+    {{!-- Switch search --}}
     <label class='header-search switch' for='show-search'>
       <svg class="i i-search" viewBox="0 0 24 24">
         <circle cx="10" cy="10" r="7"></circle>
