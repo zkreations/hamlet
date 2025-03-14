@@ -419,29 +419,6 @@
           <b:comment render='true'>No text to display</b:comment>
         </b:if>
       </b:includable>
-      <b:includable id='noContentPlaceholder'>
-        <b:if cond='data:posts.empty'>
-          <div class="message">
-            <b:if cond='data:view.isError'>
-              <b:class name='error'/>
-              <data:this.navMessage/>
-              <b:else/>
-              <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:this.navMessage'/>
-            </b:if>
-          </div>
-        </b:if>
-      </b:includable>
-      <b:includable id='widget-title'>
-        <b:include name='@attr' data='{["id"],["data-version"]}'/>
-        <b:class expr:name='data:widget.instanceId'/>
-        <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
-          <div class='widget-title'>
-            <span class='widget-name'>
-              <b:eval expr='data:defaultTitle ?: data:title'/>
-            </span>
-          </div>
-        </b:if>
-      </b:includable>
       <b:includable id='m:root'>
         <b:include name='@attr' data='{["xmlns"],["xmlns:b"],["xmlns:data"],["xmlns:expr"]}'/>
       </b:includable>
@@ -457,6 +434,29 @@
           <link rel='preload' expr:href='data:fonts' as='style'/>
           <link expr:href='data:fonts' rel='stylesheet' />
         </b:with>
+      </b:includable>
+      <b:includable id='widget-title'>
+        <b:include name='@attr' data='{["id"],["data-version"]}'/>
+        <b:class expr:name='data:widget.instanceId'/>
+        <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
+          <div class='widget-title'>
+            <span class='widget-name'>
+              <b:eval expr='data:defaultTitle ?: data:title'/>
+            </span>
+          </div>
+        </b:if>
+      </b:includable>
+      <b:includable id='noContentPlaceholder'>
+        <b:if cond='data:posts.empty'>
+          <div class="message">
+            <b:if cond='data:view.isError'>
+              <b:class name='error'/>
+              <data:this.navMessage/>
+              <b:else/>
+              <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:this.navMessage'/>
+            </b:if>
+          </div>
+        </b:if>
       </b:includable>
       <b:includable id='post:card'>
         <b:loop index='i' values='data:items ?: data:posts' var='post'>
@@ -953,7 +953,7 @@
                   <b:if cond='data:image'>
                     "image": {
                       "@type": "ImageObject",
-                      "url": "<b:eval expr='data:image.jsonEscaped'/>",
+                      "url": "<b:eval expr='data:image'/>",
                       "width": <b:eval expr='data:image.width'/>,
                       "height":  <b:eval expr='data:image.height'/>
                     },
