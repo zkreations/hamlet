@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/zkreations/hamlet#readme",
   "dependencies": {
-    "blogger-admin-wp": "^1.0.0",
-    "hamlet-builder": "^1.0.38"
+    "blogger-admin-wp": "^1.0.1",
+    "hamlet-builder": "^1.0.40"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
