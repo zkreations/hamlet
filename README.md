@@ -39,11 +39,15 @@ The compiler is now an independent module of this project, you can find it in th
 
 ![hamlet-builder](https://raw.githubusercontent.com/zkreations/hamlet/main/static/hamlet-builder.png)
 
+## Other resources
 
-## Supporting
-
-If you want to help me keep this and more related projects always up to date, you can [buy me a coffee](https://ko-fi.com/zkreations) ☕. I will be very grateful 👏.
-
+- [Handlebars](https://handlebarsjs.com/guide/) - Official Handlebars documentation.
+- [Blogger Code](https://bloggercode-blogconnexion.blogspot.com/) - Blogger code documentation.
+- [Blogger Syntax](https://marketplace.visualstudio.com/items?itemName=zkreations.blogger-syntax) - Blogger extension for Visual Studio Code.
+- [Blogger Image Parameters](https://www.zkreations.com/2022/11/parametros-de-imagenes-de-blogger.html) - Blogger image parameters.
+- [Meteor Icons](https://meteoricons.com/) - The most optimized SVG icons on the internet.
+- [Blogger AdminWP](https://github.com/zkreations/blogger-admin-wp) - A WordPress-like admin panel for Blogger.
+- [Typography](https://github.com/zkreations/typography) - A stylesheet designed to optimize text readability.
 
 ## Create your beautiful theme
 
@@ -54,6 +58,10 @@ If you used this repository as a template, please, add a star ⭐ and add the fo
 - `blogger-hbs`
 
 Thanks for using this repository. Happy coding! 🚀
+
+## Supporting
+
+If you want to help me keep this and more related projects always up to date, you can [buy me a coffee](https://ko-fi.com/zkreations) ☕. I will be very grateful 👏.
 
 ## License
 
