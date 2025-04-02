@@ -1,6 +1,6 @@
 // Typography
 //
-// Texts sizes
+// Font sizes
 $font-sizes: (
   1: 2.5rem,
   2: 2rem,
@@ -11,3 +11,9 @@ $font-sizes: (
   7: .875rem,
   8: .75rem
 ) !default;
+
+// Text alignment
+$text-align: left right center justify !default;
+
+// Text transformation
+$text-transform: capitalize uppercase lowercase !default;

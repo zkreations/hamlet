@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/zkreations/hamlet#readme",
   "dependencies": {
+    "@zkreations/typography": "^1.0.1",
     "blogger-admin-wp": "^1.0.1",
     "hamlet-builder": "^1.0.40"
   },

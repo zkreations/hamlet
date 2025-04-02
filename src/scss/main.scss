@@ -10,8 +10,6 @@
 
 // 4. Objects: Layout patterns and structure
 @use 'objects/container';
-@use 'objects/columns';
-@use 'objects/layout';
 @use 'objects/template';
 
 // 5. Components: UI components
@@ -24,12 +22,10 @@
 @use 'components/icons';
 @use 'components/message';
 @use 'components/pagination';
-@use 'components/paragraphs';
 @use 'components/posts';
 @use 'components/searchbox';
 @use 'components/sidebar';
 @use 'components/switch';
-@use 'components/typography';
 @use 'components/widgets';
 
 // 6. Utilities: Utility classes and helpers
