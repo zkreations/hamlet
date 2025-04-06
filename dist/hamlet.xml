@@ -723,11 +723,13 @@
           </b:loop>
         </ul>
       </b:includable>
+      <b:includable id='widget:BlogList'/>
       <b:includable id='widget:BlogSearch'>
         <form class='search' expr:action='data:blog.searchUrl' method='get'>
           <input class='search-input form-control' autocomplete='off' name='q' expr:placeholder='data:view.search.query.escaped ?: data:messages.search' expr:value='data:view.search.query.escaped' required='required' spellcheck='false' type='text'/>
         </form>
       </b:includable>
+      <b:includable id='widget:BloggerButton'/>
       <b:includable id='widget:Blog'>
         <b:with value='data:widgets.Blog1.allBylineItems' var='show'>
           <b:if cond='data:view.isSingleItem'>
@@ -761,6 +763,7 @@
           <b:include name='post:card'/>
         </b:with>
       </b:includable>
+      <b:includable id='widget:Feed'/>
       <b:includable id='widget:HTML'>
         <data:content/>
       </b:includable>
@@ -881,6 +884,8 @@
           </b:if>
         </div>
       </b:includable>
+      <b:includable id='widget:ReportAbuse'/>
+      <b:includable id='widget:Stats'/>
       <b:includable id='widget:TextList'>
         <ul class='textlist'>
           <b:loop values='data:items' var='item'>
@@ -891,6 +896,8 @@
       <b:includable id='widget:Text'>
         <data:content/>
       </b:includable>
+      <b:includable id='widget:Translate'/>
+      <b:includable id='widget:Wikipedia'/>
     </b:defaultmarkup>
     <b:defaultmarkup type='All'>
       <b:includable id='main' var='this'>
@@ -908,10 +915,6 @@
         <b:include name='@attr' data='{["id"],["data-version"]}'/>
         <b:include expr:name='"widget:" + data:widget.type'/>
       </b:includable>
-      <b:includable id='content'/>
-    </b:defaultmarkup>
-    <b:defaultmarkup type='BloggerButton,BlogList,Feed,ReportAbuse,Stats,Translate,Wikipedia'>
-      <b:includable id='main'/>
       <b:includable id='content'/>
     </b:defaultmarkup>
   </b:defaultmarkups>
