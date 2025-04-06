@@ -2,17 +2,16 @@
 Default markups for all widgets
 @author zkreations
 @docs https://bloggercode-blogconnexion.blogspot.com/2017/05/tag-b-defaultmarkups.html
+@docs https://github.com/zkreations/hamlet-builder/blob/main/src/README.md
 --}}
 <b:defaultmarkups>
   {{!-- Clean all inclusions of all widgets automatically  --}}
   {{> super.defaultmarkups}}
-  {{!-- Add default markups --}}
   <b:defaultmarkup type='Common'>
-    {{!-- Include hamlet functions --}}
+    {{!-- Hamlet functions --}}
     {{> super.functions}}
-    {{!-- components --}}
+    {{!-- Components and widgets --}}
     {{> folder.components}}
-    {{!-- widgets (Read-only excluded: Attribution, Followers) --}}
     {{> folder.widgets}}
   </b:defaultmarkup>
   {{!-- Add default markups for all widgets --}}
@@ -22,7 +21,6 @@ Default markups for all widgets
       <b:include name='content'/>
     </b:includable>
     <b:includable id='content'>
-      {{!-- Add a wrapper for all widgets --}}
       <div class='widget-content'>
         <b:include expr:name='"widget:" + data:widget.type'/>
       </div>
