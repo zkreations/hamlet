@@ -6,11 +6,9 @@ Content of the widget Header
 --}}
 <b:includable id='widget:Header'>
   <b:if cond='data:widget.sectionId != "header"'>
-    {{!-- If sectionId is not "header" --}}
     <data:messages.theresNothingHere/>
-    {{!-- If sectionId is "header" --}}
-    <b:else/>
-    <b:class name='header-wrapper'/>
+  <b:else/>
+    <b:attr name='class' value='header-wrapper'/>
     {{!-- Switch sidebar --}}
     <label class='header-bars switch' for='show-sidebar'>
       <svg class="i i-bars" viewBox="0 0 24 24">

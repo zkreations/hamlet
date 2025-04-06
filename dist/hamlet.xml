@@ -439,7 +439,11 @@
       <b:includable id='widget-title'>
         <b:include name='@attr' data='{["id"],["data-version"]}'/>
         <b:class expr:name='data:widget.instanceId'/>
-        <b:if cond='data:widget.sectionId != "header" and (data:defaultTitle or data:title.length != 0)'>
+        <b:if cond='["AdSense","Header","Blog"] contains data:widget.type'>
+          <b:comment>This widget does not require a title</b:comment>
+        <b:elseif cond='["header"] contains data:widget.sectionId'/>
+          <b:comment>This section does not require a title</b:comment>
+        <b:elseif cond='data:defaultTitle or data:title.length != 0'/>
           <div class='widget-title'>
             <span class='widget-name'>
               <b:eval expr='data:defaultTitle ?: data:title'/>
@@ -770,8 +774,8 @@
       <b:includable id='widget:Header'>
         <b:if cond='data:widget.sectionId != "header"'>
           <data:messages.theresNothingHere/>
-          <b:else/>
-          <b:class name='header-wrapper'/>
+        <b:else/>
+          <b:attr name='class' value='header-wrapper'/>
           <label class='header-bars switch' for='show-sidebar'>
             <svg class="i i-bars" viewBox="0 0 24 24">
               <path d="M3 6h18M3 12h18M3 18h18"></path>
@@ -909,13 +913,6 @@
           <b:include expr:name='"widget:" + data:widget.type'/>
         </div>
       </b:includable>
-    </b:defaultmarkup>
-    <b:defaultmarkup type='AdSense,Header,Blog'>
-      <b:includable id='main' var='this'>
-        <b:include name='@attr' data='{["id"],["data-version"]}'/>
-        <b:include expr:name='"widget:" + data:widget.type'/>
-      </b:includable>
-      <b:includable id='content'/>
     </b:defaultmarkup>
   </b:defaultmarkups>
   <b:if cond='not data:view.isPreview'>

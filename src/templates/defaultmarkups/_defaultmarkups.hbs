@@ -28,12 +28,4 @@ Default markups for all widgets
       </div>
     </b:includable>
   </b:defaultmarkup>
-  {{!-- AdSense, Header and Blog widgets not require a wrapper or a title --}}
-  <b:defaultmarkup type='AdSense,Header,Blog'>
-    <b:includable id='main' var='this'>
-      <b:include name='@attr' data='{["id"],["data-version"]}'/>
-      <b:include expr:name='"widget:" + data:widget.type'/>
-    </b:includable>
-    <b:includable id='content'/>
-  </b:defaultmarkup>
 </b:defaultmarkups>
