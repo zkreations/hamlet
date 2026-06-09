@@ -76,24 +76,24 @@
       Skin CSS variables
       =====================*/
       :root {
-        /* Backgrounds */
-        --body-background: $(body.background);
-        --body-background-color: $(body.background.color);
-        --bg-body: $(bg.body);
-        --bg-post: $(bg.post);
-        --bg-sidebar: $(bg.sidebar);
-    
-        /* Color */
+        /* Font Group */
+        --font-title: $(font.title);
+        --font-title-family: $(font.title.family);
+        
+        /* Color Group */
         --primary: $(primary);
         --color-title: $(color.title);
         --color-text: $(color.text);
         --color-border: $(color.border);
         --color-header-title: $(color.header.title);
         --color-header-subtitle: $(color.header.subtitle);
-    
-        /* Font */
-        --font-title: $(font.title);
-        --font-title-family: $(font.title.family);
+        
+        /* Backgrounds Group */
+        --body-background: $(body.background);
+        --body-background-color: $(body.background.color);
+        --bg-body: $(bg.body);
+        --bg-post: $(bg.post);
+        --bg-sidebar: $(bg.sidebar);
       }
     
       /*
