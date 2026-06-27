@@ -24,10 +24,6 @@
     "blogger-admin-wp": "^1.0.1",
     "hamlet-builder": "^1.4.4"
   },
-  "devDependencies": {
-    "eslint": "^8.57.1",
-    "eslint-config-standard": "^17.1.0"
-  },
   "theme": {
     "name": "Hamlet",
     "version": "1.0.0",
@@ -39,5 +35,9 @@
     "not dead",
     "not edge <= 18",
     "not ie <= 11"
-  ]
+  ],
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.1.0",
+    "eslint": "^10.6.0"
+  }
 }
