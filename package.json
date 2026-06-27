@@ -17,7 +17,9 @@
     "dev": "hamlet --mode development --watch",
     "start": "hamlet --mode production --watch",
     "build": "hamlet --mode production",
-    "info": "hamlet --info"
+    "info": "hamlet --info",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@zkreations/typography": "^1.0.1",
