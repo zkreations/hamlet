@@ -1,24 +1,24 @@
 {
   "name": "hamlet",
+  "type": "module",
   "version": "1.0.0",
   "description": "A simple and lightweight starter theme for Blogger.",
-  "type": "module",
+  "author": "zkreations <daniel@zkreations.com> (https://zkreations.com/)",
+  "license": "MIT",
+  "homepage": "https://github.com/zkreations/hamlet#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zkreations/hamlet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zkreations/hamlet/issues"
+  },
   "scripts": {
     "dev": "hamlet --mode development --watch",
     "start": "hamlet --mode production --watch",
     "build": "hamlet --mode production",
     "info": "hamlet --info"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zkreations/hamlet.git"
-  },
-  "author": "zkreations <daniel@zkreations.com> (https://zkreations.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zkreations/hamlet/issues"
-  },
-  "homepage": "https://github.com/zkreations/hamlet#readme",
   "dependencies": {
     "@zkreations/typography": "^1.0.1",
     "blogger-admin-wp": "^1.0.1",

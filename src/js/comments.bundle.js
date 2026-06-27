@@ -8,9 +8,9 @@ const REPLYING_CLASS = 'is-replying'
 const HAS_REPLY_FORM_CLASS = 'has-reply-form'
 const rootMargin = '200px'
 
-function isObserver (element, fn, options) {
+function isObserver(element, fn, options) {
   const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         fn()
         observer.unobserve(entry.target)
@@ -21,30 +21,38 @@ function isObserver (element, fn, options) {
   observer.observe(element)
 }
 
-const loadScript = (src) => new Promise((resolve, reject) => {
-  const script = document.createElement('script')
-  script.src = src
-  script.onload = resolve
-  script.onerror = reject
-  document.head.appendChild(script)
-})
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = src
+    script.onload = resolve
+    script.onerror = reject
+    document.head.appendChild(script)
+  })
+}
 
-function loadRelayScript (textarea) {
-  if (!textarea) return
+function loadRelayScript(textarea) {
+  if (!textarea)
+    return
 
-  const src = (textarea.value).replace(/<script.*?src='(.*?)'.*?><\/script>/, '$1')
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(textarea.value, 'text/html')
+
+  const script = doc.querySelector('script[src]')
+  const src = script?.getAttribute('src') || ''
   textarea.remove()
 
   loadScript(src)
     // eslint-disable-next-line no-undef
     .then(() => BLOG_CMT_createIframe('https://www.blogger.com/rpc_relay.html'))
-    .catch((err) => console.error(err))
+    .catch(err => console.error(err))
 }
 
-function createIframe (template, newSrc) {
-  if (!template) return
+function createIframe(template, newSrc) {
+  if (!template)
+    return
 
-  const regex = /<iframe[^>]*\s+src="([^"]*)"/i
+  const regex = /<iframe[^>]*\ssrc="([^"]*)"/i
   const match = template.match(regex)
 
   const originalSrc = match[1]
@@ -52,11 +60,11 @@ function createIframe (template, newSrc) {
 
   return {
     originalSrc,
-    form
+    form,
   }
 }
 
-const replyComments = (buttons) => {
+function replyComments(buttons) {
   // Load relay script
   isObserver(FORM_SCRIPT, () => {
     loadRelayScript(FORM_SCRIPT)
@@ -74,7 +82,7 @@ const replyComments = (buttons) => {
 
   let currentActiveButton
 
-  buttons.forEach(button => {
+  buttons.forEach((button) => {
     button.onclick = () => {
       const parent = button.dataset.parentId
       const container = document.querySelector(`#c${parent} .comments-replies`)
@@ -87,7 +95,8 @@ const replyComments = (buttons) => {
       if (currentReply) {
         currentReply.parentElement.classList.remove(HAS_REPLY_FORM_CLASS)
         currentReply.remove()
-      } else {
+      }
+      else {
         COMMENT_FORM.innerHTML = ''
         FORM_RESTORE.classList.add(REPLYING_CLASS)
       }

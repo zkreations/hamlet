@@ -1,5 +1,5 @@
 <div align="center">
-  <img width='50' src="https://raw.githubusercontent.com/zkreations/hamlet/main/static/logo.png" align="center" height='50'/>
+  <img width='50' src="https://raw.githubusercontent.com/zkreations/hamlet/main/static/logo.png" align="center" height='50' alt="Hamlet Logo" />
 
   # Hamlet
 
@@ -7,7 +7,7 @@
 
   <p><a href="https://hamlet.zkreations.com/"><strong> Live Demo &rarr;</strong></a></p>
 
-  <img src="https://raw.githubusercontent.com/zkreations/hamlet/main/static/screenshot.png" align="center" />
+  <img src="https://raw.githubusercontent.com/zkreations/hamlet/main/static/screenshot.png" align="center" alt="Hamlet Screenshot" />
 </div>
 
 ## Template Features

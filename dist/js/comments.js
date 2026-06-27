@@ -22,16 +22,21 @@
     });
     observer.observe(element);
   }
-  const loadScript = src => new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.head.appendChild(script);
-  });
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
   function loadRelayScript(textarea) {
     if (!textarea) return;
-    const src = textarea.value.replace(/<script.*?src='(.*?)'.*?><\/script>/, '$1');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(textarea.value, 'text/html');
+    const script = doc.querySelector('script[src]');
+    const src = script?.getAttribute('src') || '';
     textarea.remove();
     loadScript(src)
     // eslint-disable-next-line no-undef
@@ -39,7 +44,7 @@
   }
   function createIframe(template, newSrc) {
     if (!template) return;
-    const regex = /<iframe[^>]*\s+src="([^"]*)"/i;
+    const regex = /<iframe[^>]*\ssrc="([^"]*)"/i;
     const match = template.match(regex);
     const originalSrc = match[1];
     const form = newSrc ? template.replace(originalSrc, newSrc) : template;
@@ -48,7 +53,7 @@
       form
     };
   }
-  const replyComments = buttons => {
+  function replyComments(buttons) {
     // Load relay script
     isObserver(FORM_SCRIPT, () => {
       loadRelayScript(FORM_SCRIPT);
@@ -109,7 +114,7 @@
         currentReply.remove();
       }
     };
-  };
+  }
   replyComments(REPLY_BUTTONS);
 
 })();
