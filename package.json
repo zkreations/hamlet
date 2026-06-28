@@ -24,7 +24,7 @@
   "dependencies": {
     "@zkreations/typography": "^1.0.1",
     "blogger-admin-wp": "^1.0.1",
-    "hamlet-builder": "^1.4.4"
+    "hamlet-builder": "^1.4.8"
   },
   "theme": {
     "name": "Hamlet",
