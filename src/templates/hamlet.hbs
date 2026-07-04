@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html b:js='true'>
-<b:include name='m:root'/>
+<b:include name='rootAttributes'/>
 <head>
   <title>
     <data:view.title.escaped/>
   </title>
-  <b:include name='m:head'/>
+  <b:include name='headContent'/>
   {{!-- All styles --}}
   <b:if cond="!data:view.isLayoutMode">
     {{> skin}}
@@ -15,12 +15,10 @@
   </b:if>
   {{> defaultmarkups}}
   {{!-- Generate responsive image styles --}}
-  <b:if cond='not data:view.isPreview'>
-    <b:include data='{
-      selector: ".header",
-      image: data:skin.vars.body_background.image
-    }' name='responsiveImageStyle'/>
-  </b:if>
+  <b:include cond='!data:view.isPreview' data='{
+    selector: ".header",
+    image: data:skin.vars.body_background.image
+  }' name='responsiveImageStyle'/>
 </head>
 
 <body>
@@ -28,11 +26,9 @@
   <b:tag name='div' class='layout-edit' cond='data:view.isLayoutMode and data:skin.vars.a_layoutEdit'>
   {{> partial-offcanvas}}
   <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
-    {{!-- Header --}}
     <header class='header'>
       {{> partial-header}}
     </header>
-    {{!-- Content --}}
     <div class='template'>
       <div class='container'>
         <main class='main'>

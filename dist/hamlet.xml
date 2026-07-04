@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html b:js='true' b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale'>
-<b:include name='m:root'/>
+<b:include name='rootAttributes'/>
 <head>
   <title>
     <data:view.title.escaped/>
   </title>
-  <b:include name='m:head'/>
+  <b:include name='headContent'/>
   <b:if cond="!data:view.isLayoutMode">
     <b:skin version='1.0.0'><![CDATA[
       /*!
@@ -189,6 +189,7 @@
       <b:includable id='threadedCommentForm'/>
       <b:includable id='threadedCommentJs'/>
       <b:includable id='threadedComments'/>
+      <b:includable id='tooltipCss'/>
     </b:defaultmarkup>
     <b:defaultmarkup type='BlogArchive'>
       <b:includable id='flat'/>
@@ -253,20 +254,29 @@
         <script>(adsbygoogle = window.adsbygoogle || []).push({})</script>
       </b:includable>
       <b:includable id='@attr'>
-        <b:loop values='data:' var='i'>
-          <b:attr expr:name='data:i[0] ?: "null"' expr:value='data:i[1]'/>
-        </b:loop>
+        <b:if cond='data:'>
+          <b:loop values='data:' var='i'>
+            <b:attr expr:name='data:i[0]' expr:value='data:i[1]'/>
+          </b:loop>
+        <b:else/>
+          <b:comment render='true'>Parameter [data] is required.</b:comment>
+        </b:if>
       </b:includable>
       <b:includable id='@avatar'>
         <b:if cond='data:src'>
           <b:with value='data:default ?: "https://lh3.googleusercontent.com/a/default-user"' var='default'>
-            <b:with value='resizeImage((data:src contains "/img/bl" ? data:default : data:src), (data:resize ?: 40), "1:1")' var='avatar'>
-              <b:tag expr:alt='data:alt ?: data:messages.image' expr:src='data:avatar' name='img'>
+            <b:with value='resizeImage((data:src contains "/img/bl" ? data:default : data:src), (data:resize ?: 40), "1:1")' var='image'>
+              <b:tag name='img'>
                 <b:attr name='b:whitespace' value='remove'/>
-                <b:attr name='width' expr:value='data:avatar.width'/>
-                <b:attr name='height' expr:value='data:avatar.height'/>
-                <b:attr name='loading' expr:value='data:loading'/>
                 <b:class cond='data:class' expr:name='data:class'/>
+                <b:loop values='["id","sizes","loading","fetchpriority","crossorigin","decoding","referrerpolicy","alt"]' var='attr'>
+                  <b:with expr:value='+("data:",data:attr)' var='value'>
+                    <b:attr expr:name='data:attr' expr:value='data:value'/>
+                  </b:with>
+                </b:loop>
+                <b:attr name='src' expr:value='data:image'/>
+                <b:attr name='width' expr:value='data:image.width'/>
+                <b:attr name='height' expr:value='data:image.height'/>
               </b:tag>
             </b:with>
           </b:with>
@@ -274,28 +284,39 @@
           <b:comment render='true'>Parameter [src] is required.</b:comment>
         </b:if>
       </b:includable>
+      <b:includable id='@contrast'>
+        <b:with value='+((data:color.red * 0.299), (data:color.green * 0.587), (data:color.blue * 0.114))' var='brightness'>
+          <b:with value='(data:threshold + 0) == data:threshold ? (data:threshold * 1) : 155' var='limit'>
+            <b:attr expr:name='data:attr ?: "data-theme"' expr:value='data:brightness lt data:limit ? "dark" : "light"'/>
+          </b:with>
+        </b:with>
+      </b:includable>
       <b:includable id='@image'>
         <b:if cond='data:src'>
-          <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='source'>
-          <b:with value='(data:resize ? resizeImage(data:source, data:resize, data:ratio) : (data:source))' var='image'>
-            <b:tag expr:alt='data:alt ?: data:messages.image' name='img'>
-              <b:attr name='b:whitespace' value='remove'/>
-              <b:attr name='id' expr:value='data:id'/>
-              <b:class cond='data:class' expr:name='data:class'/>
-              <b:attr name='width' expr:value='data:width ?: data:image.width'/>
-              <b:attr name='height' expr:value='data:height ?: data:image.height'/>
-              <b:attr name='sizes' expr:value='data:sizes'/>
-              <b:attr name='loading' expr:value='data:loading'/>
-              <b:with value='[ "content.com/img/a/", "content.com/blogger_img_proxy" ]' var='servers'>
-              <b:with value='data:params and (data:servers any (server => server in data:image)) ? ("-" + data:params) : ""' var='params'>
-                <b:attr name='src' expr:value='(data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image) + data:params'/>
-              </b:with>
-              </b:with>
-              <b:if cond='data:srcset'>
-                <b:attr name='srcset' expr:value='sourceSet(data:image, data:srcset, data:ratio)'/>
-              </b:if>
-            </b:tag>
-          </b:with>
+          <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='baseImage'>
+            <b:with value='(data:resize ? resizeImage(data:baseImage, data:resize, data:ratio) : data:baseImage )' var='image'>
+              <b:tag name='img'>
+                <b:attr name='b:whitespace' value='remove'/>
+                <b:class cond='data:class' expr:name='data:class'/>
+                <b:loop values='["id","sizes","loading","fetchpriority","crossorigin","decoding","referrerpolicy","alt"]' var='attr'>
+                  <b:with expr:value='+("data:",data:attr)' var='value'>
+                    <b:attr expr:name='data:attr' expr:value='data:value'/>
+                  </b:with>
+                </b:loop>
+                <b:with value='[ "com/img/a/", "com/blogger_img_proxy" ] any (server => server in data:image)' var='isProxyImg'>
+                  <b:with value='data:params and data:isProxyImg ? ("-" + data:params) : ""' var='params'>
+                    <b:with value='data:sourceSet ? resizeImage(data:image, data:sourceSet.first, data:ratio) : data:image' var='image'>
+                      <b:attr name='src' expr:value='data:image + data:params'/>
+                      <b:attr name='width' expr:value='data:width ?: data:image.width'/>
+                      <b:attr name='height' expr:value='data:height ?: data:image.height'/>
+                    </b:with>
+                  </b:with>
+                </b:with>
+                <b:if cond='data:sourceSet'>
+                  <b:attr name='srcset' expr:value='sourceSet(data:image, data:sourceSet, data:ratio)'/>
+                </b:if>
+              </b:tag>
+            </b:with>
           </b:with>
         <b:else/>
           <b:comment render='true'>Parameter [src] is required.</b:comment>
@@ -311,7 +332,10 @@
         <b:class cond='data:view.isSearch' name='is-search'/>
         <b:class cond='data:view.isError' name='is-error'/>
         <b:class cond='data:view.isPreview' name='is-preview'/>
-        <b:class cond='data:view.isSingleItem' expr:name='"is-single single-id-" + (data:view.postId ?: data:view.pageId)'/>
+        <b:if cond='data:view.isSingleItem'>
+          <b:class name='is-single'/>
+          <b:class cond='data:viewId != false' expr:name='"single-id-" + (data:view.postId ?: data:view.pageId)'/>
+        </b:if>
       </b:includable>
       <b:includable id='@menu'>
         <b:with value='data:prefix ?: "__"' var='prefix'>
@@ -320,22 +344,32 @@
           <b:elseif cond='data:links any (l => l.title + 0 == l.title)'/>
             <b:comment render='true'>The element can't be a number</b:comment>
           <b:elseif cond='!data:links.any'/>
-            <b:comment render='true'>The array is empty</b:comment>
+            <b:comment render='true'>The array can't be empty</b:comment>
           <b:else/>
             <ul class='nav'>
               <b:class cond='data:class' expr:name='data:class'/>
               <b:attr name='id' expr:value='data:id'/>
               <b:loop index='i' values='data:links' var='link'>
-                <b:with value='{ current: (data:link.title contains data:prefix), next: (data:links[data:i + 1].title contains data:prefix) }' var='hasPrefix'>
-                <b:with value='{ start: (data:hasPrefix.next and !data:hasPrefix.current), end: (!data:hasPrefix.next and data:hasPrefix.current) }' var='menu'>
-                  &lt;li class="nav-item<b:if cond='data:menu.start'> has-subnav</b:if>"&gt;
-                  <a class='nav-link' expr:href='data:link.href'><data:link.title/></a>
-                  <b:if cond='data:menu.start'>
-                    &lt;ul class="nav-subnav"&gt;
-                  </b:if>
-                  <b:if cond='data:menu.end'>&lt;/li&gt;&lt;/ul&gt;</b:if>
-                  <b:if cond='!data:menu.start'>&lt;/li&gt;</b:if>
-                </b:with>
+                <b:with value='{ current: (data:link.title contains data:prefix), next: (data:links[data:i + 1].title contains data:prefix) }' var='state'>
+                  <b:with value='{ start: (data:state.next and !data:state.current), end: (!data:state.next and data:state.current) }' var='menu'>
+                    <b:eval expr='"&lt;li class=\"nav-item " + (data:menu.start ? "has-subnav " : "") + data:itemClass + "\">"'/>
+                    <a class='nav-link' expr:href='data:link.href'>
+                      <b:class cond='data:linkClass' expr:name='data:linkClass'/>
+                      <b:if cond='data:link.isCurrentPage or data:view.url.canonical == data:link.href'>
+                        <b:class name='is-here'/>
+                        <b:class cond='data:hereClass' expr:name='data:hereClass'/>
+                      </b:if>
+                      <b:if cond='data:link.href contains "?ref="'>
+                        <b:class name='is-external'/>
+                        <b:class cond='data:externalClass' expr:name='data:externalClass'/>
+                        <b:attr name='target' value='_blank'/>
+                        <b:attr name='rel' value='noopener noreferrer'/>
+                      </b:if>
+                      <data:link.title/>
+                    </a>
+                    <b:eval expr='data:menu.end ? "&lt;/li>&lt;/ul>" : ""'/>
+                    <b:eval expr='data:menu.start ? "&lt;ul class=\"nav-subnav " + data:subnavClass + " \">" : "&lt;/li>"'/>
+                  </b:with>
                 </b:with>
               </b:loop>
             </ul>
@@ -345,87 +379,102 @@
       <b:includable id='@meta'>
         <meta expr:charset='data:blog.encoding'/>
         <meta content='width=device-width,initial-scale=1' name='viewport'/>
-        <b:if cond='data:favicon'>
-          <b:loop values='(data:favSizes ?: [32,96,180,192])' var='size'>
-            <link expr:href='resizeImage(data:favicon, data:size, "1:1")' rel='icon' expr:sizes='data:size + "x" + data:size' type='image/png'/>
+        <b:if cond='data:icon'>
+          <b:loop values='data:iconSizes ?: [32,96,180,192]' var='size'>
+            <link expr:href='resizeImage(data:icon, data:size, "1:1")' rel='icon' expr:sizes='data:size + "x" + data:size' type='image/png'/>
           </b:loop>
         <b:else/>
           <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
         </b:if>
-        <meta expr:content='data:view.description.escaped' name='description'/>
-        <b:with value='data:forceHttps ? data:view.url.canonical.https : data:view.url.canonical' var='canonical'>
-          <link expr:href='data:canonical' rel='canonical'/>
-          <meta expr:content='data:canonical' property='og:url'/>
-          <meta expr:content='data:canonical' name='twitter:url'/>
-        </b:with>
+        <b:if cond='data:view.description'>
+          <meta expr:content='data:view.description.escaped' name='description'/>
+          <meta expr:content='data:view.description.escaped' property='og:description'/>
+          <meta expr:content='data:view.description.escaped' name='twitter:description'/>
+        </b:if>
+        <link expr:href='data:view.url.canonical' rel='canonical'/>
+        <meta expr:content='data:view.url.canonical' property='og:url'/>
+        <meta expr:content='data:view.url.canonical' name='twitter:url'/>
+        <meta expr:content='data:view.title.escaped' property='og:title'/>
         <meta expr:content='data:view.isHomepage or data:view.isSingleItem
           ? (data:robots ?: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1")
           : "noindex,follow"' name='robots'/>
-        <meta expr:content='not data:view.isSingleItem ? "article" : "website"' property='og:type'/>
-        <meta expr:content='data:view.title.escaped' property='og:title'/>
-        <meta expr:content='data:view.description.escaped' property='og:description'/>
-        <b:if cond='data:view.featuredImage or data:ogImage or data:widgets.Blog.first.posts.first.featuredImage'>
-          <b:with value='resizeImage((data:view.featuredImage ?: (data:ogImage != "" ? data:ogImage : data:widgets.Blog.first.posts.first.featuredImage)), 1200, "1200:630")' var='image'>
-            <meta expr:content='data:image' property='og:image'/>
-            <meta expr:content='data:image' name='twitter:image'/>
-            <b:if cond='data:image.isResizable'>
-              <meta expr:content='data:image.width' property='og:image:width'/>
-              <meta expr:content='data:image.height' property='og:image:height'/>
+        <meta expr:content='data:view.isSingleItem ? "article" : "website"' property='og:type'/>
+        <b:with value='data:view.featuredImage ? data:view.featuredImage : (data:defaultImage ? data:defaultImage : false)' var='rawImage'>
+          <b:if cond='data:rawImage'>
+            <b:if cond='data:rawImage.isResizable'>
+              <meta expr:content='resizeImage(data:rawImage, 1200, "1200:630")' property='og:image'/>
+              <meta expr:content='resizeImage(data:rawImage, 1200, "1200:630")' name='twitter:image'/>
+              <meta content='1200' property='og:image:width'/>
+              <meta content='630' property='og:image:height'/>
+            <b:else/>
+              <meta expr:content='data:rawImage' property='og:image'/>
+              <meta expr:content='data:rawImage' name='twitter:image'/>
             </b:if>
-          </b:with>
+          </b:if>
+        </b:with>
+        <meta expr:content='data:twitterCard ?: "summary_large_image"' name='twitter:card'/>
+        <b:if cond='data:twitterSite'>
+          <meta expr:content='data:twitterSite' name='twitter:site'/>
         </b:if>
-        <meta expr:content='data:cardType ?: "summary_large_image"' name='twitter:card'/>
-        <meta expr:content='data:view.description.escaped' name='twitter:description'/>
       </b:includable>
       <b:includable id='@picture'>
         <b:if cond='data:src'>
-        <picture>
-          <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='source'>
-          <b:with value='{ set: resizeImage(data:source, (data:resizeSet ?: [700,400]), data:ratio), size: resizeImage(data:source, (data:resizeSet.first ?: 600), data:ratio), }' var='images'>
-            <b:loop reverse='true' index='i' values='data:images.set' var='image'>
-              <b:with value='[ "content.com/img/a/", "content.com/blogger_img_proxy" ]' var='servers'>
-              <b:with value='data:params and (data:servers any (server => server in data:image.url)) ? (data:image.url + "-" + data:params) : data:image.url' var='imageUrl'>
-                <b:if cond='data:images.set.size != (data:i + 1)'>
-                  <source expr:media='"(min-width:" + data:image.size + "px)"' expr:srcset='data:imageUrl'/>
-                <b:else/>
-                  <b:tag expr:src='data:imageUrl' expr:alt='data:alt ?: data:messages.image' name='img'>
-                    <b:attr name='b:whitespace' value='remove'/>
-                    <b:class cond='data:class' expr:name='data:class'/>
-                    <b:attr name='width' expr:value='data:width ?: data:images.size.width'/>
-                    <b:attr name='height' expr:value='data:height ?: data:images.size.height'/>
-                    <b:attr name='id' expr:value='data:id'/>
-                    <b:attr name='loading' expr:value='data:loading'/>
-                  </b:tag>
-                </b:if>
+          <picture>
+            <b:class cond='data:class' expr:name='data:class'/>
+            <b:with value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='baseImage'>
+              <b:with value='data:sourceSet ?: [700, 400]' var='availableSizes'>
+                <b:with value='[ "com/img/a/", "com/blogger_img_proxy" ] any (server => server in data:baseImage)' var='isProxyImg'>
+                  <b:with value='data:params and data:isProxyImg ? ("-" + data:params) : ""' var='params'>
+                    <b:loop index='i' values='data:availableSizes' var='size'>
+                      <b:if cond='data:i + 1 != data:availableSizes.length'>
+                        <b:with value='resizeImage(data:baseImage, data:size, data:ratio)' var='sourceUrl'>
+                          <source expr:media='"(min-width: " + data:size + "px)"' expr:srcset='data:sourceUrl + data:params'/>
+                        </b:with>
+                      </b:if>
+                    </b:loop>
+                    <b:with value='data:availableSizes.last ?: 600' var='fallbackSize'>
+                      <b:with value='resizeImage(data:baseImage, data:fallbackSize, data:data:ratio)' var='fallbackUrl'>
+                        <b:tag name='img'>
+                          <b:attr name='b:whitespace' value='remove'/>
+                          <b:class cond='data:imgClass' expr:name='data:imgClass'/>
+                          <b:loop values='["id","sizes","loading","fetchpriority","crossorigin","decoding","referrerpolicy","alt"]' var='attr'>
+                            <b:with expr:value='+("data:",data:attr)' var='value'>
+                              <b:attr expr:name='data:attr' expr:value='data:value'/>
+                            </b:with>
+                          </b:loop>
+                          <b:attr name='width' expr:value='data:width ?: data:fallbackUrl.width'/>
+                          <b:attr name='height' expr:value='data:height ?: data:fallbackUrl.height'/>
+                          <b:attr name='src' expr:value='data:fallbackUrl + data:params'/>
+                        </b:tag>
+                      </b:with>
+                    </b:with>
+                  </b:with>
+                </b:with>
               </b:with>
-              </b:with>
-            </b:loop>
-          </b:with>
-          </b:with>
-        </picture>
+            </b:with>
+          </picture>
         <b:else/>
           <b:comment render='true'>Parameter [src] is required.</b:comment>
         </b:if>
       </b:includable>
       <b:includable id='@snippet'>
-        <b:if cond='data:string and (data:string snippet { links: false, ellipsis: false, linebreaks: false }) != ""'>
-          <b:with value='data:length ?: 70' var='length'>
-          <b:with value='(data:length + 0) == data:length ? (data:length * 1) : 70' var='length'>
-            <b:tag expr:name='data:tag ?: "p"'>
-              <b:class cond='data:class' expr:name='data:class'/>
-              <b:attr name='id' expr:value='data:id'/>
-              <b:eval expr='(data:string snippet { length: data:length, links: false, ellipsis: false, linebreaks: false }) + (data:ellipsis ?: "...")'/>
-            </b:tag>
-          </b:with>
-          </b:with>
-        <b:else/>
-          <b:comment render='true'>No text to display</b:comment>
-        </b:if>
+        <b:with value='data:text ? (data:text snippet { links: false, ellipsis: false, linebreaks: false }) : ""' var='cleanString'>
+          <b:if cond='data:cleanString != ""'>
+            <b:with value='(data:limit + 0) == data:limit ? (data:limit * 1) : 70' var='maxLength'>
+              <b:tag expr:name='data:tag ?: "p"'>
+                <b:class cond='data:class' expr:name='data:class'/>
+                <b:attr name='id' expr:value='data:id'/>
+                <b:with value='data:cleanString snippet { length: data:maxLength, links: false, ellipsis: false, linebreaks: false }' var='truncatedText'>
+                  <b:eval expr='data:truncatedText + ( data:cleanString.size > data:maxLength ? (data:ellipsis ?: "...") : "" )'/>
+                </b:with>
+              </b:tag>
+            </b:with>
+          <b:else/>
+            <b:comment render='true'>No visible text to display after sanitization.</b:comment>
+          </b:if>
+        </b:with>
       </b:includable>
-      <b:includable id='m:root'>
-        <b:include name='@attr' data='{["xmlns"],["xmlns:b"],["xmlns:data"],["xmlns:expr"]}'/>
-      </b:includable>
-      <b:includable id='m:head'>
+      <b:includable id='headContent'>
         <b:include name='@meta' data='{ ogImage: data:skin.vars.c_ogImage, favicon: data:skin.vars.c_favicon }'/>
         <b:include name='@adsense'/>
         <b:include data='blog' name='google-analytics'/>
@@ -477,7 +526,7 @@
                 <h2 class='card-title'>
                   <b:eval expr='data:post.title.escaped != "" ? data:post.title.escaped : data:messages.noTitle'/>
                 </h2>
-                <b:include name='@snippet' data='{ class: "card-snippet", string: data:post.snippets.long }'/>
+                <b:include name='@snippet' data='{ text: data:post.snippets.long, class: "card-snippet" }'/>
               </div>
             </a>
           </article>
@@ -678,6 +727,9 @@
           <b:include name='comment:main' data='{ depth: 2, texts: { delete: data:skin.vars.t_delete, reply: data:skin.vars.t_reply } }'/>
         </footer>
         <b:include name="postMetadataJSON"/>
+      </b:includable>
+      <b:includable id='rootAttributes'>
+        <b:include name='@attr' data='{ ["xmlns"], ["xmlns:b"], ["xmlns:data"], ["xmlns:expr"] }'/>
       </b:includable>
       <b:includable id='widget:AdSense'>
         <b:include name='@ads'/>
@@ -915,9 +967,7 @@
       </b:includable>
     </b:defaultmarkup>
   </b:defaultmarkups>
-  <b:if cond='not data:view.isPreview'>
-    <b:include data='{ selector: ".header", image: data:skin.vars.body_background.image }' name='responsiveImageStyle'/>
-  </b:if>
+  <b:include cond='!data:view.isPreview' data='{ selector: ".header", image: data:skin.vars.body_background.image }' name='responsiveImageStyle'/>
 </head>
 
 <body>

@@ -29,8 +29,8 @@ Module for creating a post card
           </h2>
           {{!-- Include post snippet --}}
           <b:include name='@snippet' data='{
-              class: "card-snippet",
-              string: data:post.snippets.long
+              text: data:post.snippets.long,
+              class: "card-snippet"
             }'/>
         </div>
       </a>

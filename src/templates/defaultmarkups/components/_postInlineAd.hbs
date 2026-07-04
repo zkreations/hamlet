@@ -10,7 +10,6 @@ Inline Ad
       <b:if cond='(data:post.adNumber + data:widgets.AdSense.size) lt 3'>
         <b:include name='@ads'/>
       </b:if>
-      {{!-- If page is post and auto ads is disabled --}}
       <b:elseif cond='data:view.isPost and !data:blog.adsenseAutoAds'/>
       <b:include name='@ads'/>
     </b:if>

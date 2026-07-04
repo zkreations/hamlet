@@ -6,7 +6,6 @@ Module for generating posts view (isPost, isPage)
   {{!-- Post header --}}
   <header class='post-header'>
     <h1 class='post-title'><data:post.title.escaped/></h1>
-    {{!-- Show only if the post is not a page --}}
     <b:if cond='data:view.isPost'>
       <span class='post-date'><data:post.date/></span>
     </b:if>
@@ -27,6 +26,5 @@ Module for generating posts view (isPost, isPage)
         }
       }'/>
   </footer>
-  {{!-- Post metadata --}}
   <b:include name="postMetadataJSON"/>
 </b:includable>
