@@ -1,45 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:js='true'>
+<html>
 <b:include name='rootAttributes'/>
 <head>
   <title>
     <data:view.title.escaped/>
   </title>
   <b:include name='headContent'/>
-  {{!-- All styles --}}
   <b:if cond="!data:view.isLayoutMode">
     {{> skin}}
   <b:else/>
     {{> template-skin}}
   </b:if>
   {{> defaultmarkups}}
-  {{!-- Generate responsive image styles --}}
-  <b:include cond='!data:view.isPreview' data='{
-    selector: ".header",
-    image: data:skin.vars.body_background.image
-  }' name='responsiveImageStyle'/>
 </head>
 
 <body>
   <b:include name='@kind'/>
-  <b:tag name='div' class='layout-edit' cond='data:view.isLayoutMode and data:skin.vars.a_layoutEdit'>
-  {{> partial-offcanvas}}
-  <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
-    <header class='header'>
-      {{> partial-header}}
-    </header>
-    <div class='template'>
+  <b:tag name='div' cond='data:view.isLayoutMode and data:skin.vars.a_layoutEdit' class='layout-edit'>
+    <b:tag cond='data:view.isLayoutMode' name='div' class='layout-section'>
+      {{> offcanvas}}
+      {{> header}}
+    </b:tag>
+    <div class='template layout-section'>
       <div class='container'>
-        <main class='main'>
-          {{> partial-main}}
-        </main>
-        <footer class='footer'>
-          {{> partial-footer}}
-        </footer>
+        {{> main}}
+        {{> footer}}
       </div>
     </div>
-  </b:tag>
   </b:tag>
 </body>
 </html>
