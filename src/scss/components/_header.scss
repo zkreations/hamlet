@@ -1,7 +1,6 @@
 .header {
   padding: 7.5rem 0;
   text-align: center;
-  background: var(--body-background);
   background-size: cover;
   background-color: var(--body-background-color);
 
@@ -46,4 +45,8 @@
   .google-auto-placed {
     display: none !important
   }
+}
+
+:where(.header) {
+  background: var(--body-background);
 }
