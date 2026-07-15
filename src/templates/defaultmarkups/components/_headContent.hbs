@@ -17,4 +17,9 @@ Module for head content
     <link rel='preload' expr:href='data:fonts' as='style'/>
     <link expr:href='data:fonts' rel='stylesheet' />
   </b:with>
+  {{!-- Generate responsive image styles --}}
+  <b:include cond='!data:view.isPreview' data='{
+    selector: ".header",
+    image: data:skin.vars.body_background.image
+  }' name='responsiveImageStyle'/>
 </b:includable>
