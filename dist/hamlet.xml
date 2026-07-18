@@ -32,7 +32,7 @@
       <Variable name="c.formspree" description="c.formspree" type="string"/>
       
       [string] Image parameters: https://zkreations.com/image-params
-      <Variable name="c.imageParams" description="c.imageParams" type="string" value="rw-l80-e30"/>
+      <Variable name="c.imageParams" description="c.imageParams" type="string" value="rw-l60-e30"/>
       
       [image] Url of default Open Graph image.
       <Variable name="c.ogImage" description="c.ogImage" type="string"/>
@@ -520,7 +520,7 @@
               <b:if cond='data:post.featuredImage'>
                 <b:with value='data:post.featuredImage.isYoutube' var='isYoutube'>
                   <b:class name='has-image'/>
-                  <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: (data:isYoutube ? 600 : 420), ratio: (data:isYoutube ? "16:9" : "4:3"), params: data:skin.vars.c_imageParams, loading: (data:i gt 2 ? "lazy" : ""), alt: data:post.title.escaped }'/>
+                  <b:include name='@image' data='{ class: "card-image", src: data:post.featuredImage, resize: (data:isYoutube ? 600 : 420), ratio: (data:isYoutube ? "16:9" : "4:3"), params: data:skin.vars.c_imageParams, loading: (data:i gt 2 ? "lazy" : ""), fetchpriority: (data:i lt 3 ? "high" : ""), alt: data:post.title.escaped }'/>
                 </b:with>
               </b:if>
               <div class="card-meta">
