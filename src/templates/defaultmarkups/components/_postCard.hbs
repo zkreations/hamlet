@@ -19,6 +19,7 @@ Module for creating a post card
                 ratio: (data:isYoutube ? "16:9" : "4:3"),
                 params: data:skin.vars.c_imageParams,
                 loading: (data:i gt 2 ? "lazy" : ""),
+                fetchpriority: (data:i lt 3 ? "high" : ""),
                 alt: data:post.title.escaped
               }'/>
           </b:with>
