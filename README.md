@@ -42,7 +42,7 @@ The compiler is now an independent module of this project, you can find it in th
 ## Other resources
 
 - [Handlebars](https://handlebarsjs.com/guide/) - Official Handlebars documentation.
-- [Blogger Code](https://bloggercode-blogconnexion.blogspot.com/) - Blogger code documentation.
+- [Blogger Code](https://bloggercode.orbiona.com/) - Blogger code documentation.
 - [Blogger Syntax](https://marketplace.visualstudio.com/items?itemName=zkreations.blogger-syntax) - Blogger extension for Visual Studio Code.
 - [Blogger Image Parameters](https://www.zkreations.com/2022/11/parametros-de-imagenes-de-blogger.html) - Blogger image parameters.
 - [Meteor Icons](https://meteoricons.com/) - The most optimized SVG icons on the internet.
