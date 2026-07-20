@@ -68,10 +68,7 @@ Comment header
         {{!-- If post author, show badge --}}
         <b:if cond='data:comment.extraIconClass'>
           <span class='comment-badge'>
-            <svg class='i i-circle-check' viewBox='0 0 24 24'>
-              <circle cx='12' cy='12' r='10'/>
-              <path d='m8.5 12.5 2 2 5-5'/>
-            </svg>
+            {{> Meteor.svg icon="circle-check"}}
           </span>
         </b:if>
       </b:tag>

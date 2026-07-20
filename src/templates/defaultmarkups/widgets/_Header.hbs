@@ -11,9 +11,7 @@ Content of the widget Header
     <b:attr name='class' value='header-wrapper'/>
     {{!-- Switch sidebar --}}
     <label class='header-bars switch' for='show-sidebar'>
-      <svg class="i i-bars" viewBox="0 0 24 24">
-        <path d="M3 6h18M3 12h18M3 18h18"></path>
-      </svg>
+      {{> Meteor.svg icon="bars"}}
     </label>
     <div class='container'>
       {{!-- If image exists --}}
@@ -39,10 +37,7 @@ Content of the widget Header
     </div>
     {{!-- Switch search --}}
     <label class='header-search switch' for='show-search'>
-      <svg class="i i-search" viewBox="0 0 24 24">
-        <circle cx="10" cy="10" r="7"></circle>
-        <path d="m15 15 6 6"></path>
-      </svg>
+      {{> Meteor.svg icon="search"}}
     </label>
   </b:if>
 </b:includable>
