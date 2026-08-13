@@ -67,8 +67,7 @@ address {
 }
 
 abbr[title] {
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 b,
@@ -272,8 +271,7 @@ a {
 }
 .card-image {
   position: absolute;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -430,6 +428,10 @@ a {
   stroke-width: var(--i-stroke, 2);
   width: var(--i-size, 24px);
   height: var(--i-size, 24px);
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }
 
 .message {
@@ -510,9 +512,6 @@ a {
   color: #fff;
   border-bottom: 2px solid;
   transition: border-color var(--transition-config);
-}
-.searchbox-input::-moz-placeholder {
-  color: #fff;
 }
 .searchbox-input::placeholder {
   color: #fff;

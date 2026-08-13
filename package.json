@@ -22,10 +22,10 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
-    "@meteor-icons/hamlet": "^4.0.4",
+    "@meteor-icons/hamlet": "^4.3.0",
     "@zkreations/typography": "^1.0.1",
     "blogger-admin-wp": "^1.0.1",
-    "hamlet-builder": "^1.5.9"
+    "hamlet-builder": "^1.8.0"
   },
   "theme": {
     "name": "Hamlet",
@@ -40,7 +40,7 @@
     "not ie <= 11"
   ],
   "devDependencies": {
-    "@antfu/eslint-config": "^9.1.0",
-    "eslint": "^10.7.0"
+    "@antfu/eslint-config": "^9.3.0",
+    "eslint": "^10.8.1"
   }
 }
